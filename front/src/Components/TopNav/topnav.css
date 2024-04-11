@@ -1,0 +1,30 @@
+.topnav-wrapper {
+    display: flex;
+    flex-direction: row;
+}
+
+.topnav-logo-wrapper {
+    width: 20%;
+    display: flex;
+    justify-content: center;
+}
+
+.topnav-tabs-wrapper {
+    width: 60%;
+    display: flex;
+    flex-direction: row;
+    margin: auto;
+}
+
+.css-heg063-MuiTabs-flexContainer {
+    justify-content: space-around;
+}
+
+.topnav-search-wrapper {
+    width: 20%;
+    direction: rtl;
+    margin: auto;
+    padding: 0% 1% 0% 0%;
+}
+
+

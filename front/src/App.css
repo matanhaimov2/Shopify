@@ -22,3 +22,9 @@ body {
 .wrapper {
   height: 100%;
 }
+
+.com-with-nav-wrapper {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}

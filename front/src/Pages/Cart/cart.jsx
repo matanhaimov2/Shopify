@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react';
 
 // CSS
-import './home.css';
+import './cart.css';
 
 
-function Home() {
+function Cart() {
 
     
     return (
-        <div className='home-wrapper'>
+        <div className='cart-wrapper'>
 
         </div>
     );
 }
 
-export default Home;
+export default Cart;
