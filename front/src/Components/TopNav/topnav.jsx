@@ -26,8 +26,10 @@ function TopNav() {
     // Navigate To Different Routes
     useEffect(() => {
         console.log(routeValue)
-        const path = routeValue === '1' ? '/' : routeValue === '2' ? '/cart' : '/login';
-        navigate(path); // site under costruction crashing due using navigation
+        if(window.location.pathname!=='/sitenotfound') {
+            const path = routeValue === '1' ? '/' : routeValue === '2' ? '/cart' : '/login';
+            navigate(path); // site under costruction crashing due using navigation
+        }
     }, [routeValue])
 
 
