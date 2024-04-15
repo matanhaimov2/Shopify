@@ -7,9 +7,8 @@ import './App.css';
 // Pages
 import Home from './Pages/Home/home';
 import Cart from './Pages/Cart/cart';
+import About from './Pages/About/about';
 import Login from './Pages/Login/login';
-
-
 
 // Components
 import TopNav from './Components/TopNav/topnav';
@@ -23,16 +22,37 @@ function home() {
   return <Home />;
 }
 
-// Functions
 function cart() {
   return <Cart />;
 }
 
-// Functions
+function about() {
+  return <About />;
+}
+
 function login() {
   return <Login />;
 }
 
+// For Components With Topnav
+const ComponentsWithNav = () => {
+  return (
+    <div className='com-with-nav-wrapper'>
+
+      <div className='com-with-nav'>
+        <TopNav />
+      </div>
+
+      <div className='com-with-nav-item'>
+        <Routes>
+          <Route path='/' element={home()} />
+          <Route path='/cart' element={cart()} />
+          <Route path='/about' element={about()} />
+        </Routes>
+      </div>
+    </div>
+  );
+}
 
 // Main Function
 function App() {
@@ -54,25 +74,19 @@ function App() {
     <div className="outer-wrapper">
       <div className='wrapper'>
         <Router>
-          <div className='com-with-nav-wrapper'>
+          <Routes>
+            {/* Routes With Topnav */}
+            <Route path='/*' element={<ComponentsWithNav />} />
 
-            <div className='com-with-nav'>
-              <TopNav />
-            </div>
+            <Route path='/login' element={login()} />
 
-            <div className='com-with-nav-item'>
-              <Routes>
-                <Route path='/' element={home()} />
-                <Route path='/cart' element={cart()} />
-                <Route path='/login' element={login()} />
+            {/* Backend Disabled */}
+            <Route path='/sitenotfound' element={<div>site is under constarction</div>} />
+            
+            {/* Page Doesnt Exists */}
+            <Route path='/*' element={<div>404 doesnt exists</div>} />
+          </Routes>
 
-                <Route path='/sitenotfound' element={<div>site is under constarction</div>} />
-
-                {/* Page Doesnt Exists */}
-                <Route path='/*' element={<div>404 doesnt exists</div>} />
-              </Routes>
-            </div>
-          </div>
         </Router>
       </div>
     </div>

@@ -25,11 +25,9 @@ function TopNav() {
 
     // Navigate To Different Routes
     useEffect(() => {
-        console.log(routeValue)
-        if(window.location.pathname!=='/sitenotfound') {
-            const path = routeValue === '1' ? '/' : routeValue === '2' ? '/cart' : '/login';
-            navigate(path); // site under costruction crashing due using navigation
-        }
+        const path = routeValue === '1' ? '/' : routeValue === '2' ? '/cart' : '/about';
+        navigate(path); // site under costruction crashing due using navigation
+
     }, [routeValue])
 
 
@@ -46,7 +44,7 @@ function TopNav() {
                             <TabList>
                                 <Tab label="Home" value="1" onClick={() => setRouteValue('1')} />
                                 <Tab label="Cart" value="2" onClick={() => setRouteValue('2')} />
-                                <Tab label="Login" value="3" onClick={() => setRouteValue('3')} />
+                                <Tab label="About" value="3" onClick={() => setRouteValue('3')} />
                             </TabList>
                         </Box>
                     </TabContext>

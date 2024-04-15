@@ -1,8 +1,8 @@
-.cart-wrapper {
+.about-wrapper {
     width: 100%;
 }
 
-.cart-sub-wrapper {
+.about-sub-wrapper {
     display: flex;
     flex-direction: column;
     margin: auto;
