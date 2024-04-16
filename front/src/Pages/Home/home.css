@@ -1,6 +1,4 @@
 .home-wrapper {
-    display: flex;
-    flex-direction: row;
     width: 100%;
     height: 100%;
 }
@@ -9,11 +7,17 @@
     border: 1px solid #cde1e6;
 }
 
+.home-main-section {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+}
+
 /* Home Category Wrapper  */
 .home-category-wrapper {
-    width: 20%;
     display: flex;
     flex-direction: column;
+    width: 20%;
     padding: 1%;
 }
 
@@ -52,11 +56,24 @@
 .home-products-wrapper {
     width: 80%;
     height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+
+}
+
+.home-each-product-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    width: 30%;
+    gap: 5px;
 }
 
 .home-products-image {
-    width: 100px;
-    height: 100px;
+    width: 200px;
+    height: 200px;
 }
 
 /* i want products to be mapped 3X3 on each page - use API at the meantime*/

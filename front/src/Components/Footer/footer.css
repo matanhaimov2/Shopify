@@ -1,0 +1,38 @@
+.footer-wrapper {
+    width: 100%;
+    height: 30%; 
+    background-color: black; 
+}
+
+.footer-sub-wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 50%;
+    align-items: center;
+    color: white;
+    margin: auto;
+}
+
+.footer-contents-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 80%;
+}
+
+.footer-link-wrapper {
+    border-top: 1px solid #222;
+    padding-top: 30px;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+}
+
+.footer-link-title {
+    color: white;
+    transition: all 0.5s ease;
+}
+.footer-link-title:hover {
+    color: #99e0f0;
+}

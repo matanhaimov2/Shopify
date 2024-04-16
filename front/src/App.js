@@ -50,6 +50,7 @@ const ComponentsWithNav = () => {
           <Route path='/about' element={about()} />
         </Routes>
       </div>
+      
     </div>
   );
 }
@@ -82,7 +83,7 @@ function App() {
 
             {/* Backend Disabled */}
             <Route path='/sitenotfound' element={<div>site is under constarction</div>} />
-            
+
             {/* Page Doesnt Exists */}
             <Route path='/*' element={<div>404 doesnt exists</div>} />
           </Routes>

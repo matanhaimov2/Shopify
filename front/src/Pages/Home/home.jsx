@@ -6,6 +6,12 @@ import './home.css';
 // React Icons
 import { FaComputer } from "react-icons/fa6";
 
+// Services
+import { fetchProducts } from '../../Services/productsService'
+
+// Components
+import Footer from '../../Components/Footer/footer';
+
 function Home() {
 
     // States
@@ -15,20 +21,15 @@ function Home() {
     useEffect(() => {
         const MarketProducts = async () => {
 
-            fetch('https://fakestoreapi.com/products')
-            .then(res => res.json())
-            .then(json => {
-                const res = json; // Assign the fetched data to a variable
-                console.log(res);
-                setProducts(res)
-                // Log the fetched data to verify
-                // Now you can proceed with using `res` as an array
-                // For example, you can render your component here with the fetched data
-            })
-            .catch(error => {
-                console.error('Error fetching data:', error);
-            });
-        
+            let data = {
+                category: 'ALL' // category here
+            }
+
+            let response = await fetchProducts(data)
+            setProducts(response)
+
+            console.log(response)
+
         }
 
         MarketProducts();
@@ -39,33 +40,39 @@ function Home() {
 
     return (
         <div className='home-wrapper'>
-            <div className='home-category-wrapper'>
-                <h2>Our Selection</h2>
+            <section className='home-main-section'>
+                <div className='home-category-wrapper'>
+                    <h2>Our Selection</h2>
 
-                <span className='home-underline'></span>
+                    <span className='home-underline'></span>
 
-                <div className='home-category-selection-wrapper'>
-                    <div className='home-category-icon-wrapper'>
-                        <FaComputer className='home-category-icon' />
+                    <div className='home-category-selection-wrapper'>
+                        <div className='home-category-icon-wrapper'>
+                            <FaComputer className='home-category-icon' />
+                        </div>
+
+                        <span className='home-category-text-wrapper'>Electronics</span>
                     </div>
-
-                    <span className='home-category-text-wrapper'>Electronics</span>
                 </div>
-            </div>
 
-            <div className='home-products-wrapper'>
-                {products.map((product, i) => (
-                    <div key={i}>
-                        <span>{product.category}</span>
+                <div className='home-products-wrapper'>
+                    {products && products.map((product, i) => (
+                        <div className='home-each-product-wrapper' key={i}>
+                            <span>{product.category}</span>
 
-                        <img className='home-products-image' src={product.image}></img>
+                            <img className='home-products-image' src={product.image}></img>
 
-                        <span>{product.price}</span>
+                            <span>{product.price}</span>
 
-                    </div>
-                ))}
-            </div>
+                        </div>
+                    ))}
+                </div>
+            </section>
+
+            <Footer />
+
         </div>
+
     );
 }
 
