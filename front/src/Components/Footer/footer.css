@@ -25,8 +25,7 @@
     border-top: 1px solid #222;
     padding-top: 30px;
     width: 100vw;
-    display: flex;
-    justify-content: center;
+    text-align: center;
 }
 
 .footer-link-title {

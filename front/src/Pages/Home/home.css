@@ -4,7 +4,7 @@
 }
 
 .home-underline {
-    border: 1px solid #cde1e6;
+    border-top: 1px solid #cde1e6;
 }
 
 .home-main-section {
@@ -13,52 +13,20 @@
     height: 100%;
 }
 
-/* Home Category Wrapper  */
-.home-category-wrapper {
-    display: flex;
-    flex-direction: column;
-    width: 20%;
-    padding: 1%;
-}
-
-.home-category-selection-wrapper {
-    display: flex;
-    flex-direction: row;
-    padding: 3% 0% 0% 10%;
-    gap: 8%;
-}
-
-.home-category-icon-wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background-color: lightgrey;
-}
-
-.home-category-icon {
-    width: 30px;
-    height: 30px;
-}
-
-.home-category-text-wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: 600;
-    font-size: 110%;
-}
-
-
 /* Home Products Wrapper */
 .home-products-wrapper {
-    width: 80%;
+    width: 81%;
     height: 100%;
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
+}
 
+.home-products-box {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 98%;
+    height: 90%;
 }
 
 .home-each-product-wrapper {
@@ -66,14 +34,20 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin: auto;
-    width: 30%;
+    width: 25%;
     gap: 5px;
+    padding-bottom: 3%;
+    border-bottom: 1px solid #cde1e6;
 }
 
 .home-products-image {
     width: 200px;
     height: 200px;
+    mix-blend-mode: darken;
 }
 
-/* i want products to be mapped 3X3 on each page - use API at the meantime*/
+.css-1sazv7p-MuiStack-root {
+    height: fit-content;
+    align-items: center;
+    padding: 2% 0% 0% 0%;
+}

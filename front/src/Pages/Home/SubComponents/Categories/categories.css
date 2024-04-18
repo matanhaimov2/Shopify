@@ -1,0 +1,39 @@
+/* Home Categories Wrapper */
+
+.categories-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 19%;
+    padding: 1%;
+}
+
+.categories-selection-wrapper {
+    display: flex;
+    flex-direction: row;
+    padding: 3% 0% 0% 10%;
+    gap: 8%;
+}
+
+.categories-icon-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #a7d9db;
+}
+
+.categories-icon {
+    width: 30px;
+    height: 30px;
+}
+
+.categories-text-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
+    font-size: 110%;
+}
+

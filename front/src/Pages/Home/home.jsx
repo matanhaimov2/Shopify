@@ -3,14 +3,19 @@ import React, { useState, useEffect } from 'react';
 // CSS
 import './home.css';
 
-// React Icons
-import { FaComputer } from "react-icons/fa6";
+// React MUI
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
+
 
 // Services
 import { fetchProducts } from '../../Services/productsService'
 
 // Components
 import Footer from '../../Components/Footer/footer';
+
+// Sub Components
+import Categories from './SubComponents/Categories/categories'
 
 function Home() {
 
@@ -41,31 +46,29 @@ function Home() {
     return (
         <div className='home-wrapper'>
             <section className='home-main-section'>
-                <div className='home-category-wrapper'>
-                    <h2>Our Selection</h2>
 
-                    <span className='home-underline'></span>
-
-                    <div className='home-category-selection-wrapper'>
-                        <div className='home-category-icon-wrapper'>
-                            <FaComputer className='home-category-icon' />
-                        </div>
-
-                        <span className='home-category-text-wrapper'>Electronics</span>
-                    </div>
-                </div>
+                <Categories />
 
                 <div className='home-products-wrapper'>
-                    {products && products.map((product, i) => (
-                        <div className='home-each-product-wrapper' key={i}>
-                            <span>{product.category}</span>
+                    <div className='home-products-box'>
+                        {products && products.map((product, i) => (
+                            <div className='home-each-product-wrapper' key={i}>
+                                <span>{product.category}</span>
 
-                            <img className='home-products-image' src={product.image}></img>
+                                <img className='home-products-image' src={product.image}></img>
 
-                            <span>{product.price}</span>
+                                <span>{product.price}</span>
 
-                        </div>
-                    ))}
+                            </div>
+                        ))}
+                    </div>
+
+                    <div className='home-products-pagination-wrapper'>
+                        <Stack spacing={2}>
+                            <Pagination count={10} />
+                        </Stack>
+                    </div>
+
                 </div>
             </section>
 

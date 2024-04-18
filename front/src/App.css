@@ -21,7 +21,8 @@ body {
 
 .wrapper {
   height: 100%; 
-  background-color: #e0f6fb;
+  /* background-color: #e0f6fb; */
+  background-color: #f7f7f7;
   overflow-x: hidden;
 
 }

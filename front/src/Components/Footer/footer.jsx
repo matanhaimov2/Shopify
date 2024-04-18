@@ -14,7 +14,7 @@ function Footer() {
                     <span> Links here!</span>
                 </div>
 
-                <h4 className='footer-link-wrapper'> Copyright © 2024 <a href='/' className='footer-link-title'>Shopify's Team.</a> All Rights Reserved.</h4>
+                <h4 className='footer-link-wrapper'> Copyright © 2024 &nbsp; <a href='/' className='footer-link-title'> Shopify's Team. </a> &nbsp; All Rights Reserved.</h4>
             </div>
         </section>
 
