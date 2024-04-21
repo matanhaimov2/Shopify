@@ -6,6 +6,7 @@ import './home.css';
 // React MUI
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
+import Skeleton from '@mui/material/Skeleton';
 
 
 // Services
@@ -51,17 +52,23 @@ function Home() {
 
                 <div className='home-products-wrapper'>
                     <div className='home-products-box'>
+                        
                         {products && products.map((product, i) => (
                             <div className='home-each-product-wrapper' key={i}>
-                                <span>{product.category}</span>
 
                                 <img className='home-products-image' src={product.image}></img>
+
+                                <span>{product.category}</span>
 
                                 <span>{product.price}</span>
 
                             </div>
                         ))}
                     </div>
+                    {/* <Stack spacing={1}>
+                        <Skeleton animation="wave" variant="rectangular" width={200} height={100} />
+                        <Skeleton animation="wave" variant="rounded" width={200} height={40} />
+                    </Stack> */}
 
                     <div className='home-products-pagination-wrapper'>
                         <Stack spacing={2}>
