@@ -28,11 +28,19 @@ body {
 }
 
 .com-with-nav-wrapper {
-  height: 100%;
+  /* height: 100%; */
   display: flex;
   flex-direction: column;
 }
 
-.com-with-nav-item {
-  height: 100%;
+.com-wrapper {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.com-with-footer {
+  width: 100%;
+  height: 30%; 
+  background-color: black; 
 }

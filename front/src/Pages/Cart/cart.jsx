@@ -4,7 +4,6 @@ import React, { useState, useEffect } from 'react';
 import './cart.css';
 
 // Components
-import Footer from '../../Components/Footer/footer'
 
 function Cart() {
 
@@ -16,8 +15,6 @@ function Cart() {
                     <h1>Cart</h1>
                 </div>
             </section>
-
-            <Footer />
         </div>
     );
 }

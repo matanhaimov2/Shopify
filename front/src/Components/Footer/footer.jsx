@@ -8,16 +8,13 @@ import './footer.css';
 function Footer() {
 
     return (
-        <section className='footer-wrapper'>
-            <div className='footer-sub-wrapper'>
-                <div className='footer-contents-wrapper'>
-                    <span> Links here!</span>
-                </div>
-
-                <h4 className='footer-link-wrapper'> Copyright © 2024 &nbsp; <a href='/' className='footer-link-title'> Shopify's Team. </a> &nbsp; All Rights Reserved.</h4>
+        <div className='footer-sub-wrapper'>
+            <div className='footer-contents-wrapper'>
+                <span> Links here!</span>
             </div>
-        </section>
 
+            <h4 className='footer-link-wrapper'> Copyright © 2024 &nbsp; <a href='/' className='footer-link-title'> Shopify's Team. </a> &nbsp; All Rights Reserved.</h4>
+        </div>
     );
 }
 

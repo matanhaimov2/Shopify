@@ -15,18 +15,24 @@
 
 /* Home Products Wrapper */
 .home-products-wrapper {
-    width: 81%;
+    width: 89%;
     height: 100%;
+    gap: 5px;
     display: flex;
     flex-direction: column;
+    justify-content: space-evenly;
+    margin: auto 0;
 }
 
 .home-products-box {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    width: 98%;
-    height: 90%;
+    width: 95%;
+}
+
+.home-products-pagination-wrapper {
+    height: max-content;
 }
 
 .home-each-product-wrapper {
@@ -34,20 +40,21 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 25%;
+    width: 20%;
     gap: 5px;
-    padding-bottom: 3%;
     border-bottom: 1px solid #cde1e6;
+    padding: 1% 0% 2% 0%;
 }
 
 .home-products-image {
-    width: 200px;
-    height: 200px;
+    width: 50%;
     mix-blend-mode: darken;
 }
 
 .css-1sazv7p-MuiStack-root {
-    height: fit-content;
+    height: -moz-fit-content;
+    /* height: fit-content; */
+    height: max-content;
     align-items: center;
-    padding: 2% 0% 0% 0%;
+    /* padding: 2px 0% 0% 0%; */
 }

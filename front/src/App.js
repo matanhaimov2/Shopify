@@ -12,6 +12,7 @@ import Login from './Pages/Login/login';
 
 // Components
 import TopNav from './Components/TopNav/topnav';
+import Footer from './Components/Footer/footer'
 
 // Services
 import { healthCheck } from './Services/administrationService';
@@ -38,17 +39,23 @@ function login() {
 const ComponentsWithNav = () => {
   return (
     <div className='com-with-nav-wrapper'>
+      
+      <div className='com-wrapper'>
+        <div className='com-with-nav'>
+          <TopNav />
+        </div>
 
-      <div className='com-with-nav'>
-        <TopNav />
+        <div className='com-with-nav-item'>
+          <Routes>
+            <Route path='/' element={home()} />
+            <Route path='/cart' element={cart()} />
+            <Route path='/about' element={about()} />
+          </Routes>
+        </div>
       </div>
 
-      <div className='com-with-nav-item'>
-        <Routes>
-          <Route path='/' element={home()} />
-          <Route path='/cart' element={cart()} />
-          <Route path='/about' element={about()} />
-        </Routes>
+      <div className='com-with-footer'>
+        <Footer />
       </div>
     </div>
   );

@@ -5,7 +5,6 @@ import React, { useState, useEffect } from 'react';
 import './about.css';
 
 // Components
-import Footer from '../../Components/Footer/footer';
 
 function About() {
 
@@ -18,8 +17,6 @@ function About() {
                     <span>We are.....</span>
                 </div>
             </section>
-
-            <Footer />
         </div>
     );
 }

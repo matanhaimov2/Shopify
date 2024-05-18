@@ -49,7 +49,7 @@ function Home() {
             <section className='home-main-section'>
 
                 <Categories />
-
+               
                 <div className='home-products-wrapper'>
                     <div className='home-products-box'>
                         
@@ -77,9 +77,8 @@ function Home() {
                     </div>
 
                 </div>
+            
             </section>
-
-            <Footer />
 
         </div>
 

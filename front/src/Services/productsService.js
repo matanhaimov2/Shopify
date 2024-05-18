@@ -11,7 +11,7 @@ import { SERVER_URL } from "../Assets/GlobalVeriables";
 const fetchProducts = async (data) => {
     try {
         // Get post from back from db
-        const response = await axios.get('https://fakestoreapi.com/products?limit=8')
+        const response = await axios.get('https://fakestoreapi.com/products?limit=10')
         // const response = await axios.post(SERVER_URL + "/fetchProducts")
         
         return response.data
