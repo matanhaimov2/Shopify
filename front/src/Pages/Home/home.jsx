@@ -12,9 +12,6 @@ import Skeleton from '@mui/material/Skeleton';
 // Services
 import { fetchProducts } from '../../Services/productsService'
 
-// Components
-import Footer from '../../Components/Footer/footer';
-
 // Sub Components
 import Categories from './SubComponents/Categories/categories'
 
