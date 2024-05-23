@@ -21,11 +21,12 @@ function TopNav() {
 
     const navigate = useNavigate();
 
-    const [routeValue, setRouteValue] = useState('1'); // Initial route is home
+    // States
+    const [routeValue, setRouteValue] = useState('/'); // Initial route is home
 
     // Navigate To Different Routes
     useEffect(() => {
-        const path = routeValue === '1' ? '/' : routeValue === '2' ? '/cart' : '/about';
+        const path = routeValue 
         navigate(path); // site under costruction crashing due using navigation
 
     }, [routeValue])
@@ -42,9 +43,9 @@ function TopNav() {
                     <TabContext value={routeValue}>
                         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                             <TabList>
-                                <Tab label="Home" value="1" onClick={() => setRouteValue('1')} />
-                                <Tab label="Cart" value="2" onClick={() => setRouteValue('2')} />
-                                <Tab label="About" value="3" onClick={() => setRouteValue('3')} />
+                                <Tab label="Home" value="/" onClick={() => setRouteValue('/')} />
+                                <Tab label="Cart" value="cart" onClick={() => setRouteValue('cart')} />
+                                <Tab label="About" value="about" onClick={() => setRouteValue('about')} />
                             </TabList>
                         </Box>
                     </TabContext>

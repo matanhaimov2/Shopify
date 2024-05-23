@@ -9,6 +9,8 @@ import Home from './Pages/Home/home';
 import Cart from './Pages/Cart/cart';
 import About from './Pages/About/about';
 import Login from './Pages/Login/login';
+import Register from './Pages/Register/register';
+
 
 // Components
 import TopNav from './Components/TopNav/topnav';
@@ -33,6 +35,10 @@ function about() {
 
 function login() {
   return <Login />;
+}
+
+function register() {
+  return <Register />
 }
 
 // For Components With Topnav
@@ -86,6 +92,7 @@ function App() {
             <Route path='/*' element={<ComponentsWithNav />} />
 
             <Route path='/login' element={login()} />
+            <Route path='/register' element={register()} />
 
             {/* Backend Disabled */}
             <Route path='/sitenotfound' element={<div>site is under constarction</div>} />

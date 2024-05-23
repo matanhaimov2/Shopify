@@ -1,6 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { useNavigate } from "react-router-dom";
-
+import React, { useState, useEffect } from 'react';
 
 // React MUI
 import Sheet from '@mui/joy/Sheet';
@@ -11,48 +9,38 @@ import Input from '@mui/joy/Input';
 import Button from '@mui/joy/Button';
 
 // Services
-import { login } from '../../Services/authenticationService'
+import { register } from '../../Services/authenticationService'
 
-// Components
-import { AuthContext } from "../../Components/AuthContext";
-
-function Login() {
+function Register() {
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [errorMessage, setErrorMessage] = useState(null); // New state for handling error messages
+    const [message, setMessage] = useState('');
 
-    const { setToken } = useContext(AuthContext);
-    const navigate = useNavigate();
 
-    const handleLogin = async () => {
+    const handleRegistration = async () => {
+        console.log(username, password)
+
         let data = {
             username: username,
             password: password
         }
 
         try {
-            let response = await login(data)
+            let response = await register(data)
             console.log(response)
-            setToken(response.token)
-            localStorage.setItem("token", response.token);
-            navigate("/");
+
+            setMessage(response.message)
 
         } catch (error) {
-            console.error("Authentication failed:", error);
-            setToken(null);
-            localStorage.removeItem("token");
-            if (error.response && error.response.data) {
-                setErrorMessage(error.response.data); // Set the error message if present in the error response
-            } else {
-                setErrorMessage("An unexpected error occurred. Please try again.");
-            }
+            console.error("Registration failed:", error.response.data.error);
+            setMessage(error.response.data.error);
         }
 
     }
 
     return (
-        <div className='login-wrapper'>
+        <div className='register-wrapper'>
             <Sheet
                 sx={{
                     width: 300,
@@ -72,7 +60,7 @@ function Login() {
                     <Typography level="h4" component="h1">
                         <b>Welcome!</b>
                     </Typography>
-                    <Typography level="body-sm">Sign in to continue as admin</Typography>
+                    <Typography level="body-sm">Create an account</Typography>
                 </div>
 
                 <FormControl>
@@ -84,7 +72,7 @@ function Login() {
                         placeholder="username"
                     />
                 </FormControl>
-
+                
                 <FormControl>
                     <FormLabel>Password</FormLabel>
                     <Input onChange={(e) => setPassword(e.target.value)}
@@ -95,13 +83,14 @@ function Login() {
                     />
                 </FormControl>
 
-                <Button onClick={handleLogin} sx={{ mt: 1 /* margin top */ }}>Log in</Button>
+                <Button onClick={handleRegistration} sx={{ mt: 1 /* margin top */ }}>Create Account</Button>
 
-                {errorMessage && <div style={{ color: "red" }}>{errorMessage}</div>}{" "}
-
+                {message && (
+                    <span>{message}</span>
+                )}
             </Sheet>
         </div>
     );
 }
 
-export default Login;
+export default Register;
