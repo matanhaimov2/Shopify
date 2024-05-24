@@ -34,9 +34,18 @@ function Login() {
         try {
             let response = await login(data)
             console.log(response)
-            setToken(response.token)
-            localStorage.setItem("token", response.token);
-            navigate("/");
+
+            if (response.message) {
+                setToken(response.accessToken)
+
+                localStorage.setItem("accessToken", response.accessToken);
+                localStorage.setItem('refreshToken', response.refreshToken);
+                navigate("/");
+            }
+            else {
+                setErrorMessage("Username or Password Incorrect")
+            }
+
 
         } catch (error) {
             console.error("Authentication failed:", error);

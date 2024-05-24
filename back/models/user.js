@@ -12,6 +12,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  isAdmin: {
+    type: Boolean,
+    default: false,
+  },
   tokens: [
     {
       token: {
@@ -31,3 +35,4 @@ userSchema.methods.verifyPassword = async function (password) {
 const User = mongoose.model("User", userSchema);
 
 module.exports = User;
+
