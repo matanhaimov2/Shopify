@@ -15,19 +15,15 @@ const RefreshToken = require('../models/refreshToken');
 const JWT_SECRET = process.env.ACCESS_TOKEN_SECERT;
 const JWT_REFRESH_SECRET = process.env.REFRESH_TOKEN_SECRET;
 
-// Generate Access and Refresh Tokens
+// Generate access token
 const generateAccessToken = (user) => {
-  return jwt.sign(user, JWT_SECRET, { expiresIn: '15m' });
-};
-
-const generateRefreshToken = (user) => {
-  return jwt.sign(user, JWT_REFRESH_SECRET, { expiresIn: '7d' });
+  return jwt.sign({ userId: user._id, isAdmin: user.isAdmin }, JWT_SECRET, { expiresIn: '10s' });
 };
 
 
 router.post("/register", async (req, res) => {
   try {
-    const { username, password } = req.body;
+    const { username, password, isAdmin } = req.body;
 
     const existingUser = await User.findOne({ username }); // checks if user exist in db
     if (existingUser) {
@@ -40,6 +36,7 @@ router.post("/register", async (req, res) => {
     const user = new User({
       username,
       password: hashedPassword,
+      isAdmin
     });
 
     const savedUser = await user.save();
@@ -51,48 +48,33 @@ router.post("/register", async (req, res) => {
     console.error(error);
     res.status(500).json({ error: "Internal server error" });
   }
+
+  
 });
 
 router.post('/login', async (req, res) => {
-  const { username, password } = req.body;
+  try {
+    const { username, password } = req.body;
+    const user = await User.findOne({ username });
+    if (!user) {
+      return res.status(400).json({ message: 'Invalid username or password.' });
+    }
 
-  const user = await User.findOne({ username });
+    const validPassword = await user.verifyPassword(password);
+    if (!validPassword) {
+      return res.status(400).json({ message: 'Invalid username or password.' });
+    }
 
-  if (!user)
-    return res.status(400).send("Invalid username or password."); // if user is not found
+    const accessToken = generateAccessToken(user);
 
-  const validPassword = await bcrypt.compare(password, user.password);
-
-  if (!validPassword)
-    return res.status(400).send("Invalid username or password.");
-
-  const userPayload = { userId: user._id, isAdmin: user.isAdmin };
-  const accessToken = generateAccessToken(userPayload);
-  const refreshToken = generateRefreshToken(userPayload);
-
-  await new RefreshToken({ token: refreshToken }).save();
-
-
-  res.json({ message: 'User Has Logged In Successfuly', accessToken, refreshToken });
+    res.json({ message: 'User Has Logged In Successfuly', accessToken, isAdmin: user.isAdmin });
+  } catch (error) {
+    res.status(500).json({ message: 'Internal server error' });
+  }
 
 
 });
 
-
-router.post("/token", async (req, res) => {
-  const { token } = req.body;
-  if (!token) return res.sendStatus(401);
-
-  const existingToken = await RefreshToken.findOne({ token });
-  if (!existingToken) return res.sendStatus(403);
-
-  jwt.verify(token, JWT_REFRESH_SECRET, (err, user) => {
-      if (err) return res.sendStatus(403);
-
-      const accessToken = generateAccessToken({ userId: user.userId, isAdmin: user.isAdmin });
-      res.json({ accessToken });
-  });
-});
 
 router.delete('/logout', async (req, res) => {
   const { token } = req.body;

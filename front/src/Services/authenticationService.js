@@ -32,19 +32,8 @@ const login = async (data) => {
     }
 }
 
-const refreshToken = async (token) => {
-    try {
-        const response = await axios.post(SERVER_URL + "/auth/token", { token });
-        return response.data;
-    } catch (err) {
-        console.error(err);
-        return false;
-    }
-};
-
 
 export {
     register,
-    login,
-    refreshToken
+    login
 }

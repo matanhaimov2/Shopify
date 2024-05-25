@@ -21,42 +21,28 @@ function Login() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState(null); // New state for handling error messages
+    const { setUser, user } = useContext(AuthContext);
 
-    const { setToken } = useContext(AuthContext);
+    // Navigate Handle
     const navigate = useNavigate();
 
     const handleLogin = async () => {
-        let data = {
-            username: username,
-            password: password
-        }
-
         try {
-            let response = await login(data)
-            console.log(response)
-
+            const data = { username, password };
+            const response = await login(data);
             if (response.message) {
-                setToken(response.accessToken)
-
-                localStorage.setItem("accessToken", response.accessToken);
-                localStorage.setItem('refreshToken', response.refreshToken);
+                localStorage.setItem('accessToken', response.accessToken);
+                setUser({ isAdmin: response.isAdmin, isAuthenticated: true });
+                console.log(user)
                 navigate("/");
             }
             else {
                 setErrorMessage("Username or Password Incorrect")
             }
 
-
-        } catch (error) {
-            console.error("Authentication failed:", error);
-            setToken(null);
-            localStorage.removeItem("token");
-            if (error.response && error.response.data) {
-                setErrorMessage(error.response.data); // Set the error message if present in the error response
-            } else {
-                setErrorMessage("An unexpected error occurred. Please try again.");
-            }
-        }
+          } catch (error) {
+            console.error('Login failed:', error);
+          }
 
     }
 

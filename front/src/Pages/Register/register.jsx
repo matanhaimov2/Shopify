@@ -23,7 +23,8 @@ function Register() {
 
         let data = {
             username: username,
-            password: password
+            password: password,
+            isAdmin: false
         }
 
         try {
