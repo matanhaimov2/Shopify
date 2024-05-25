@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+
 
 // CSS
 import './home.css';
@@ -14,11 +15,17 @@ import { fetchProducts } from '../../Services/productsService'
 
 // Sub Components
 import Categories from './SubComponents/Categories/categories'
+import { isAuthenticated } from '../../Services/authenticationService';
+import { AuthContext } from "../../Components/AuthContext";
+
 
 function Home() {
 
     // States
     const [products, setProducts] = useState();
+
+    const { user, setUser } = useContext(AuthContext);
+
 
 
     useEffect(() => {
@@ -37,6 +44,16 @@ function Home() {
 
         MarketProducts();
     }, [])
+
+    useEffect(() => {
+        let user = isAuthenticated();
+        if(user) {
+            console.log(user)
+        }
+        else (
+            console.log(user)
+        )
+    })
 
 
 

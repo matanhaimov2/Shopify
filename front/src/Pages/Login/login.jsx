@@ -21,9 +21,10 @@ function Login() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState(null); // New state for handling error messages
-    const { setUser, user } = useContext(AuthContext);
+    
+    const { user, setUser } = useContext(AuthContext);
 
-    // Navigate Handle
+    // Navigation Handle
     const navigate = useNavigate();
 
     const handleLogin = async () => {
