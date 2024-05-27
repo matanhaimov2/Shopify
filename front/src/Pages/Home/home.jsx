@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
 
-
 // CSS
 import './home.css';
 
@@ -9,14 +8,14 @@ import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import Skeleton from '@mui/material/Skeleton';
 
-
 // Services
 import { fetchProducts } from '../../Services/productsService'
 
+// Components
+import { AuthContext } from "../../Components/AuthContext";
+
 // Sub Components
 import Categories from './SubComponents/Categories/categories'
-import { isAuthenticated } from '../../Services/authenticationService';
-import { AuthContext } from "../../Components/AuthContext";
 
 
 function Home() {
@@ -24,10 +23,9 @@ function Home() {
     // States
     const [products, setProducts] = useState();
 
-    const { user, setUser } = useContext(AuthContext);
+    const { userData } = useContext(AuthContext);
 
-
-
+    // Get products from DB
     useEffect(() => {
         const MarketProducts = async () => {
 
@@ -38,35 +36,24 @@ function Home() {
             let response = await fetchProducts(data)
             setProducts(response)
 
-            console.log(response)
+            // console.log(response)
 
         }
 
         MarketProducts();
     }, [])
 
-    useEffect(() => {
-        let user = isAuthenticated();
-        if(user) {
-            console.log(user)
-        }
-        else (
-            console.log(user)
-        )
-    })
-
-
-
-
     return (
         <div className='home-wrapper'>
             <section className='home-main-section'>
-
+                {userData && (
+                    <span>{userData.username}</span>
+                )}
                 <Categories />
-               
+
                 <div className='home-products-wrapper'>
                     <div className='home-products-box'>
-                        
+
                         {products && products.map((product, i) => (
                             <div className='home-each-product-wrapper' key={i}>
 
@@ -88,10 +75,12 @@ function Home() {
                         <Stack spacing={2}>
                             <Pagination count={10} />
                         </Stack>
+
+
                     </div>
 
                 </div>
-            
+
             </section>
 
         </div>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 // React MUI
 import Sheet from '@mui/joy/Sheet';
@@ -24,6 +24,7 @@ function Register() {
         let data = {
             username: username,
             password: password,
+            cartInfo: [],
             isAdmin: false
         }
 

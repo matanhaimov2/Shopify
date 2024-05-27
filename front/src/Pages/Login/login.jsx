@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { useNavigate } from "react-router-dom";
 
 
@@ -14,38 +14,35 @@ import Button from '@mui/joy/Button';
 import { login } from '../../Services/authenticationService'
 
 // Components
-import { AuthContext } from "../../Components/AuthContext";
+import { AuthContext } from '../../Components/AuthContext';
 
 function Login() {
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState(null); // New state for handling error messages
-    
-    const { user, setUser } = useContext(AuthContext);
+    const { handleLogin } = useContext(AuthContext);
+
 
     // Navigation Handle
     const navigate = useNavigate();
 
-    const handleLogin = async () => {
+    const handleLoginClick = async () => {
         try {
             const data = { username, password };
             const response = await login(data);
-            if (response.message) {
-                localStorage.setItem('accessToken', response.accessToken);
-                setUser({ isAdmin: response.isAdmin, isAuthenticated: true });
-                console.log(user)
-                navigate("/");
+            
+            if (response.accessToken) {
+                handleLogin(response.accessToken);
+                navigate('/');
+            } else {
+                setErrorMessage("Username or Password Incorrect");
             }
-            else {
-                setErrorMessage("Username or Password Incorrect")
-            }
-
-          } catch (error) {
+        } catch (error) {
             console.error('Login failed:', error);
-          }
-
-    }
+            setErrorMessage("An error occurred. Please try again.");
+        }
+    };
 
     return (
         <div className='login-wrapper'>
@@ -91,7 +88,7 @@ function Login() {
                     />
                 </FormControl>
 
-                <Button onClick={handleLogin} sx={{ mt: 1 /* margin top */ }}>Log in</Button>
+                <Button onClick={handleLoginClick} sx={{ mt: 1 /* margin top */ }}>Log in</Button>
 
                 {errorMessage && <div style={{ color: "red" }}>{errorMessage}</div>}{" "}
 

@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate } from 'react-router-dom';
+import React, { useEffect, useContext } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 // Main CSS
 import './App.css';
@@ -14,7 +14,9 @@ import Register from './Pages/Register/register';
 
 // Components
 import TopNav from './Components/TopNav/topnav';
-import Footer from './Components/Footer/footer'
+import Footer from './Components/Footer/footer';
+import { AuthProvider } from './Components/AuthContext';
+import RouteChangeHandler from './Components/RouteChangeHandler';
 
 // Services
 import { healthCheck } from './Services/administrationService';
@@ -45,7 +47,7 @@ function register() {
 const ComponentsWithNav = () => {
   return (
     <div className='com-with-nav-wrapper'>
-      
+
       <div className='com-wrapper'>
         <div className='com-with-nav'>
           <TopNav />
@@ -70,6 +72,7 @@ const ComponentsWithNav = () => {
 // Main Function
 function App() {
 
+  // Health check to see if back is alive
   useEffect(() => {
     const healthChecker = async () => {
       let res = await healthCheck();
@@ -79,29 +82,33 @@ function App() {
       }
     }
 
-    // Call Health Checker to see if back is alive
     healthChecker();
   }, [])
+
 
   return (
     <div className="outer-wrapper">
       <div className='wrapper'>
-        <Router>
-          <Routes>
-            {/* Routes With Topnav */}
-            <Route path='/*' element={<ComponentsWithNav />} />
+        <AuthProvider>
+          <Router>
+            <RouteChangeHandler />
 
-            <Route path='/login' element={login()} />
-            <Route path='/register' element={register()} />
+            <Routes>
+              {/* Routes With Topnav */}
+              <Route path='/*' element={<ComponentsWithNav />} />
 
-            {/* Backend Disabled */}
-            <Route path='/sitenotfound' element={<div>site is under constarction</div>} />
-            
-            {/* Page Doesnt Exists */}
-            <Route path='/*' element={<div>404 doesnt exists</div>} />
-          </Routes>
+              <Route path='/login' element={login()} />
+              <Route path='/register' element={register()} />
 
-        </Router>
+              {/* Backend Disabled */}
+              <Route path='/sitenotfound' element={<div>site is under constarction</div>} />
+
+              {/* Page Doesnt Exists */}
+              <Route path='/*' element={<div>404 doesnt exists</div>} />
+            </Routes>
+
+          </Router>
+        </AuthProvider>
       </div>
     </div>
   );
