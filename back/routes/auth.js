@@ -75,6 +75,9 @@ router.post('/login', async (req, res) => {
 
 });
 
+// router.post('/isAdmin', async (req, res) => {
+
+// });
 
 router.delete('/logout', async (req, res) => {
   const { token } = req.body;

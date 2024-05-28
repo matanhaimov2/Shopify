@@ -5,26 +5,29 @@ export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [userData, setUserData] = useState(null);
-  const [accessToken, setAccessToken] = useState(null); // save token from back
+  const [accessToken, setAccessToken] = useState(localStorage.getItem('accessToken')); // save token from back
 
 
   useEffect(() => {
     const token = localStorage.getItem('accessToken');
     if (token) {
-      const decodedToken = jwtDecode(token);
-      if (decodedToken.exp * 1000 > Date.now()) {
-        setUserData(decodedToken);
-      } else {
-        localStorage.removeItem('accessToken');
+      try {
+        const decodedToken = jwtDecode(token);
+        if (decodedToken.exp * 1000 > Date.now()) {
+          setUserData(decodedToken);
+          setAccessToken(token);
+        } else {
+          handleLogout();
+        }
+      } catch (error) {
+        handleLogout();
       }
     }
   }, []);
-
-  const handleLogin = (token) => {
-    const decodedToken = jwtDecode(token);
+  const handleLogin = (accessToken) => {
+    const decodedToken = jwtDecode(accessToken);
     setUserData(decodedToken);
-    setAccessToken(token);
-    localStorage.setItem('accessToken', token);
+    localStorage.setItem('accessToken', accessToken);
   };
 
   const handleLogout = () => {

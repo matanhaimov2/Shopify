@@ -30,6 +30,19 @@ const login = async (data) => {
     }
 }
 
+// const adminCheck = async (data) => {
+//     try {
+//         // Get post from back from db
+//         const response = await axios.post(SERVER_URL + "/auth/isAdmin", data)
+
+//         return response.data
+//     }
+//     catch (err) {
+//         return false;
+//     }
+// }
+
+
 export {
     register,
     login

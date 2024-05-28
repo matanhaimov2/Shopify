@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 // Main CSS
@@ -13,10 +13,10 @@ import Register from './Pages/Register/register';
 
 
 // Components
-import TopNav from './Components/TopNav/topnav';
-import Footer from './Components/Footer/footer';
 import { AuthProvider } from './Components/AuthContext';
 import RouteChangeHandler from './Components/RouteChangeHandler';
+import TopNav from './Components/TopNav/topnav';
+import Footer from './Components/Footer/footer';
 
 // Services
 import { healthCheck } from './Services/administrationService';
