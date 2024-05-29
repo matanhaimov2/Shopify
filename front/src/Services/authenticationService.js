@@ -7,7 +7,7 @@ import { SERVER_URL } from "../Assets/GlobalVeriables";
 
 const register = async (data) => {
     try {
-        // Get post from back from db
+        // Fetch data about user to register
         const response = await axios.post(SERVER_URL + "/auth/register", data)
 
         return response.data
@@ -20,7 +20,7 @@ const register = async (data) => {
 
 const login = async (data) => {
     try {
-        // Get post from back from db
+        // Send username and password to see if match in db
         const response = await axios.post(SERVER_URL + "/auth/login", data)
 
         return response.data
@@ -30,20 +30,20 @@ const login = async (data) => {
     }
 }
 
-// const adminCheck = async (data) => {
-//     try {
-//         // Get post from back from db
-//         const response = await axios.post(SERVER_URL + "/auth/isAdmin", data)
+const tokenVerification = async (token) => {
+    try {
+        // Verify if token is valid
+        const response = await axios.post(SERVER_URL + "/auth/verify-token", { token })
 
-//         return response.data
-//     }
-//     catch (err) {
-//         return false;
-//     }
-// }
-
+        return response.data
+    }
+    catch (err) {
+        return false;
+    }
+}
 
 export {
     register,
-    login
+    login,
+    tokenVerification
 }

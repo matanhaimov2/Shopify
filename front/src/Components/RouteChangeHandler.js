@@ -5,33 +5,47 @@ import { jwtDecode } from "jwt-decode";
 // Components
 import { AuthContext } from './AuthContext';
 
+// Services 
+import { tokenVerification } from '../Services/authenticationService'
+
 
 const RouteChangeHandler = () => {
-  const { userData, accessToken, handleLogout } = useContext(AuthContext);
+  const { accessToken, handleLogout } = useContext(AuthContext);
   const location = useLocation();
-  
+
+  const verifyToken = async (token) => {
+    const data = await tokenVerification(token);
+    return data;
+  };
+
   useEffect(() => {
     const token = localStorage.getItem('accessToken');
+
     if (token) {
-      const decodedToken = jwtDecode(token);
-      // If token expired
-      if (decodedToken.exp * 1000 < Date.now()) {
+      try {
+        const decodedToken = jwtDecode(token);
+        // if token is expired
+        if (decodedToken.exp * 1000 < Date.now()) {
+          handleLogout();
+        }
+        else {
+          // if token isn't verified (meanning someone touched the token in LS)
+          verifyToken(token).then(data => {
+            if (!data) {
+              handleLogout();
+            }
+          });
+        }
+      } catch (error) {
         handleLogout();
       }
-      else if (accessToken && token !== accessToken) { // --- Problem when refreshing after changing manually the token in LS
-        // if token doesnt match with accessToken(original)
-        handleLogout()
-      }
     }
-    else (
-      // if there is no token in localstorage
-      handleLogout()
-    )
-
-  }, [location, userData, handleLogout]);
+    else {
+      handleLogout();
+    }
+  }, [location, accessToken, handleLogout]);
 
   return null;
-  
 };
 
 export default RouteChangeHandler;

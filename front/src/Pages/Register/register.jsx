@@ -13,15 +13,17 @@ import { register } from '../../Services/authenticationService'
 
 function Register() {
 
+    const [email, setEmail] = useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
 
 
     const handleRegistration = async () => {
-        console.log(username, password)
+        console.log(email, username, password)
 
         let data = {
+            email: email, 
             username: username,
             password: password,
             cartInfo: [],
@@ -66,6 +68,14 @@ function Register() {
                 </div>
 
                 <FormControl>
+                    <FormLabel>Email</FormLabel>
+                    <Input onChange={(e) => setEmail(e.target.value)}
+                        // html input attribute
+                        name="email"
+                        type="email"
+                        placeholder="example@gmail.com"
+                    />
+                </FormControl>                <FormControl>
                     <FormLabel>Username</FormLabel>
                     <Input onChange={(e) => setUsername(e.target.value)}
                         // html input attribute

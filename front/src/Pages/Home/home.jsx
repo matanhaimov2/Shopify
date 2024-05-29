@@ -10,7 +10,6 @@ import Skeleton from '@mui/material/Skeleton';
 
 // Services
 import { fetchProducts } from '../../Services/productsService'
-// import { adminCheck } from '../../Services/authenticationService'
 
 // Components
 import { AuthContext } from "../../Components/AuthContext";
@@ -36,6 +35,7 @@ function Home() {
 
             let response = await fetchProducts(data)
             setProducts(response)
+            console.log(userData)
 
             // console.log(response)
 
@@ -43,19 +43,6 @@ function Home() {
 
         MarketProducts();
     }, [])
-
-    // // Determine if user is admin
-    // useEffect(() => {
-    //     const isAdminChecker = async () => {
-    //         let response = await adminCheck()
-    //         console.log(response)
-
-    //         console.log(userData)
-    
-    //     }
-
-    //     isAdminChecker()
-    // })
 
     return (
         <div className='home-wrapper'>
@@ -89,7 +76,6 @@ function Home() {
                         <Stack spacing={2}>
                             <Pagination count={10} />
                         </Stack>
-
 
                     </div>
 

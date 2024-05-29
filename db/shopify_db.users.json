@@ -1,0 +1,11 @@
+[{
+  "_id": {
+    "$oid": "6656d037a236bb3959aef5c7"
+  },
+  "email": "matanhaimov2@gmail.com",
+  "username": "matanhaimov",
+  "password": "$2b$10$E432ODHidhIzXS2Oci73H.7Gz2H8eabGxfR7xoy2mhokJWfYu9ejC",
+  "cartInfo": [],
+  "isAdmin": false,
+  "__v": 0
+}]
