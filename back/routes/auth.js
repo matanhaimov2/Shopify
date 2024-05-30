@@ -11,7 +11,7 @@ const User = require("../models/user");
 const RefreshToken = require('../models/refreshToken');
 
 // Middlewares
-const verifyTokenMiddleware = require('../middleware/authMiddleware'); 
+const verifyTokenMiddleware = require('../middleware/authMiddleware');
 
 
 // JWT tokens
@@ -20,17 +20,22 @@ const JWT_REFRESH_SECRET = process.env.REFRESH_TOKEN_SECRET;
 
 // Generate access token
 const generateAccessToken = (user) => {
-    return jwt.sign({ userId: user._id, email: user.email, username: user.username, cartInfo: user.cartInfo, isAdmin: user.isAdmin }, JWT_SECRET, { expiresIn: '10m' });
+    return jwt.sign({ userId: user._id, email: user.email, username: user.username, cartInfo: user.cartInfo }, JWT_SECRET, { expiresIn: '10m' });
 };
 
 
 router.post("/register", async (req, res) => {
     try {
-        const { email, username, password, cartInfo, isAdmin } = req.body;
+        const { email, username, password, cartInfo } = req.body;
 
         const existingUser = await User.findOne({ username }); // checks if user exist in db
         if (existingUser) {
             return res.status(400).json({ error: "Username already exists." });
+        }
+
+        const existingEmail = await User.findOne({ email }); // checks if email exist in db
+        if (existingEmail) {
+            return res.status(400).json({ error: "Email already registered." });
         }
 
         const salt = await bcrypt.genSalt(10);
@@ -40,8 +45,7 @@ router.post("/register", async (req, res) => {
             email,
             username,
             password: hashedPassword,
-            cartInfo,
-            isAdmin
+            cartInfo
         });
 
         const savedUser = await user.save();
@@ -65,7 +69,7 @@ router.post('/login', async (req, res) => {
             return res.status(400).json({ message: 'Invalid username or password.' });
         }
 
-        const validPassword = await user.verifyPassword(password);
+        const validPassword = await bcrypt.compare(password, user.password);
         if (!validPassword) {
             return res.status(400).json({ message: 'Invalid username or password.' });
         }

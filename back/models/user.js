@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
 
 const userSchema = new mongoose.Schema({
   email: {
@@ -21,16 +20,11 @@ const userSchema = new mongoose.Schema({
     type: Array,
     required: true
   },
-  isAdmin: {
-    type: Boolean,
-    default: false,
-  },
+  role: {
+    type: String,
+    enum: "user",
+  }
 });
-
-userSchema.methods.verifyPassword = async function (password) {
-  const user = this;
-  return await bcrypt.compare(password, user.password);
-};
 
 const User = mongoose.model('User', userSchema);
 
