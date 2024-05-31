@@ -56,6 +56,7 @@ const ComponentsWithNav = () => {
         <div className='com-with-nav-item'>
           <Routes>
             <Route path='/' element={home()} />
+            {/* Route of specifc product: <Route path='/product/:id' element={home()} />  */}
             <Route path='/cart' element={cart()} />
             <Route path='/about' element={about()} />
           </Routes>
@@ -102,7 +103,7 @@ function App() {
 
               {/* Backend Disabled */}
               <Route path='/sitenotfound' element={<div>site is under constarction</div>} />
-
+              
               {/* Page Doesnt Exists */}
               <Route path='/*' element={<div>404 doesnt exists</div>} />
             </Routes>

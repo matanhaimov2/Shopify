@@ -42,8 +42,22 @@ const tokenVerification = async (token) => {
     }
 }
 
+const roleVerification = async (token) => {
+    try {
+        // Verify if user is authorized
+        const response = await axios.post(SERVER_URL + "/auth/verify-role", { token })
+        
+        return response.data
+    }
+    catch (err) {
+        return false;
+    }
+}
+
+
 export {
     register,
     login,
-    tokenVerification
+    tokenVerification,
+    roleVerification
 }

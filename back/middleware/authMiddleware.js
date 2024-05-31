@@ -5,7 +5,7 @@ const verifyTokenMiddleware = (req, res, next) => {
     const { token } = req.body;
     
     if (!token) {
-        return res.status(400).send({ message: 'Token is required' });
+        return res.status(403).send({ message: 'Token is required' });
     }
 
     jwt.verify(token, JWT_SECRET, (err, decoded) => {
@@ -17,4 +17,25 @@ const verifyTokenMiddleware = (req, res, next) => {
     });
 };
 
-module.exports = verifyTokenMiddleware;
+const verifyRoleMiddleware = (req, res, next) => {
+    const { token } = req.body;
+    
+    jwt.verify(token, JWT_SECRET, (err, decoded) => {
+        if (err) {
+            return res.status(401).send({ message: 'Unauthorized' });
+        }
+        req.decodedToken = decoded; // Attach the decoded token to the request object
+
+        if (decoded.role !== 'admin') {
+            return res.status(401).send({ message: 'Unauthorized' });
+        }
+
+        next(); // Call the next middleware/route handler
+    });
+};
+
+
+module.exports = {
+    verifyTokenMiddleware,
+    verifyRoleMiddleware
+};

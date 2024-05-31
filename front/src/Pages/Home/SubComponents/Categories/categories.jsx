@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 
 
 // CSS
@@ -8,7 +8,40 @@ import './categories.css';
 import { FaComputer } from "react-icons/fa6";
 import { GiDelicatePerfume } from "react-icons/gi";
 
-function Categories() {
+// Services
+import { roleVerification } from '../../../../Services/authenticationService';
+
+// Components
+import { AuthContext } from "../../../../Components/AuthContext";
+
+
+function Categories({ token }) {
+
+    // States
+    const [isVerified, setIsVerified] = useState(false); // role by defualt is false
+
+    // Global States
+    const { userData } = useContext(AuthContext);
+
+    // Role Verification
+    useEffect(() => {
+        const verifyRole = async () => {
+            try {
+                const data = await roleVerification(token);
+                if(data) {
+                    setIsVerified(true);
+                }
+                else {
+                    setIsVerified(false);
+                }
+            } catch (error) {
+                console.error('Role verification failed', error);
+                setIsVerified(false);
+            }
+        };
+
+        verifyRole();
+    }, [token, isVerified]);
 
     return (
         <div className='categories-wrapper'>

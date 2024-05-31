@@ -11,8 +11,7 @@ const User = require("../models/user");
 const RefreshToken = require('../models/refreshToken');
 
 // Middlewares
-const verifyTokenMiddleware = require('../middleware/authMiddleware');
-
+const { verifyTokenMiddleware, verifyRoleMiddleware } = require('../middleware/authMiddleware');
 
 // JWT tokens
 const JWT_SECRET = process.env.ACCESS_TOKEN_SECERT;
@@ -20,14 +19,14 @@ const JWT_REFRESH_SECRET = process.env.REFRESH_TOKEN_SECRET;
 
 // Generate access token
 const generateAccessToken = (user) => {
-    return jwt.sign({ userId: user._id, email: user.email, username: user.username, cartInfo: user.cartInfo }, JWT_SECRET, { expiresIn: '10m' });
+    return jwt.sign({ userId: user._id, role: user.role ,email: user.email, username: user.username, cartInfo: user.cartInfo }, JWT_SECRET, { expiresIn: '10m' });
 };
 
 
 router.post("/register", async (req, res) => {
     try {
         const { email, username, password, cartInfo } = req.body;
-
+        let role = 'user'
         const existingUser = await User.findOne({ username }); // checks if user exist in db
         if (existingUser) {
             return res.status(400).json({ error: "Username already exists." });
@@ -43,6 +42,7 @@ router.post("/register", async (req, res) => {
 
         const user = new User({
             email,
+            role,
             username,
             password: hashedPassword,
             cartInfo
@@ -87,10 +87,16 @@ router.post('/verify-token', verifyTokenMiddleware, (req, res) => {
     res.send({ message: 'Token is valid', decoded: req.decodedToken });
 });
 
+router.post('/verify-role', verifyRoleMiddleware, (req, res) => {
+    res.send({ message: 'Authorized', decoded: req.decodedToken });
+});
+
+
 router.delete('/logout', async (req, res) => {
     const { token } = req.body;
     await RefreshToken.findOneAndDelete({ token });
     res.sendStatus(204);
 });
+
 
 module.exports = router;

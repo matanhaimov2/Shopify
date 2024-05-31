@@ -28,3 +28,7 @@ app.post('/healthCheck', (req, res) => {
 app.listen(port, () => {
     console.log(`Server is running on port number ${port}`);
 });
+
+// register - username, password, isAdmin: false - uploaded to db
+// login - username, password, isAdmin - accessToken is created and saved in localstorage
+// before every refresh useEffect=> see if token expired- if expired logout(delete from localstorage), else keep browsing
