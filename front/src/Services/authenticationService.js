@@ -17,7 +17,6 @@ const register = async (data) => {
     }
 }
 
-
 const login = async (data) => {
     try {
         // Send username and password to see if match in db

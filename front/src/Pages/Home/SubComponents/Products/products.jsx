@@ -6,6 +6,7 @@ import './products.css';
 // React MUI
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
 import Skeleton from '@mui/material/Skeleton';
 
 // Services
@@ -46,7 +47,7 @@ function Products({ token }) {
         const verifyRole = async () => {
             try {
                 const data = await roleVerification(token);
-                if(data) {
+                if (data) {
                     setIsVerified(true);
                 }
                 else {
@@ -63,14 +64,6 @@ function Products({ token }) {
 
     return (
         <div className='products-wrapper'>
-            {userData && (
-                <span> {userData.username}</span>
-            )}
-
-            {isVerified && (
-                <span>god damn</span>
-            )}
-
             <div className='products-box'>
 
                 {products && products.map((product, i) => (

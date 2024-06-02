@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 
 // React MUI
 import Sheet from '@mui/joy/Sheet';
@@ -18,12 +19,14 @@ function Register() {
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
 
+    // Navigation Handle
+    const navigate = useNavigate();
 
     const handleRegistration = async () => {
         console.log(email, username, password)
 
         let data = {
-            email: email, 
+            email: email,
             username: username,
             password: password,
             cartInfo: [],
@@ -35,12 +38,18 @@ function Register() {
             console.log(response)
 
             setMessage(response.message)
+            navigate('/login')
+
 
         } catch (error) {
             console.error("Registration failed:", error.response.data.error);
             setMessage(error.response.data.error);
         }
 
+    }
+
+    const handleToLogin = () => {
+        navigate('/login')
     }
 
     return (
@@ -84,7 +93,7 @@ function Register() {
                         placeholder="username"
                     />
                 </FormControl>
-                
+
                 <FormControl>
                     <FormLabel>Password</FormLabel>
                     <Input onChange={(e) => setPassword(e.target.value)}
@@ -96,6 +105,8 @@ function Register() {
                 </FormControl>
 
                 <Button onClick={handleRegistration} sx={{ mt: 1 /* margin top */ }}>Create Account</Button>
+
+                <Typography level="body-sm">Already have an account? <span style={{ color: '#0b6bcb', cursor: 'pointer' }} onClick={handleToLogin}>sign in</span></Typography>
 
                 {message && (
                     <span>{message}</span>

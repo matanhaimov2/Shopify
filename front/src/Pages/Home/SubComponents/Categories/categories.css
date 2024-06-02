@@ -3,6 +3,7 @@
     flex-direction: column;
     width: 19%;
     padding: 0 1%;
+    justify-content: space-between;
 }
 
 .categories-selection-wrapper {
@@ -35,3 +36,16 @@
     font-size: 110%;
 }
 
+.products-user {
+    display: flex;
+    flex-direction: row;
+    gap: 5%;
+    padding: 4%;
+    width: fit-content;
+}
+
+.products-user-info {
+    display: flex;
+    align-items: center;
+    font-size: 150%;
+}

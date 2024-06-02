@@ -44,6 +44,10 @@ function Login() {
         }
     };
 
+    const handleRegisterClick = () => {
+        navigate('/register');
+    }
+
     return (
         <div className='login-wrapper'>
             <Sheet
@@ -65,7 +69,7 @@ function Login() {
                     <Typography level="h4" component="h1">
                         <b>Welcome!</b>
                     </Typography>
-                    <Typography level="body-sm">Sign in to continue as admin</Typography>
+                    <Typography level="body-sm">Sign in to continue as a user</Typography>
                 </div>
 
                 <FormControl>
@@ -89,6 +93,8 @@ function Login() {
                 </FormControl>
 
                 <Button onClick={handleLoginClick} sx={{ mt: 1 /* margin top */ }}>Log in</Button>
+
+                <Button style={{background: 'grey'}} onClick={handleRegisterClick}>Create New User</Button>
 
                 {errorMessage && <div style={{ color: "red" }}>{errorMessage}</div>}{" "}
 

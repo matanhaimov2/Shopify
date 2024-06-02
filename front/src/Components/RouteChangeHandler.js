@@ -10,7 +10,7 @@ import { tokenVerification } from '../Services/authenticationService'
 
 
 const RouteChangeHandler = () => {
-  const { accessToken, handleLogout } = useContext(AuthContext);
+  const { handleLogout } = useContext(AuthContext);
   const location = useLocation();
 
   const verifyToken = async (token) => {
@@ -43,7 +43,7 @@ const RouteChangeHandler = () => {
     else {
       handleLogout();
     }
-  }, [location, accessToken, handleLogout]);
+  }, [location, handleLogout]);
 
   return null;
 };
