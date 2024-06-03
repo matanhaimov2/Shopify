@@ -12,24 +12,22 @@ import { CiLogout } from "react-icons/ci";
 import { GiChessQueen } from "react-icons/gi";
 import { FaUser } from "react-icons/fa";
 
-
-
-
 // React MUI
 import Button from '@mui/material/Button';
-
 
 // Services
 import { roleVerification } from '../../../../Services/authenticationService';
 
 // Components
 import { AuthContext } from "../../../../Components/AuthContext";
+import ProductUpload from '../../../../Components/ProductUpload/productUpload';
 
 
 function Categories({ token }) {
 
     // States
     const [isVerified, setIsVerified] = useState(false); // role by defualt is false
+    const [isProductUpload, setIsProductUpload] = useState(false);
 
     // Global States
     const { userData, handleLogout } = useContext(AuthContext);
@@ -86,21 +84,35 @@ function Categories({ token }) {
             </div>
 
             {userData ? (
-                <div className='products-user'>
-                    <Button variant="outlined" startIcon={<CiLogout />} onClick={handleLogout}>Logout</Button>
-                    <div className='products-user-info'>
-                    {isVerified ? (
-                        <GiChessQueen style={{color: "#D1B000"}}/>
-                    ) : (
-                        <FaUser style={{color: "gray"}}/>
+                <div className='categories-products-user-wrapper'>
+                    {isVerified && (
+                        <Button variant="outlined" onClick={() => setIsProductUpload(!isProductUpload)}>Upload Product</Button>
                     )}
+
+                    <div className='categories-products-user'>
+                        <Button variant="outlined" startIcon={<CiLogout />} onClick={handleLogout}>Logout</Button>
+                        <div className='categories-products-user-info'>
+                            {isVerified ? (
+                                <GiChessQueen style={{ color: "#D1B000" }} />
+                            ) : (
+                                <FaUser style={{ color: "gray" }} />
+                            )}
+                        </div>
                     </div>
                 </div>
             ) : (
-                <div className='products-user'>
+                <div className='categories-products-user'>
                     <Button variant="contained" color='success' startIcon={<CiLogin />} onClick={navigateToLogin}>Login</Button>
                 </div>
             )}
+
+
+            {isVerified && isProductUpload && (
+                <div className='categories-product-upload-wrapper'>
+                    <ProductUpload token={token} setIsProductUpload={setIsProductUpload} isProductUpload={isProductUpload} />
+                </div>
+            )}
+
         </div>
 
     );

@@ -1,7 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { useNavigate } from "react-router-dom";
 
-
 // React MUI
 import Sheet from '@mui/joy/Sheet';
 import Typography from '@mui/joy/Typography';
@@ -92,7 +91,7 @@ function Login() {
                     />
                 </FormControl>
 
-                <Button onClick={handleLoginClick} sx={{ mt: 1 /* margin top */ }}>Log in</Button>
+                <Button onClick={handleLoginClick} sx={{ mt: 1 /* margin top */ }}>Sign in</Button>
 
                 <Button style={{background: 'grey'}} onClick={handleRegisterClick}>Create New User</Button>
 

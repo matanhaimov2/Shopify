@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // Global Veribales
-import { SERVER_URL } from "../Assets/GlobalVeriables";
+import { SERVER_URL, IMAGE_BB_key } from "../Assets/GlobalVeriables";
 
 
 
@@ -21,8 +21,30 @@ const fetchProducts = async (data) => {
     }
 }
 
+const sendProductsToImgbb = async (data) => {
+    try {
+        const response = await axios.post('https://api.imgbb.com/1/upload?key=' + IMAGE_BB_key, data)
+        return response.data
+    }
+    catch (err) {
+        return false;
+    }
+}
 
+const handleProductsPost = async (data) => {
+    try {
+        // Save product details in db thorugh backend
+        const response = await axios.post(SERVER_URL + '/products/uploadProduct', data)
+        console.log(response)
+        return response.data
+    }
+    catch (err) {
+        return false;
+    }
+}
 
 export {
-    fetchProducts
+    fetchProducts,
+    sendProductsToImgbb,
+    handleProductsPost
 }
