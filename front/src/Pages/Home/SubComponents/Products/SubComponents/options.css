@@ -1,0 +1,8 @@
+.options-wrapper {
+    flex-direction: column;
+    gap: 1px;
+}
+
+.options-button {
+    font-size: 150%;
+}

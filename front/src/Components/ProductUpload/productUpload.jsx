@@ -9,9 +9,9 @@ import { AddAPhoto, Delete } from '@mui/icons-material';
 
 // Services
 import { roleVerification } from '../../Services/authenticationService';
-import { sendProductsToImgbb, handleProductsPost } from '../../Services/productsService';
+import { sendProductsToImgbb, handleProductUpload, handleProductUpdate } from '../../Services/productsService';
 
-function ProductUpload({ token, setIsProductUpload, isProductUpload }) {
+function ProductUpload({ token, setIsProductUpload, isProductUpload, productInfo, setIsOptions, isOptions }) {
 
     // States
     const [isVerified, setIsVerified] = useState(false); // role by defualt is false
@@ -19,6 +19,7 @@ function ProductUpload({ token, setIsProductUpload, isProductUpload }) {
     const [images, setImages] = useState([]);
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState('');
+    const [category, setCategory] = useState('');
     const [shippingFee, setShippingFee] = useState('');
 
     // Refs
@@ -28,8 +29,11 @@ function ProductUpload({ token, setIsProductUpload, isProductUpload }) {
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (productUploadRef.current && !productUploadRef.current.contains(event.target)) {
-                if (isProductUpload) { // upload new product form
+                if (isProductUpload) { // if upload new product form is on
                     setIsProductUpload(false)
+                }
+                else if (isOptions) { // if edit product form is on
+                    setIsOptions(false)
                 }
             }
         };
@@ -76,12 +80,11 @@ function ProductUpload({ token, setIsProductUpload, isProductUpload }) {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const uploadedImages = [];
-        const albumId = 'sKn8Vz'; // album doesn't work
+
         for (const image of images) {
             if (image) {
                 const formData = new FormData();
                 formData.append('image', image);
-                formData.append('album', albumId); // Include album ID in the form data
 
                 const response = await sendProductsToImgbb(formData)
                 uploadedImages.push(response.data.url);
@@ -93,21 +96,35 @@ function ProductUpload({ token, setIsProductUpload, isProductUpload }) {
             images: uploadedImages,
             description,
             price,
-            shippingFee,
+            category,
+            shippingFee
         };
 
-        await handleProductsPost(productData)
+        if (!productInfo._id) {
+            await handleProductUpload(productData)
+        }
+        else {
+            await handleProductUpdate({ ...productData, id: productInfo._id });
+        }
     };
 
 
     return (
-        <div className='products-upload-wrapper' ref={productUploadRef}>
+        <div className="products-upload-wrapper" ref={productUploadRef}>
 
             <Box component="form" onSubmit={handleSubmit} className="product-upload-form">
 
-                <Typography variant="h5" component="h2" gutterBottom> Upload Product </Typography>
+                {!isOptions ? (
+                    <Typography variant="h5" component="h2" gutterBottom> Upload Product </Typography>
+                ) : (
+                    <Typography variant="h5" component="h2" gutterBottom> Edit Product </Typography>
+                )}
 
-                <TextField label="Title" value={title} onChange={(e) => setTitle(e.target.value)} required fullWidth />
+                {!isOptions ? (
+                    <TextField label="Title" value={title} onChange={(e) => setTitle(e.target.value)} required fullWidth />
+                ) : (
+                    <TextField label="Title" defaultValue={productInfo.title ? productInfo.title : null} onChange={(e) => setTitle(e.target.value)} required fullWidth />
+                )}
 
                 <Typography variant="body1" gutterBottom> Images </Typography>
 
@@ -133,13 +150,37 @@ function ProductUpload({ token, setIsProductUpload, isProductUpload }) {
                     ))}
                 </Grid>
 
-                <TextField label="Description" value={description} onChange={(e) => setDescription(e.target.value)} required multiline rows={4} fullWidth />
+                {!isOptions ? (
+                    <TextField label="Description" value={description} onChange={(e) => setDescription(e.target.value)} required multiline rows={4} fullWidth />
+                ) : (
+                    <TextField label="Description" defaultValue={productInfo.description ? productInfo.description : null} onChange={(e) => setTitle(e.target.value)} required fullWidth />
+                )}
 
-                <TextField label="Price" type="number" value={price} onChange={(e) => setPrice(e.target.value)} required fullWidth />
+                {!isOptions ? (
+                    <TextField label="Price" type="number" value={price} onChange={(e) => setPrice(e.target.value)} required fullWidth />
+                ) : (
+                    <TextField label="Price" type="number" defaultValue={productInfo.price ? productInfo.price : null} onChange={(e) => setPrice(e.target.value)} required fullWidth />
+                )}
 
-                <TextField label="Shipping Fee" type="number" value={shippingFee} onChange={(e) => setShippingFee(e.target.value)} required fullWidth />
+                <div className='products-upload-divider'>
+                    {!isOptions ? (
+                        <TextField label="Shipping Fee" type="number" value={shippingFee} onChange={(e) => setShippingFee(e.target.value)} required fullWidth />
+                    ) : (
+                        <TextField label="Shipping Fee" type="number" defaultValue={productInfo.shippingFee ? productInfo.shippingFee : null} onChange={(e) => setShippingFee(e.target.value)} required fullWidth />
+                    )}
 
-                <Button type="submit" variant="contained" color="primary"> Upload Product </Button>
+                    {!isOptions ? (
+                        <TextField label="Category" type="text" value={category} onChange={(e) => setCategory(e.target.value)} required fullWidth />
+                    ) : (
+                        <TextField label="Category" type="text" defaultValue={productInfo.category ? productInfo.category : null} onChange={(e) => setCategory(e.target.value)} required fullWidth />
+                    )}
+                </div>
+
+                {!isOptions ? (
+                    <Button type="submit" variant="contained" color="primary"> Upload Product </Button>
+                ) : (
+                    <Button type="submit" variant="contained" color="primary"> Save Changes </Button>
+                )}
             </Box>
         </div>
     );

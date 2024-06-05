@@ -5,22 +5,75 @@ const router = express.Router()
 const productsModel = require('../models/products')
 
 router.post('/uploadProduct', async (req, res) => {
-    try {
-        const { title, images, description, price, shippingFee } = req.body;
-        
-        const newProduct = new productsModel({
-            title,
-            images,
-            description,
-            price,
-            shippingFee,
-        });
-        await newProduct.save();
-        res.status(200).send('Product uploaded successfully');
-    } catch (error) {
-        res.status(500).send('Error uploading product');
-    }
+  try {
+    const { title, images, description, price, category, shippingFee } = req.body;
+
+    const newProduct = new productsModel({
+      title,
+      images,
+      description,
+      price,
+      category,
+      shippingFee
+    });
+    await newProduct.save();
+    res.status(200).send('Product uploaded successfully');
+  } catch (error) {
+    res.status(500).send('Error uploading product');
+  }
 });
 
+router.post('/updateProduct', async (req, res) => {
+  const { id, title, images, description, price, category, shippingFee } = req.body;
+  try {
+    await productsModel.updateOne({ _id: id }, {
+      $set: {
+        title: title,
+        images: images,
+        description: description,
+        price: price,
+        category: category,
+        shippingFee: shippingFee
+      }
+    });
+
+    res.status(200).send('Product updated successfully');
+
+  } catch (error) {
+    res.status(500).send('Error updating product');
+  }
+});
+
+
+router.get('/getProducts', async (req, res) => {
+  const page = parseInt(req.query.page)
+  const limit = parseInt(req.query.limit)
+
+  const startIndex = (page - 1) * limit
+  const endIndex = page * limit
+
+  const results = {}
+
+  if (endIndex < await productsModel.countDocuments().exec()) {
+    results.next = {
+      page: page + 1,
+      limit: limit
+    }
+  }
+
+  if (startIndex > 0) {
+    results.previous = {
+      page: page - 1,
+      limit: limit
+    }
+  }
+  try {
+    results.results = await productsModel.find().limit(limit).skip(startIndex).exec()
+    res.paginatedResults = results
+    res.json(res.paginatedResults)
+  } catch (e) {
+    res.status(500).json({ message: e.message })
+  }
+});
 
 module.exports = router;

@@ -13,9 +13,11 @@
     flex-direction: row;
     flex-wrap: wrap;
     width: 95%;
+    height: 92%; /* trial - added */
 }
 
 .each-product-wrapper {
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -26,13 +28,28 @@
     padding: 1% 0% 2% 0%;
 }
 
+.products-options-wrapper {
+    position: absolute;
+    top: 20px;
+    left: 0;
+    z-index: 1;
+}
+
+.options-icon {
+    cursor: pointer;
+}
+
 .products-image {
-    width: 50%;
+    width: 100%;
     mix-blend-mode: darken;
 }
 
 .products-pagination-wrapper {
-    height: max-content;
+    /* height: max-content; */
+    height: 8%; /* trial - added */
+    display: flex; /* trial - added */
+    justify-content: center; /* trial - added */
+    align-items: center; /* trial - added */
 }
 
 .css-1sazv7p-MuiStack-root {

@@ -1,3 +1,4 @@
+/* Product Upload CSS */
 .products-upload-wrapper {
     width: 40%;
     margin: 0 auto;
@@ -40,3 +41,11 @@
     width: 100%;
     height: 100%;
 }
+
+.products-upload-divider {
+    display: flex;
+    flex-direction: row;
+    gap: 2%;
+}
+
+/* Product Edit CSS */

@@ -4,25 +4,12 @@ import axios from "axios";
 import { SERVER_URL, IMAGE_BB_key } from "../Assets/GlobalVeriables";
 
 
-
 // --- API Functions
 
 
-const fetchProducts = async (data) => {
-    try {
-        // Get post from back from db
-        const response = await axios.get('https://fakestoreapi.com/products?limit=10')
-        // const response = await axios.post(SERVER_URL + "/fetchProducts")
-        
-        return response.data
-    }
-    catch (err) {
-        return false;
-    }
-}
-
 const sendProductsToImgbb = async (data) => {
     try {
+        // Save product images in imgbb
         const response = await axios.post('https://api.imgbb.com/1/upload?key=' + IMAGE_BB_key, data)
         return response.data
     }
@@ -31,7 +18,7 @@ const sendProductsToImgbb = async (data) => {
     }
 }
 
-const handleProductsPost = async (data) => {
+const handleProductUpload = async (data) => {
     try {
         // Save product details in db thorugh backend
         const response = await axios.post(SERVER_URL + '/products/uploadProduct', data)
@@ -43,8 +30,37 @@ const handleProductsPost = async (data) => {
     }
 }
 
+const handleProductUpdate = async (data) => {
+    try {
+        // Save changes of product details in db thorugh backend
+        console.log(data)
+
+        // 1. defualt data need to be saved here if no one change 
+
+        // const response = await axios.post(SERVER_URL + '/products/updateProduct', data)
+        // console.log(response)
+        // return response.data
+    }
+    catch (err) {
+        return false;
+    }
+}
+
+const fetchProducts = async (data, page) => {
+    try {
+        // Get products from back from db
+        const response = await axios.get(`${SERVER_URL}/products/getProducts?page=${page}&limit=10`, data)
+
+        return response.data
+    }
+    catch (err) {
+        return false;
+    }
+}
+
 export {
-    fetchProducts,
     sendProductsToImgbb,
-    handleProductsPost
+    handleProductUpload,
+    handleProductUpdate,
+    fetchProducts
 }
