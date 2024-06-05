@@ -100,10 +100,11 @@ function ProductUpload({ token, setIsProductUpload, isProductUpload, productInfo
             shippingFee
         };
 
-        if (!productInfo._id) {
+        if (!productInfo || !productInfo._id) {
             await handleProductUpload(productData)
         }
         else {
+            console.log('gay')
             await handleProductUpdate({ ...productData, id: productInfo._id });
         }
     };
