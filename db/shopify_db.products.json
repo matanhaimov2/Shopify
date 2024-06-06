@@ -1,0 +1,112 @@
+[{
+  "_id": {
+    "$oid": "6661658e01a62d646b5a04e9"
+  },
+  "title": "Sony Playstation 5",
+  "images": [
+    "https://i.ibb.co/mSrLWwx/ps5.webp"
+  ],
+  "price": "2099",
+  "description": "New sony",
+  "category": "Electronics",
+  "shippingFee": 20,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "666165f701a62d646b5a04ef"
+  },
+  "title": "Xbox One X",
+  "images": [
+    "https://i.ibb.co/zFtkdWR/xboxone.jpg"
+  ],
+  "price": "1899",
+  "description": "latest version of xbox came straight from microsoft",
+  "category": "Electronics",
+  "shippingFee": 40,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6661665401a62d646b5a04fe"
+  },
+  "title": "Sony Playstation 4",
+  "images": [
+    "https://i.ibb.co/XD957PB/ps4.jpg"
+  ],
+  "price": "1299",
+  "description": "fun as hell",
+  "category": "Electronics",
+  "shippingFee": 0,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6661667701a62d646b5a0504"
+  },
+  "title": "Galaxy S21",
+  "images": [
+    "https://i.ibb.co/58RD70W/galxys21.webp"
+  ],
+  "price": "1799",
+  "description": "better than iphone",
+  "category": "Electronics",
+  "shippingFee": 30,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "666166d501a62d646b5a050e"
+  },
+  "title": "Marvel's Spider Man 2",
+  "images": [
+    "https://i.ibb.co/jMvv0k6/asas.jpg"
+  ],
+  "price": "329",
+  "description": "the best game of 2023!",
+  "category": "Games & Toys",
+  "shippingFee": 0,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66617e0b01a62d646b5a0663"
+  },
+  "title": "GTA V",
+  "images": [
+    "https://i.ibb.co/nrwYD3Q/71rm-Y66nqo-L.jpg"
+  ],
+  "price": "249",
+  "description": "",
+  "category": "Games & Toys",
+  "shippingFee": 0,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66617e5e01a62d646b5a066d"
+  },
+  "title": "PS4 Controller",
+  "images": [
+    "https://i.ibb.co/n8gjPNK/ps4asda.webp"
+  ],
+  "price": "219",
+  "description": "",
+  "category": "Games & Toys",
+  "shippingFee": 10,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6661815e01a62d646b5a069d"
+  },
+  "title": "Galaxy S10",
+  "images": [
+    "https://i.ibb.co/6sr9PX1/hero-gs10-photo1-729a71c4160641e2b43427d8cb4ed786.jpg"
+  ],
+  "price": "899",
+  "description": "",
+  "category": "Electronics",
+  "shippingFee": 0,
+  "__v": 0
+}]

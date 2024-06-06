@@ -1,11 +1,22 @@
 [{
   "_id": {
-    "$oid": "6656d037a236bb3959aef5c7"
+    "$oid": "665c0385a51722f6b1139307"
   },
   "email": "matanhaimov2@gmail.com",
-  "username": "matanhaimov",
-  "password": "$2b$10$E432ODHidhIzXS2Oci73H.7Gz2H8eabGxfR7xoy2mhokJWfYu9ejC",
+  "username": "matanhaimov2",
+  "password": "$2b$10$er6ttvjMngLWRpnw5H9LBOq5fI8Ka.j1dQmoK1KrD12R5vjqjo2n2",
   "cartInfo": [],
-  "isAdmin": false,
+  "role": "admin",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "665c03f7a51722f6b113930c"
+  },
+  "email": "shlomihaimov@gmail.com",
+  "username": "shlomihaimov",
+  "password": "$2b$10$1.J7DM3yp957OSZJU0q0p.d9FX.LNE26Fxg6od/ok6DSnKDavA70q",
+  "cartInfo": [],
+  "role": "user",
   "__v": 0
 }]
