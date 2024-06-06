@@ -13,7 +13,8 @@
     flex-direction: row;
     flex-wrap: wrap;
     width: 95%;
-    height: 92%; /* trial - added */
+    height: 100%;
+    row-gap: 1vh;
 }
 
 .each-product-wrapper {
@@ -25,7 +26,8 @@
     width: 20%;
     gap: 5px;
     border-bottom: 1px solid #cde1e6;
-    padding: 0 2% 1% 2%;
+    padding: 0 2% 0% 2%;
+    /* height: 50%; */
 }
 .each-product-wrapper:hover {
     background-color:#f0f0f0;
@@ -51,7 +53,7 @@
 }
 
 .products-image {
-    width: 90%;
+    width: 75%;
     mix-blend-mode: darken;
     border-radius: 5px;
 }
@@ -59,7 +61,9 @@
 .products-bottom-wrapper {
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 0.1rem;
+    font-size: 90%;
+    padding: 3%;
 }
 
 .products-pagination-wrapper {
@@ -84,3 +88,4 @@
     height: 92%; /* trial - added */
     gap: 5%;
 }
+

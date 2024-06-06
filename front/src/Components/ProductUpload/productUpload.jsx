@@ -140,28 +140,48 @@ function ProductUpload({ token, setIsProductUpload, isProductUpload, productInfo
                 )}
 
                 <Typography variant="body1" gutterBottom> Images </Typography>
-
-                <Grid container spacing={2}>
-                    {[...Array(6)].map((_, index) => (
-                        <Grid item xs={4} key={index}>
-                            <Box className="products-upload-image-box">
-                                {images[index] ? (
-                                    <>
-                                        <img src={URL.createObjectURL(images[index])} alt={`img-${index}`} className="products-upload-uploaded-image" />
-                                        <IconButton onClick={() => handleRemoveImage(index)} className="products-upload-remove-image-button">
-                                            <Delete />
+                
+                <div className='products-upload-images-wrapper'>
+                    <div className='products-upload-images-sub-wrapper'>
+                        {[...Array(3)].map((_, index) => (
+                                <Box className="products-upload-image-box">
+                                    {images[index] ? (
+                                        <>
+                                            <img src={URL.createObjectURL(images[index])} alt={`img-${index}`} className="products-upload-uploaded-image" />
+                                            <IconButton onClick={() => handleRemoveImage(index)} className="products-upload-remove-image-button">
+                                                <Delete />
+                                            </IconButton>
+                                        </>
+                                    ) : (
+                                        <IconButton component="label" className="products-upload-add-image-button">
+                                            <AddAPhoto />
+                                            <input type="file" accept="image/*" hidden onChange={(e) => handleImageChange(e, index)} />
                                         </IconButton>
-                                    </>
-                                ) : (
-                                    <IconButton component="label" className="products-upload-add-image-button">
-                                        <AddAPhoto />
-                                        <input type="file" accept="image/*" hidden onChange={(e) => handleImageChange(e, index)} />
-                                    </IconButton>
-                                )}
-                            </Box>
-                        </Grid>
-                    ))}
-                </Grid>
+                                    )}
+                                </Box>
+                        ))}
+                    </div>
+                    
+                    <div className='products-upload-images-sub-wrapper'>
+                        {[...Array(3)].map((_, index) => (
+                                <Box className="products-upload-image-box">
+                                    {images[index] ? (
+                                        <>
+                                            <img src={URL.createObjectURL(images[index])} alt={`img-${index}`} className="products-upload-uploaded-image" />
+                                            <IconButton onClick={() => handleRemoveImage(index)} className="products-upload-remove-image-button">
+                                                <Delete />
+                                            </IconButton>
+                                        </>
+                                    ) : (
+                                        <IconButton component="label" className="products-upload-add-image-button">
+                                            <AddAPhoto />
+                                            <input type="file" accept="image/*" hidden onChange={(e) => handleImageChange(e, index)} />
+                                        </IconButton>
+                                    )}
+                                </Box>
+                        ))}
+                    </div>
+                </div>
 
                 {!isOptions ? (
                     <TextField label="Description" value={description} onChange={(e) => setDescription(e.target.value)} multiline rows={4} fullWidth />

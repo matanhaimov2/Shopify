@@ -45,9 +45,13 @@ body {
 }
 
 /* check in home computer if leave it or not */
-.com-with-nav {
+/* .com-with-nav {
   height: 7%;
 }
 .com-with-nav-item {
   height: 93%;
+} */
+
+.com-with-nav-item {
+  height: 100%;
 }
