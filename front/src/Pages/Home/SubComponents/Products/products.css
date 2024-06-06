@@ -20,12 +20,16 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    justify-content: space-between;
+    align-items: flex-start;
     width: 20%;
     gap: 5px;
     border-bottom: 1px solid #cde1e6;
-    padding: 1% 0% 2% 0%;
+    padding: 0 2% 1% 2%;
+}
+.each-product-wrapper:hover {
+    background-color:#f0f0f0;
+    border-radius: 5px;
 }
 
 .products-options-wrapper {
@@ -35,13 +39,27 @@
     z-index: 1;
 }
 
-.options-icon {
+.products-options-icon {
+    cursor: pointer;
+}
+
+.products-image-wrapper {
+    display: flex;
+    justify-content: center;
+    margin: auto;
     cursor: pointer;
 }
 
 .products-image {
-    width: 100%;
+    width: 90%;
     mix-blend-mode: darken;
+    border-radius: 5px;
+}
+
+.products-bottom-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
 }
 
 .products-pagination-wrapper {
@@ -54,8 +72,15 @@
 
 .css-1sazv7p-MuiStack-root {
     height: -moz-fit-content;
-    /* height: fit-content; */
     height: max-content;
     align-items: center;
-    /* padding: 2px 0% 0% 0%; */
+}
+
+.skeletons-wrapper {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 95%;
+    height: 92%; /* trial - added */
+    gap: 5%;
 }

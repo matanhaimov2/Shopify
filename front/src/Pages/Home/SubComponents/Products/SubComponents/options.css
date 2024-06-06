@@ -6,3 +6,17 @@
 .options-button {
     font-size: 150%;
 }
+
+.options-delete-wrapper {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 0;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 2;
+}

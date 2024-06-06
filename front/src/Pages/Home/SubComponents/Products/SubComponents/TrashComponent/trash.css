@@ -1,0 +1,37 @@
+.trash-inner-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    background-color: white;
+    border-radius: 5px;
+    width: 20%;
+    height: 20%;
+}
+
+.trash-title {
+    font-size: 150%;
+    font-weight: 600;
+}
+
+.trash-options-wrapper {
+    display: flex;
+    flex-direction: row;
+    background-color: white;
+    gap: 5%;
+    width: 70%;
+    height: 50%;
+}
+
+.trash-button {
+    border: none;
+    background: lightblue;
+    width: 100%;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 120%;
+    cursor: pointer;
+}
+.trash-button:hover {
+    background-color: #85c3d7;
+}

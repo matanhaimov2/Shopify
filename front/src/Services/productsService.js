@@ -22,7 +22,7 @@ const handleProductUpload = async (data) => {
     try {
         // Save product details in db thorugh backend
         const response = await axios.post(SERVER_URL + '/products/uploadProduct', data)
-        console.log(response)
+
         return response.data
     }
     catch (err) {
@@ -32,14 +32,22 @@ const handleProductUpload = async (data) => {
 
 const handleProductUpdate = async (data) => {
     try {
-        // Save changes of product details in db thorugh backend
-        console.log(data)
+        // Save any updates that happen on products
+        const response = await axios.post(SERVER_URL + '/products/updateProduct', data)
 
-        // 1. defualt data need to be saved here if no one change 
+        return response.data
+    }
+    catch (err) {
+        return false;
+    }
+}
 
-        // const response = await axios.post(SERVER_URL + '/products/updateProduct', data)
-        // console.log(response)
-        // return response.data
+const handleProductDeletion = async ( product_id ) => {
+    try {
+        // Delete selected product
+        const response = await axios.post(SERVER_URL + '/products/deleteProduct', { product_id })
+
+        return response.data
     }
     catch (err) {
         return false;
@@ -48,8 +56,8 @@ const handleProductUpdate = async (data) => {
 
 const fetchProducts = async (data, page) => {
     try {
-        // Get products from back from db
-        const response = await axios.get(`${SERVER_URL}/products/getProducts?page=${page}&limit=10`, data)
+        // Get products from db
+        const response = await axios.get(`${SERVER_URL}/products/getProducts?page=${page}&limit=8`, data)
 
         return response.data
     }
@@ -62,5 +70,6 @@ export {
     sendProductsToImgbb,
     handleProductUpload,
     handleProductUpdate,
+    handleProductDeletion,
     fetchProducts
 }

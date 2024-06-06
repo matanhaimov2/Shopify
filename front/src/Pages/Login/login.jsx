@@ -43,6 +43,7 @@ function Login() {
         }
     };
 
+    // Navigate to register
     const handleRegisterClick = () => {
         navigate('/register');
     }
@@ -91,7 +92,7 @@ function Login() {
                     />
                 </FormControl>
 
-                <Button onClick={handleLoginClick} sx={{ mt: 1 /* margin top */ }}>Sign in</Button>
+                <Button sx={{ mt: 1 /* margin top */ }} onClick={handleLoginClick}>Sign in</Button>
 
                 <Button style={{background: 'grey'}} onClick={handleRegisterClick}>Create New User</Button>
 

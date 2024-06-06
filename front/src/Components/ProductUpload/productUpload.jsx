@@ -91,21 +91,33 @@ function ProductUpload({ token, setIsProductUpload, isProductUpload, productInfo
             }
         }
 
-        const productData = {
-            title,
-            images: uploadedImages,
-            description,
-            price,
-            category,
-            shippingFee
-        };
-
+        // New product
         if (!productInfo || !productInfo._id) {
-            await handleProductUpload(productData)
+            const productData = {
+                title,
+                images: uploadedImages,
+                description,
+                price,
+                category,
+                shippingFee
+            };
+
+            if(isVerified) await handleProductUpload(productData)
+            window.location.href=('/'); // Refresh page
         }
+        // Edit product
         else {
-            console.log('gay')
-            await handleProductUpdate({ ...productData, id: productInfo._id });
+            const updatedFields = {};
+
+            if (title && title !== productInfo.title) updatedFields.title = title;
+            if (uploadedImages.length > 0) updatedFields.images = uploadedImages;
+            if (description && description !== productInfo.description) updatedFields.description = description;
+            if (price && price !== productInfo.price) updatedFields.price = price;
+            if (shippingFee && shippingFee !== productInfo.shippingFee) updatedFields.shippingFee = shippingFee;
+            if (category && category !== productInfo.category) updatedFields.category = category;
+            
+            if(isVerified) await handleProductUpdate({ ...productInfo, ...updatedFields, id: productInfo._id });
+            window.location.href=('/'); // Refresh page
         }
     };
 
@@ -124,7 +136,7 @@ function ProductUpload({ token, setIsProductUpload, isProductUpload, productInfo
                 {!isOptions ? (
                     <TextField label="Title" value={title} onChange={(e) => setTitle(e.target.value)} required fullWidth />
                 ) : (
-                    <TextField label="Title" defaultValue={productInfo.title ? productInfo.title : null} onChange={(e) => setTitle(e.target.value)} required fullWidth />
+                    <TextField label="Title" key={productInfo.title ? productInfo.title : null} defaultValue={productInfo.title ? productInfo.title : null} onChange={(e) => setTitle(e.target.value)} required fullWidth />
                 )}
 
                 <Typography variant="body1" gutterBottom> Images </Typography>
@@ -152,28 +164,28 @@ function ProductUpload({ token, setIsProductUpload, isProductUpload, productInfo
                 </Grid>
 
                 {!isOptions ? (
-                    <TextField label="Description" value={description} onChange={(e) => setDescription(e.target.value)} required multiline rows={4} fullWidth />
+                    <TextField label="Description" value={description} onChange={(e) => setDescription(e.target.value)} multiline rows={4} fullWidth />
                 ) : (
-                    <TextField label="Description" defaultValue={productInfo.description ? productInfo.description : null} onChange={(e) => setTitle(e.target.value)} required fullWidth />
+                    <TextField label="Description" key={productInfo.description ? productInfo.description : null} defaultValue={productInfo.description ? productInfo.description : null} onChange={(e) => setDescription(e.target.value)} fullWidth />
                 )}
 
                 {!isOptions ? (
                     <TextField label="Price" type="number" value={price} onChange={(e) => setPrice(e.target.value)} required fullWidth />
                 ) : (
-                    <TextField label="Price" type="number" defaultValue={productInfo.price ? productInfo.price : null} onChange={(e) => setPrice(e.target.value)} required fullWidth />
+                    <TextField label="Price" type="number" key={productInfo.price ? productInfo.price : null} defaultValue={productInfo.price ? productInfo.price : null} onChange={(e) => setPrice(e.target.value)} required fullWidth />
                 )}
 
                 <div className='products-upload-divider'>
                     {!isOptions ? (
                         <TextField label="Shipping Fee" type="number" value={shippingFee} onChange={(e) => setShippingFee(e.target.value)} required fullWidth />
                     ) : (
-                        <TextField label="Shipping Fee" type="number" defaultValue={productInfo.shippingFee ? productInfo.shippingFee : null} onChange={(e) => setShippingFee(e.target.value)} required fullWidth />
+                        <TextField label="Shipping Fee" type="number" key={productInfo.shippingFee ? productInfo.shippingFee : null} defaultValue={productInfo.shippingFee ? productInfo.shippingFee : null} onChange={(e) => setShippingFee(e.target.value)} required fullWidth />
                     )}
 
                     {!isOptions ? (
                         <TextField label="Category" type="text" value={category} onChange={(e) => setCategory(e.target.value)} required fullWidth />
                     ) : (
-                        <TextField label="Category" type="text" defaultValue={productInfo.category ? productInfo.category : null} onChange={(e) => setCategory(e.target.value)} required fullWidth />
+                        <TextField label="Category" type="text" key={productInfo.category ? productInfo.category : null} defaultValue={productInfo.category ? productInfo.category : null} onChange={(e) => setCategory(e.target.value)} required fullWidth />
                     )}
                 </div>
 

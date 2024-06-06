@@ -44,6 +44,12 @@ router.post('/updateProduct', async (req, res) => {
   }
 });
 
+router.post('/deleteProduct', async (req, res) => {
+  const { product_id } = req.body;
+
+  await productsModel.findOneAndDelete({ _id: product_id });
+  res.sendStatus(204);
+});
 
 router.get('/getProducts', async (req, res) => {
   const page = parseInt(req.query.page)

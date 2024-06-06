@@ -5,8 +5,6 @@ export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [userData, setUserData] = useState(null);
-  const [accessToken, setAccessToken] = useState(localStorage.getItem('accessToken')); // save token from back
-
 
   useEffect(() => {
     const token = localStorage.getItem('accessToken');
@@ -15,7 +13,6 @@ export const AuthProvider = ({ children }) => {
         const decodedToken = jwtDecode(token);
         if (decodedToken.exp * 1000 > Date.now()) {
           setUserData(decodedToken);
-          setAccessToken(token);
         } else {
           handleLogout();
         }

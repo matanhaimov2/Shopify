@@ -11,6 +11,8 @@ import { CiLogin } from "react-icons/ci";
 import { CiLogout } from "react-icons/ci";
 import { GiChessQueen } from "react-icons/gi";
 import { FaUser } from "react-icons/fa";
+import { CgGames } from "react-icons/cg";
+
 
 // React MUI
 import Button from '@mui/material/Button';
@@ -76,7 +78,15 @@ function Categories({ token }) {
 
                 <div className='categories-selection-wrapper'>
                     <div className='categories-icon-wrapper'>
-                        <GiDelicatePerfume className='catgories-icon' />
+                        <CgGames className='categories-icon' />
+                    </div>
+
+                    <span className='categories-text-wrapper'>Games & Toys</span>
+                </div>
+
+                <div className='categories-selection-wrapper'>
+                    <div className='categories-icon-wrapper'>
+                        <GiDelicatePerfume className='categories-icon' />
                     </div>
 
                     <span className='categories-text-wrapper'>Cosmetics</span>

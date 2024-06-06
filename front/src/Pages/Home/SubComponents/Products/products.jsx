@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 
 // CSS
 import './products.css';
@@ -6,7 +6,6 @@ import './products.css';
 // React MUI
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
 import Skeleton from '@mui/material/Skeleton';
 
 // React Icons
@@ -18,9 +17,6 @@ import noProductImg from '../../../../Assets/Images/no-product-img.jpg'
 // Services
 import { fetchProducts } from '../../../../Services/productsService';
 import { roleVerification } from '../../../../Services/authenticationService';
-
-// Components
-import { AuthContext } from '../../../../Components/AuthContext';
 
 // Sub Components
 import Options from './SubComponents/options';
@@ -34,10 +30,6 @@ function Products({ token }) {
     const [currentPage, setCurrentPage] = useState(1); // page by default is 1
     const [isOptions, setIsOptions] = useState(false);
     const [currentOption, setCurrentOption] = useState();
-
-
-    // Global States
-    const { userData } = useContext(AuthContext);
 
     // Role Verification
     useEffect(() => {
@@ -68,7 +60,7 @@ function Products({ token }) {
             }
 
             let response = await fetchProducts(data, currentPage)
-            console.log(response.results)
+            // console.log(response.results)
             setProducts(response.results)
 
         }
@@ -76,6 +68,7 @@ function Products({ token }) {
         MarketProducts();
     }, [currentPage])
 
+    // Change page number
     const handlePageChange = (event, value) => {
         setCurrentPage(value);
     };
@@ -85,49 +78,67 @@ function Products({ token }) {
         setCurrentOption(i)
     }
 
+    // Handle amount of skeleton in a page
+    const skeletons = Array.from({ length: 8 });
+
     return (
         <div className='products-wrapper'>
-            <div className='products-box'>
+            {products ? (
+                <div className='products-box'>
 
-                {products && products.map((product, i) => (
-                    <div className='each-product-wrapper' key={i}>
+                    {products && products.map((product, i) => (
+                        <div className='each-product-wrapper' key={i}>
+                            {isVerified && (
+                                <div className='products-options-wrapper'>
+                                    <IoIosOptions className='products-options-icon' onClick={() => handleOptions(i)} />
 
-                        {isVerified && (
-                            <div className='products-options-wrapper'>
-                                <IoIosOptions className='options-icon' onClick={() => handleOptions(i)} />
-                            
-                            {isVerified && isOptions && currentOption===i && (
-                                <div className='products-options-component-wrapper'>
-                                    <Options token={token} productInfo={product} setIsOptions={setIsOptions} isOptions={isOptions}/>
+                                    {isVerified && isOptions && currentOption === i && (
+                                        <div className='products-options-component-wrapper'>
+                                            <Options token={token} productInfo={product} setIsOptions={setIsOptions} isOptions={isOptions} />
+                                        </div>
+                                    )}
                                 </div>
                             )}
+
+                            <div className='products-image-wrapper'>
+                                {product.images.length >= 1 ? (
+                                    <img className='products-image' alt={`img-${i}`} src={product.images[0]} />
+                                ) : (
+                                    <img className='products-image' alt={`img-${i}`} src={noProductImg}></img>
+                                )}
                             </div>
-                        )}
 
-                        {product.images.length >= 1 ? (
-                            <img className='products-image' alt={`img-${i}`} src={product.images[0]} />
-                        ) : (
-                            <img className='products-image' alt={`img-${i}`} src={noProductImg}></img>
-                        )}
+                            <div className='products-bottom-wrapper'>
+                                <span>{product.title}</span>
 
-                        <span>{product.title}</span>
+                                <span>{product.price}₪</span>
 
-                        <span>{product.price}</span>
-
-                        <span>{product.shippingFee}</span>
-
-                    </div>
-                ))}
-            </div>
-
-            {/* <Stack spacing={1}>
-            <Skeleton animation="wave" variant="rectangular" width={200} height={100} />
-            <Skeleton animation="wave" variant="rounded" width={200} height={40} />
-             </Stack> */}
+                                {product.shippingFee===0 ? (
+                                    <span>Free Shipping</span>
+                                ) : (
+                                    <span>+Shipping: {product.shippingFee}₪</span>
+                                )}
+                            </div>
+                            
+                        </div>
+                    ))}
+                </div>
+            ) : (
+                <div className='skeletons-wrapper'>
+                    {skeletons.map((_, index) => (
+                        <Stack spacing={1} key={index}>
+                            <Skeleton animation="wave" variant="rectangular" width={300} height={200} />
+                            <Skeleton animation="wave" variant="rounded" width={300} height={20} />
+                            <Skeleton animation="wave" variant="rounded" width={300} height={20} />
+                            <Skeleton animation="wave" variant="rounded" width={300} height={20} />
+                        </Stack>
+                    ))}
+                </div>
+            )}
 
             <div className='products-pagination-wrapper'>
                 <Stack spacing={2}>
-                    <Pagination count={10} page={currentPage} onChange={handlePageChange} />
+                    <Pagination count={10} page={currentPage} onChange={(handlePageChange)} />
                 </Stack>
 
             </div>
