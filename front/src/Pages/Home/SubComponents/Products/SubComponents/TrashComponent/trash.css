@@ -1,12 +1,13 @@
 .trash-inner-wrapper {
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
     background-color: white;
+    justify-content: center;
+    align-items: center;
+    gap: 5%;
+    padding: 2%;
     border-radius: 5px;
-    width: 20%;
-    height: 20%;
+    height: 10%;
 }
 
 .trash-title {
@@ -18,9 +19,9 @@
     display: flex;
     flex-direction: row;
     background-color: white;
-    gap: 5%;
-    width: 70%;
     height: 50%;
+    width: 80%;
+    gap: 5%;
 }
 
 .trash-button {

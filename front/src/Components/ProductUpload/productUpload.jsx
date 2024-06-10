@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import './productUpload.css';
 
 // React MUI
-import { TextField, Button, IconButton, Typography, Box, Grid } from '@mui/material';
+import { TextField, Button, IconButton, Typography, Box } from '@mui/material';
 import { AddAPhoto, Delete } from '@mui/icons-material';
 
 // Services

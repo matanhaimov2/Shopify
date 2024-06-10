@@ -10,7 +10,7 @@ import Cart from './Pages/Cart/cart';
 import About from './Pages/About/about';
 import Login from './Pages/Login/login';
 import Register from './Pages/Register/register';
-
+import SpecificProduct from './Pages/SpecificProduct/specificProduct';
 
 // Components
 import { AuthProvider } from './Components/AuthContext';
@@ -43,6 +43,10 @@ function register() {
   return <Register />
 }
 
+function specificProduct() {
+  return <SpecificProduct />
+}
+
 // For Components With Topnav
 const ComponentsWithNav = () => {
   return (
@@ -56,7 +60,7 @@ const ComponentsWithNav = () => {
         <div className='com-with-nav-item'>
           <Routes>
             <Route path='/' element={home()} />
-            {/* Route of specifc product: <Route path='/product/:id' element={home()} />  */}
+            <Route path='/product/:id' element={specificProduct()} />
             <Route path='/cart' element={cart()} />
             <Route path='/about' element={about()} />
           </Routes>

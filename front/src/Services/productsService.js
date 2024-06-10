@@ -42,7 +42,7 @@ const handleProductUpdate = async (data) => {
     }
 }
 
-const handleProductDeletion = async ( product_id ) => {
+const handleProductDeletion = async (product_id) => {
     try {
         // Delete selected product
         const response = await axios.post(SERVER_URL + '/products/deleteProduct', { product_id })
@@ -66,10 +66,24 @@ const fetchProducts = async (data, page) => {
     }
 }
 
+const fetchSpecificProduct = async (product_id) => {
+    try {
+        // Get specific product from db
+        const response = await axios.get(`${SERVER_URL}/products/getSpecificProduct`, { params: { product_id } });
+        
+        return response.data
+    }
+    catch (err) {
+        return false;
+    }
+}
+
+
 export {
     sendProductsToImgbb,
     handleProductUpload,
     handleProductUpdate,
     handleProductDeletion,
-    fetchProducts
+    fetchProducts,
+    fetchSpecificProduct
 }

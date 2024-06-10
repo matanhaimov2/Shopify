@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
 
 // CSS
 import './products.css';
@@ -30,6 +31,9 @@ function Products({ token }) {
     const [currentPage, setCurrentPage] = useState(1); // page by default is 1
     const [isOptions, setIsOptions] = useState(false);
     const [currentOption, setCurrentOption] = useState();
+
+    // Navigation Handle
+    const navigate = useNavigate();
 
     // Role Verification
     useEffect(() => {
@@ -78,6 +82,11 @@ function Products({ token }) {
         setCurrentOption(i)
     }
 
+    // navigate to specificProduct with its id
+    const displaySpecificProduct = (product_id) => {
+        navigate(`/product/${product_id}`)
+    }
+
     // Handle amount of skeleton in a page
     const skeletons = Array.from({ length: 8 });
 
@@ -100,7 +109,7 @@ function Products({ token }) {
                                 </div>
                             )}
 
-                            <div className='products-image-wrapper'>
+                            <div className='products-image-wrapper' onClick={() => displaySpecificProduct(product._id)}>
                                 {product.images.length >= 1 ? (
                                     <img className='products-image' alt={`img-${i}`} src={product.images[0]} />
                                 ) : (
@@ -113,13 +122,13 @@ function Products({ token }) {
 
                                 <span>{product.price}₪</span>
 
-                                {product.shippingFee===0 ? (
+                                {product.shippingFee === 0 ? (
                                     <span>Free Shipping</span>
                                 ) : (
                                     <span>+Shipping: {product.shippingFee}₪</span>
                                 )}
                             </div>
-                            
+
                         </div>
                     ))}
                 </div>
@@ -148,13 +157,3 @@ function Products({ token }) {
 }
 
 export default Products;
-
-// for product route when all images needs to be displayed
-// {product.images.length >= 1 ? (
-//     product.images.map((img, index) => (
-//         <img key={index} className='products-image' src={img} alt={`Product Image ${index + 1}`}
-//         />
-//     ))
-// ) : (
-//     <img className='products-image' src={noProductImg}></img>
-// )}
