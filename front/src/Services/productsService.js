@@ -70,7 +70,20 @@ const fetchSpecificProduct = async (product_id) => {
     try {
         // Get specific product from db
         const response = await axios.get(`${SERVER_URL}/products/getSpecificProduct`, { params: { product_id } });
-        
+
+        return response.data
+    }
+    catch (err) {
+        return false;
+    }
+}
+
+const handleImgUpdate = async (imgData) => {
+    try {
+        // Update images in db
+        console.log(imgData)
+        const response = await axios.post(`${SERVER_URL}/products/updateImg`, imgData);
+
         return response.data
     }
     catch (err) {
@@ -85,5 +98,6 @@ export {
     handleProductUpdate,
     handleProductDeletion,
     fetchProducts,
-    fetchSpecificProduct
+    fetchSpecificProduct,
+    handleImgUpdate
 }

@@ -93,4 +93,23 @@ router.get('/getSpecificProduct', async (req, res) => {
   }
 });
 
+router.post('/updateImg', async (req, res) => {
+  const { product_id, newImages } = req.body;
+  console.log(product_id)
+  console.log(newImages)
+
+  try {
+    await productsModel.updateOne({ _id: product_id }, {
+      $set: { 
+        images: newImages 
+      }
+    })
+
+    res.json(202)
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+
+});
+
 module.exports = router;

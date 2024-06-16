@@ -4,10 +4,11 @@
     background-color: white;
     justify-content: center;
     align-items: center;
-    gap: 5%;
+    gap: 15%;
     padding: 2%;
     border-radius: 5px;
-    height: 10%;
+    height: 15%;
+    width: 25%;
 }
 
 .trash-title {

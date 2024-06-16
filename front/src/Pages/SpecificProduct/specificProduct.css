@@ -1,0 +1,59 @@
+.specificProduct-wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 2%;
+}
+
+/* CSS for left side */
+.specificProduct-left-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 35%;
+    padding: 1%;
+    gap: 5%;
+}
+
+.specificProduct-main-image {
+    height: 80%;
+    width: 100%;
+    cursor: pointer;
+}
+
+.specificProduct-image {
+    height: 15%;
+    width: 20%;
+    cursor: pointer;
+}
+
+/* CSS for middle side */
+.specificProduct-middle-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+    padding: 2% 0% 0%;
+    gap: 5%;
+}
+
+.specificProduct-inner-middle {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    direction: rtl;
+    font-size: 150%;
+    font-weight: bold;
+}
+
+/* CSS for right side */
+.specificProduct-right-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 25%;
+    padding: 1%;
+}
+
+.specificProduct-quantity {
+    padding: 4%;
+}
