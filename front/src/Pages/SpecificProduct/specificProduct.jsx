@@ -8,8 +8,6 @@ import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
-import { Unstable_NumberInput as NumberInput } from '@mui/base';
-
 
 // CSS
 import './specificProduct.css';
@@ -20,11 +18,16 @@ import { fetchSpecificProduct } from '../../Services/productsService';
 // Images
 import noProductImg from '../../Assets/Images/no-product-img.jpg'
 
+// Component
+import Quantity from '../../Components/quantityComponent/quantity';
+
 
 function SpecificProduct() {
 
     // States
     const [product, setProduct] = useState(null)
+    const [quantityValue, setQuantityValue] = useState(1) // defualt value of quantity is 1
+
 
     // useParams - get id from URL
     const { id } = useParams()
@@ -95,16 +98,17 @@ function SpecificProduct() {
 
                     <Divider />
 
-                    <Typography className='specificProduct-quantity' gutterBottom variant="body2"> Quantity </Typography>
-
-                    {/* <NumberInput/> */}
+                    <div className='specificProduct-quantity-wrapper'>
+                        <Typography className='specificProduct-quantity' gutterBottom variant="body2"> Quantity </Typography>
+                        <Quantity quantityValue={quantityValue} setQuantityValue={setQuantityValue}/>
+                    </div>
 
                     <Divider />
 
                     <Stack direction="column" spacing={1}>
                         <Button variant='contained'> Buy Now </Button>
 
-                        <Button> Add To  Cart </Button>
+                        <Button> Add To Cart </Button>
                     </Stack>
                 </Card>
             </div>

@@ -103,9 +103,9 @@ router.post('/updateImg', async (req, res) => {
       $set: { 
         images: newImages 
       }
-    })
+    });
 
-    res.json(202)
+    res.json(202);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

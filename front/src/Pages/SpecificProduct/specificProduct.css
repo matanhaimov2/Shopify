@@ -56,4 +56,11 @@
 
 .specificProduct-quantity {
     padding: 4%;
+    font-size: 120% !important;
+}
+
+.specificProduct-quantity-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }

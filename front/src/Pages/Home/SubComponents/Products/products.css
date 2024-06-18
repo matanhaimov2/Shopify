@@ -27,7 +27,6 @@
     gap: 5px;
     border-bottom: 1px solid #cde1e6;
     padding: 0 2% 0% 2%;
-    /* height: 50%; */
 }
 .each-product-wrapper:hover {
     background-color:#f0f0f0;

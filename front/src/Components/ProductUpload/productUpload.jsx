@@ -16,7 +16,7 @@ function ProductUpload({ token, setIsProductUpload, isProductUpload, productInfo
     // States
     const [isVerified, setIsVerified] = useState(false); // role by defualt is false
     const [title, setTitle] = useState('');
-    const [images, setImages] = useState(productInfo.images ? productInfo.images : []);
+    const [images, setImages] = useState(productInfo ? productInfo.images : []);
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState('');
     const [category, setCategory] = useState('');
@@ -96,12 +96,8 @@ function ProductUpload({ token, setIsProductUpload, isProductUpload, productInfo
 
         const newImages = filterdExistingImages.concat(uploadedImages);
 
-        let imgData = {
-            product_id: productInfo._id,
-            newImages
-        }
+        console.log(productInfo)
 
-        await handleImgUpdate(imgData)
 
         // New product
         if (!productInfo || !productInfo._id) {
@@ -119,6 +115,13 @@ function ProductUpload({ token, setIsProductUpload, isProductUpload, productInfo
         }
         // Edit product
         else {
+            let imgData = {
+                product_id: productInfo._id,
+                newImages
+            }
+
+            await handleImgUpdate(imgData)
+
             const updatedFields = {};
 
             if (title && title !== productInfo.title) updatedFields.title = title;
@@ -129,9 +132,9 @@ function ProductUpload({ token, setIsProductUpload, isProductUpload, productInfo
             if (category && category !== productInfo.category) updatedFields.category = category;
 
             if (isVerified) await handleProductUpdate({ ...productInfo, ...updatedFields, id: productInfo._id });
-            // window.location.href = ('/'); // Refresh page
+            window.location.href = ('/'); // Refresh page
         }
-        
+
     };
 
 
@@ -213,7 +216,7 @@ function ProductUpload({ token, setIsProductUpload, isProductUpload, productInfo
                 </div>
 
                 {!isOptions ? (
-                    <TextField label="Description" value={description} onChange={(e) => setDescription(e.target.value)} multiline rows={4} fullWidth />
+                    <TextField label="Description" value={description} onChange={(e) => setDescription(e.target.value)} fullWidth />
                 ) : (
                     <TextField label="Description" key={productInfo.description ? productInfo.description : null} defaultValue={productInfo.description ? productInfo.description : null} onChange={(e) => setDescription(e.target.value)} fullWidth />
                 )}
