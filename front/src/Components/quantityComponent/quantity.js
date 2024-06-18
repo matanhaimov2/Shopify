@@ -10,8 +10,8 @@ function Quantity({ quantityValue, setQuantityValue }) {
     }
 
     const decrement = () => {
-        if (quantityValue === 0) {
-            setQuantityValue(0)
+        if (quantityValue === 1) {
+            setQuantityValue(1)
         }
         else {
             setQuantityValue(quantityValue - 1)
