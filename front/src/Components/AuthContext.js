@@ -21,6 +21,7 @@ export const AuthProvider = ({ children }) => {
       }
     }
   }, []);
+
   const handleLogin = (accessToken) => {
     const decodedToken = jwtDecode(accessToken);
     setUserData(decodedToken);

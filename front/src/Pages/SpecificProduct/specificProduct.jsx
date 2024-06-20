@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 
 // React MUI
@@ -14,12 +14,14 @@ import './specificProduct.css';
 
 // Services
 import { fetchSpecificProduct } from '../../Services/productsService';
+import { sendDataToCart } from '../../Services/cartService'
 
 // Images
 import noProductImg from '../../Assets/Images/no-product-img.jpg'
 
 // Component
 import Quantity from '../../Components/quantityComponent/quantity';
+import { AuthContext } from '../../Components/AuthContext';
 
 
 function SpecificProduct() {
@@ -28,8 +30,9 @@ function SpecificProduct() {
     const [product, setProduct] = useState(null)
     const [quantityValue, setQuantityValue] = useState(1) // defualt value of quantity is 1
 
+    const { userData } = useContext(AuthContext);
 
-    // useParams - get id from URL
+    // useParams - get product id from URL
     const { id } = useParams()
 
     useEffect(() => {
@@ -46,6 +49,79 @@ function SpecificProduct() {
 
     const changePhoto = (img) => {
         // here => handle photo change functionallity
+    }
+
+    // Add selected product to cart
+    const addToCart = async () => {
+
+        let userId = null;
+
+        // checks if userData exist (if user logged in)
+        if (userData) userId = userData.userId;
+
+        let data = {
+            product_id: product._id,
+            title: product.title,
+            image: product.images[0],
+            price: product.price,
+            shippingFee: product.shippingFee,
+            quantityValue: quantityValue
+        }
+
+        // For admin/user
+        if (userData && userData.role) {
+            // checks if user has an id
+            if (userId) data.user_id = userId;
+
+            await sendDataToCart(data)
+        }
+        // For guest
+        else {
+            // checks if cartInfo exists or not
+            let cartInfo = localStorage.getItem("cartInfo") ? JSON.parse(localStorage.getItem("cartInfo")) : null;
+
+            // if cartInfo exists - add another product
+            if (cartInfo) {
+
+                let isDuplicate = false;
+
+
+                for (let item of cartInfo) {
+                    // Check for duplicate
+                    console.log(data)
+                    console.log(item)
+                    if (item.product_id === data.product_id) {
+                        isDuplicate = true;
+                        item.quantityValue += data.quantityValue;
+
+                        // duplicate occured - update the quantity of the existing product
+                        try {
+                            localStorage.setItem("cartInfo", JSON.stringify(cartInfo));
+
+                        } catch (error) {
+                            console.error('Error updating quantity:', error);
+                        }
+
+                        break;
+
+                    }
+
+                }
+
+                // no duplicate occured - push new product
+                if (!isDuplicate) {
+                    cartInfo.push(data)
+                    localStorage.setItem("cartInfo", JSON.stringify(cartInfo));
+                }
+
+            }
+            // if cartInfo empty - create object with array (first product uploaded to cart)
+            else {
+                localStorage.setItem('cartInfo', JSON.stringify([data]));
+            }
+        }
+
+
     }
 
     return (
@@ -100,7 +176,7 @@ function SpecificProduct() {
 
                     <div className='specificProduct-quantity-wrapper'>
                         <Typography className='specificProduct-quantity' gutterBottom variant="body2"> Quantity </Typography>
-                        <Quantity quantityValue={quantityValue} setQuantityValue={setQuantityValue}/>
+                        <Quantity quantityValue={quantityValue} setQuantityValue={setQuantityValue} />
                     </div>
 
                     <Divider />
@@ -108,7 +184,7 @@ function SpecificProduct() {
                     <Stack direction="column" spacing={1}>
                         <Button variant='contained'> Buy Now </Button>
 
-                        <Button> Add To Cart </Button>
+                        <Button onClick={addToCart}> Add To Cart </Button>
                     </Stack>
                 </Card>
             </div>
