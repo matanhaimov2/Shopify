@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 // React MUI
 import Box from '@mui/material/Box';
@@ -19,18 +19,18 @@ import './topnav.css';
 
 function TopNav() {
 
+    const location = useLocation();
+
     const navigate = useNavigate();
 
     // States
-    const [routeValue, setRouteValue] = useState('/'); // Initial route is home
-
-    // Navigate To Different Routes
-    useEffect(() => {
-        const path = routeValue 
-        navigate(path); // site under costruction crashing due using navigation
-
-    }, [routeValue])
-
+    const [routeValue, setRouteValue] = useState(location.pathname); // Current Route
+  
+    // Handle tab change
+    const handleChange = (newValue) => {
+        setRouteValue(newValue);
+        navigate(newValue);
+    };
 
     return (
         <div className='topnav-wrapper'>
@@ -43,9 +43,9 @@ function TopNav() {
                     <TabContext value={routeValue}>
                         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                             <TabList>
-                                <Tab label="Home" value="/" onClick={() => setRouteValue('/')} />
-                                <Tab label="Cart" value="cart" onClick={() => setRouteValue('cart')} />
-                                <Tab label="About" value="about" onClick={() => setRouteValue('about')} />
+                                <Tab label="Home" value="/" onClick={() => handleChange('/')} />
+                                <Tab label="Cart" value="cart" onClick={() => handleChange('cart')} />
+                                <Tab label="About" value="about" onClick={() => handleChange('about')} />
                             </TabList>
                         </Box>
                     </TabContext>

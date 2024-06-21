@@ -88,8 +88,7 @@ function SpecificProduct() {
 
                 for (let item of cartInfo) {
                     // Check for duplicate
-                    console.log(data)
-                    console.log(item)
+
                     if (item.product_id === data.product_id) {
                         isDuplicate = true;
                         item.quantityValue += data.quantityValue;
@@ -176,7 +175,7 @@ function SpecificProduct() {
 
                     <div className='specificProduct-quantity-wrapper'>
                         <Typography className='specificProduct-quantity' gutterBottom variant="body2"> Quantity </Typography>
-                        <Quantity quantityValue={quantityValue} setQuantityValue={setQuantityValue} />
+                        <Quantity quantityValue={quantityValue} setQuantityValue={setQuantityValue} product_id={id} />
                     </div>
 
                     <Divider />

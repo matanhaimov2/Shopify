@@ -31,6 +31,7 @@ function Products({ token }) {
     const [currentPage, setCurrentPage] = useState(1); // page by default is 1
     const [isOptions, setIsOptions] = useState(false);
     const [currentOption, setCurrentOption] = useState();
+    const [pages, setPages] = useState();
 
     // Navigation Handle
     const navigate = useNavigate();
@@ -64,9 +65,10 @@ function Products({ token }) {
             }
 
             let response = await fetchProducts(data, currentPage)
-            // console.log(response.results)
-            setProducts(response.results)
-
+        
+            setProducts(response.results.results)
+            setPages(response.totalAmount ? Math.ceil(response.totalAmount/8) : 1);
+           
         }
 
         MarketProducts();
@@ -147,7 +149,7 @@ function Products({ token }) {
 
             <div className='products-pagination-wrapper'>
                 <Stack spacing={2}>
-                    <Pagination count={10} page={currentPage} onChange={(handlePageChange)} />
+                    <Pagination count={pages} page={currentPage} onChange={(handlePageChange)} />
                 </Stack>
 
             </div>

@@ -9,6 +9,10 @@
     margin: 8% auto;
 }
 
+.quantity-cart-wrapper {
+    width: 80%;
+}
+
 .quantity-input__modifier {
     padding: 1%;
     width: 50%;

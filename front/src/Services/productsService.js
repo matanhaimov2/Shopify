@@ -78,26 +78,11 @@ const fetchSpecificProduct = async (product_id) => {
     }
 }
 
-const handleImgUpdate = async (imgData) => {
-    try {
-        // Update images in db
-        console.log(imgData)
-        const response = await axios.post(`${SERVER_URL}/products/updateImg`, imgData);
-
-        return response.data
-    }
-    catch (err) {
-        return false;
-    }
-}
-
-
 export {
     sendProductsToImgbb,
     handleProductUpload,
     handleProductUpdate,
     handleProductDeletion,
     fetchProducts,
-    fetchSpecificProduct,
-    handleImgUpdate
+    fetchSpecificProduct
 }

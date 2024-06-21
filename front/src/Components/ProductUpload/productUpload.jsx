@@ -9,7 +9,7 @@ import { AddAPhoto, Delete } from '@mui/icons-material';
 
 // Services
 import { roleVerification } from '../../Services/authenticationService';
-import { sendProductsToImgbb, handleProductUpload, handleProductUpdate, handleImgUpdate } from '../../Services/productsService';
+import { sendProductsToImgbb, handleProductUpload, handleProductUpdate } from '../../Services/productsService';
 
 function ProductUpload({ token, setIsProductUpload, isProductUpload, productInfo, setIsOptions, isOptions }) {
 
@@ -83,7 +83,7 @@ function ProductUpload({ token, setIsProductUpload, isProductUpload, productInfo
 
         console.log(images)
         for (const image of images) {
-            if (image.newImage) {
+            if (image && image.newImage) {
                 const formData = new FormData();
                 formData.append('image', image.newImage);
 
@@ -103,7 +103,7 @@ function ProductUpload({ token, setIsProductUpload, isProductUpload, productInfo
         if (!productInfo || !productInfo._id) {
             const productData = {
                 title,
-                images: uploadedImages,
+                images: newImages,
                 description,
                 price,
                 category,
@@ -115,17 +115,11 @@ function ProductUpload({ token, setIsProductUpload, isProductUpload, productInfo
         }
         // Edit product
         else {
-            let imgData = {
-                product_id: productInfo._id,
-                newImages
-            }
-
-            await handleImgUpdate(imgData)
-
+      
             const updatedFields = {};
 
             if (title && title !== productInfo.title) updatedFields.title = title;
-            if (uploadedImages.length > 0) updatedFields.images = uploadedImages;
+            if (newImages.length > 0) updatedFields.images = newImages;
             if (description && description !== productInfo.description) updatedFields.description = description;
             if (price && price !== productInfo.price) updatedFields.price = price;
             if (shippingFee && shippingFee !== productInfo.shippingFee) updatedFields.shippingFee = shippingFee;
