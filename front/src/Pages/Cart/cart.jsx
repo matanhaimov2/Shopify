@@ -34,7 +34,7 @@ function Cart() {
     const [overallPrice, setOverallPrice] = useState(); // products overall cost (price and shippingFee)
     const [checked, setChecked] = useState([]);
     const [countProducts, setCountProducts] = useState(0);
-    const [makePayment, setMakePayment] = useState();
+    const [paymentData, setPaymentData] = useState();
 
 
     const { userData } = useContext(AuthContext);
@@ -146,7 +146,7 @@ function Cart() {
                 let isValid = await verifyPrices(purchase_data);
                 if (isValid) {
                     console.log('Proceed with purchase');
-                    setMakePayment(true)
+                    setPaymentData(purchase_data)
 
                 } else {
                     // Handle error - prices don't match
@@ -159,7 +159,12 @@ function Cart() {
         // if user/admin
         else if (cartInfo && userData) {
             console.log('Proceed')
-            setMakePayment(true)
+            let purchase_data = {
+                cartInfo: cartInfo,
+                overallPrice: overallPrice
+            }
+            
+            setPaymentData(purchase_data)
         }
     }
 
@@ -182,10 +187,10 @@ function Cart() {
 
                             <span> Overall: {overallPrice}₪</span>
 
-                            <Button variant="outlined" onClick={onClickBuyNow}> Buy Now </Button>
-
-                            {makePayment && (
-                                <PaypalPayment />
+                            {paymentData ? (
+                                <PaypalPayment paymentData={paymentData}/>
+                            ) : (
+                                <Button variant="outlined" onClick={onClickBuyNow}> Buy Now </Button>
                             )}
 
                             <Divider />
