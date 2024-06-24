@@ -5,6 +5,8 @@ export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [userData, setUserData] = useState(null);
+  const [searchQuery, setSearchQuery] = useState(null);
+  const [currentCategory, setCurrentCategory] = useState('ALL');
 
   useEffect(() => {
     const token = localStorage.getItem('accessToken');
@@ -34,7 +36,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ userData, setUserData, handleLogin, handleLogout }}>
+    <AuthContext.Provider value={{ userData, setUserData, handleLogin, handleLogout, searchQuery, setSearchQuery, currentCategory, setCurrentCategory }}>
       {children}
     </AuthContext.Provider>
   );

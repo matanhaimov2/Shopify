@@ -52,37 +52,52 @@ router.post('/deleteProduct', async (req, res) => {
 });
 
 router.get('/getProducts', async (req, res) => {
-  const page = parseInt(req.query.page)
-  const limit = parseInt(req.query.limit)
+  const page = parseInt(req.query.page);
+  const limit = parseInt(req.query.limit);
+  const { category, search } = req.query;
 
-  const startIndex = (page - 1) * limit
-  const endIndex = page * limit
+  const startIndex = (page - 1) * limit;
+  const endIndex = page * limit;
 
-  const results = {}
+  const results = {};
 
-  if (endIndex < await productsModel.countDocuments().exec()) {
-    results.next = {
-      page: page + 1,
-      limit: limit
-    }
-  }
-
-  if (startIndex > 0) {
-    results.previous = {
-      page: page - 1,
-      limit: limit
-    }
-  }
   try {
-    results.results = await productsModel.find().limit(limit).skip(startIndex).exec()
-    const totalAmountOfProducts = await productsModel.countDocuments().exec();
+    let query = {};
 
-    res.json({ 
+    if (category && category !== 'ALL') {
+      query.category = category;
+    }
+
+    if (search) {
+      query.$or = [
+        { title: { $regex: search, $options: "i" } }
+      ];
+    }
+
+    const totalAmountOfProducts = await productsModel.countDocuments(query).exec();
+
+    results.results = await productsModel.find(query).limit(limit).skip(startIndex).exec();
+
+    if (endIndex < totalAmountOfProducts) {
+      results.next = {
+        page: page + 1,
+        limit: limit
+      };
+    }
+
+    if (startIndex > 0) {
+      results.previous = {
+        page: page - 1,
+        limit: limit
+      };
+    }
+
+    res.json({
       results: results,
       totalAmount: totalAmountOfProducts
-    })
+    });
   } catch (e) {
-    res.status(500).json({ message: e.message })
+    res.status(500).json({ message: e.message });
   }
 });
 

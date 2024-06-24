@@ -19,12 +19,11 @@ import paypal_icon from '../../Assets/Images/paypal_icon.png'
 // Components
 import Quantity from '../../Components/quantityComponent/quantity';
 import { AuthContext } from '../../Components/AuthContext';
+import PaypalPayment from '../../Components/PaypalPayment';
 
 // Services
 import { getDataFromCart } from '../../Services/cartService';
 import { verifyPrices, setCart } from '../../Services/cartService';
-
-
 
 function Cart() {
 
@@ -35,6 +34,9 @@ function Cart() {
     const [overallPrice, setOverallPrice] = useState(); // products overall cost (price and shippingFee)
     const [checked, setChecked] = useState([]);
     const [countProducts, setCountProducts] = useState(0);
+    const [makePayment, setMakePayment] = useState();
+
+
     const { userData } = useContext(AuthContext);
 
     // Get cartInfo
@@ -144,7 +146,7 @@ function Cart() {
                 let isValid = await verifyPrices(purchase_data);
                 if (isValid) {
                     console.log('Proceed with purchase');
-                    payment()
+                    setMakePayment(true)
 
                 } else {
                     // Handle error - prices don't match
@@ -157,13 +159,9 @@ function Cart() {
         // if user/admin
         else if (cartInfo && userData) {
             console.log('Proceed')
-            payment()
+            setMakePayment(true)
         }
     }
-
-    const payment = () => {
-        // Payment logic here
-    };
 
     return (
         <div className='cart-wrapper'>
@@ -186,6 +184,9 @@ function Cart() {
 
                             <Button variant="outlined" onClick={onClickBuyNow}> Buy Now </Button>
 
+                            {makePayment && (
+                                <PaypalPayment />
+                            )}
 
                             <Divider />
 

@@ -11,6 +11,7 @@
     flex-direction: row;
     padding: 3% 0% 0% 10%;
     gap: 8%;
+    cursor: pointer;
 }
 
 .categories-icon-wrapper {

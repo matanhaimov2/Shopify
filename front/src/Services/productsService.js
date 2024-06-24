@@ -54,10 +54,17 @@ const handleProductDeletion = async (product_id) => {
     }
 }
 
-const fetchProducts = async (data, page) => {
+const fetchProducts = async (data, page, searchQuery) => {
     try {
         // Get products from db
-        const response = await axios.get(`${SERVER_URL}/products/getProducts?page=${page}&limit=8`, data)
+        const response = await axios.get(`${SERVER_URL}/products/getProducts`, {  
+            params: {
+                ...data,
+                page: page,
+                limit: 8,
+                search: searchQuery
+            }
+        })
 
         return response.data
     }

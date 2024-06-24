@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from "react-router-dom";
 
 // CSS
@@ -19,6 +19,9 @@ import noProductImg from '../../../../Assets/Images/no-product-img.jpg'
 import { fetchProducts } from '../../../../Services/productsService';
 import { roleVerification } from '../../../../Services/authenticationService';
 
+// Components
+import { AuthContext } from '../../../../Components/AuthContext';
+
 // Sub Components
 import Options from './SubComponents/options';
 
@@ -32,6 +35,8 @@ function Products({ token }) {
     const [isOptions, setIsOptions] = useState(false);
     const [currentOption, setCurrentOption] = useState();
     const [pages, setPages] = useState();
+
+    const { searchQuery, currentCategory } = useContext(AuthContext);
 
     // Navigation Handle
     const navigate = useNavigate();
@@ -61,18 +66,19 @@ function Products({ token }) {
         const MarketProducts = async () => {
 
             let data = {
-                category: 'ALL' // category here
+                category: currentCategory // category here
             }
 
-            let response = await fetchProducts(data, currentPage)
-        
+            let response = await fetchProducts(data, currentPage, searchQuery)
+
             setProducts(response.results.results)
-            setPages(response.totalAmount ? Math.ceil(response.totalAmount/8) : 1);
-           
+            setPages(response.totalAmount ? Math.ceil(response.totalAmount / 8) : 1);
         }
 
         MarketProducts();
-    }, [currentPage])
+
+    }, [currentPage, searchQuery, currentCategory])
+
 
     // Change page number
     const handlePageChange = (event, value) => {

@@ -12,7 +12,7 @@ import { CiLogout } from "react-icons/ci";
 import { GiChessQueen } from "react-icons/gi";
 import { FaUser } from "react-icons/fa";
 import { CgGames } from "react-icons/cg";
-
+import { IoInfiniteSharp } from "react-icons/io5";
 
 // React MUI
 import Button from '@mui/material/Button';
@@ -32,7 +32,7 @@ function Categories({ token }) {
     const [isProductUpload, setIsProductUpload] = useState(false);
 
     // Global States
-    const { userData, handleLogout } = useContext(AuthContext);
+    const { userData, handleLogout, setCurrentCategory } = useContext(AuthContext);
 
     // Navigation Handle
     const navigate = useNavigate();
@@ -68,7 +68,15 @@ function Categories({ token }) {
 
                 <span className='home-underline'></span>
 
-                <div className='categories-selection-wrapper'>
+                <div className='categories-selection-wrapper' onClick={() => {setCurrentCategory('ALL')}}>
+                    <div className='categories-icon-wrapper'>
+                        <IoInfiniteSharp className='categories-icon' />
+                    </div>
+
+                    <span className='categories-text-wrapper'>Everything</span>
+                </div>
+
+                <div className='categories-selection-wrapper' onClick={() => {setCurrentCategory('Electronics')}}>
                     <div className='categories-icon-wrapper'>
                         <FaComputer className='categories-icon' />
                     </div>
@@ -76,7 +84,7 @@ function Categories({ token }) {
                     <span className='categories-text-wrapper'>Electronics</span>
                 </div>
 
-                <div className='categories-selection-wrapper'>
+                <div className='categories-selection-wrapper' onClick={() => {setCurrentCategory('Games & Toys')}}>
                     <div className='categories-icon-wrapper'>
                         <CgGames className='categories-icon' />
                     </div>
@@ -84,7 +92,7 @@ function Categories({ token }) {
                     <span className='categories-text-wrapper'>Games & Toys</span>
                 </div>
 
-                <div className='categories-selection-wrapper'>
+                <div className='categories-selection-wrapper' onClick={() => {setCurrentCategory('Cosmetics')}}>
                     <div className='categories-icon-wrapper'>
                         <GiDelicatePerfume className='categories-icon' />
                     </div>

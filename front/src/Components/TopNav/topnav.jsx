@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 // React MUI
@@ -11,13 +11,16 @@ import Paper from '@mui/material/Paper';
 import InputBase from '@mui/material/InputBase';
 import IconButton from '@mui/material/IconButton';
 
-
-
 // CSS
 import './topnav.css';
 
+// Components
+import { AuthContext } from '../AuthContext';
+
 
 function TopNav() {
+
+    const { setSearchQuery } = useContext(AuthContext);
 
     const location = useLocation();
 
@@ -31,6 +34,11 @@ function TopNav() {
         setRouteValue(newValue);
         navigate(newValue);
     };
+
+    // Handle search
+    const handleSearch = async (e) =>{
+        setSearchQuery(e.target.value)
+    }
 
     return (
         <div className='topnav-wrapper'>
@@ -54,7 +62,7 @@ function TopNav() {
 
             <div className='topnav-search-wrapper'>
                 <Paper component="form" sx={{ p: '2px 4px', display: 'flex', width: '90%' }}>
-                    <InputBase sx={{ ml: 1, flex: 1 }} placeholder="Search Shopify" inputProps={{ 'aria-label': 'search shopify' }} />
+                    <InputBase onChange={handleSearch} sx={{ ml: 1, flex: 1 }} placeholder="Search Shopify" inputProps={{ 'aria-label': 'search shopify' }} />
 
                     <IconButton type="button" sx={{ p: '10px' }} aria-label="search">
                         <SearchIcon />

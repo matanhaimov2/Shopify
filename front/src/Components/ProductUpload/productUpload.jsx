@@ -81,7 +81,6 @@ function ProductUpload({ token, setIsProductUpload, isProductUpload, productInfo
         e.preventDefault();
         const uploadedImages = [];
 
-        console.log(images)
         for (const image of images) {
             if (image && image.newImage) {
                 const formData = new FormData();
@@ -95,9 +94,6 @@ function ProductUpload({ token, setIsProductUpload, isProductUpload, productInfo
         let filterdExistingImages = images.filter(item => !(typeof item === 'object' && item.hasOwnProperty('newImage')));
 
         const newImages = filterdExistingImages.concat(uploadedImages);
-
-        console.log(productInfo)
-
 
         // New product
         if (!productInfo || !productInfo._id) {

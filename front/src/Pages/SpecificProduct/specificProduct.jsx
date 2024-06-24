@@ -37,11 +37,8 @@ function SpecificProduct() {
 
     useEffect(() => {
         const getProductInfo = async () => {
-
             const response = await fetchSpecificProduct(id);
-            console.log('Fetched product:', response);
             setProduct(response[0]);
-
         }
 
         getProductInfo();
@@ -78,7 +75,7 @@ function SpecificProduct() {
         // For guest
         else {
             // checks if cartInfo exists or not
-            let cartInfo = localStorage.getItem("cartInfo") ? JSON.parse(localStorage.getItem("cartInfo")) : null;
+            let cartInfo = JSON.parse(localStorage.getItem("cartInfo")) || null;
 
             // if cartInfo exists - add another product
             if (cartInfo) {
