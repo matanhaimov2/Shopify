@@ -4,7 +4,9 @@
   },
   "title": "Sony Playstation 5",
   "images": [
-    "https://i.ibb.co/mSrLWwx/ps5.webp"
+    "https://i.ibb.co/mSrLWwx/ps5.webp",
+    "https://i.ibb.co/bXhccn3/sony5one.jpg",
+    "https://i.ibb.co/qnk6Cw2/sony5two.jpg"
   ],
   "price": "2099",
   "description": "New sony",
@@ -16,15 +18,15 @@
   "_id": {
     "$oid": "666165f701a62d646b5a04ef"
   },
-  "title": "Xbox One X",
   "images": [
     "https://i.ibb.co/zFtkdWR/xboxone.jpg"
   ],
-  "price": "1899",
-  "description": "latest version of xbox came straight from microsoft",
+  "__v": 0,
   "category": "Electronics",
+  "description": "latest version of xbox came straight from microsoft",
+  "price": "1899",
   "shippingFee": 40,
-  "__v": 0
+  "title": "Xbox One X"
 },
 {
   "_id": {
@@ -108,5 +110,33 @@
   "description": "",
   "category": "Electronics",
   "shippingFee": 0,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6677b78d5ccfb3a936023521"
+  },
+  "title": "Apple Iphone 14 Pro 128GB",
+  "images": [
+    "https://i.ibb.co/G7pPTT3/i-Phone-14-Pro-White.jpg"
+  ],
+  "price": "3999",
+  "description": "camera is outstanding",
+  "category": "Electronics",
+  "shippingFee": 0,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6677d4aeacb984edd2f800dd"
+  },
+  "title": " Van Gogh Puzzle 1000 Piece Puzzle",
+  "images": [
+    "https://i.ibb.co/PYBc4nM/71-Me-XYy-G9-DL-AC-SL1000.jpg"
+  ],
+  "price": "110",
+  "description": "Starry night puzzle 1000 pieces van for adults ",
+  "category": "Games & Toys",
+  "shippingFee": 10,
   "__v": 0
 }]

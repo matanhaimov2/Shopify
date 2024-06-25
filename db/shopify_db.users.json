@@ -5,18 +5,68 @@
   "email": "matanhaimov2@gmail.com",
   "username": "matanhaimov2",
   "password": "$2b$10$er6ttvjMngLWRpnw5H9LBOq5fI8Ka.j1dQmoK1KrD12R5vjqjo2n2",
-  "cartInfo": [],
+  "cartInfo": [
+    {
+      "product_id": "6677b78d5ccfb3a936023521",
+      "title": "Apple Iphone 14 Pro 128GB",
+      "image": "https://i.ibb.co/G7pPTT3/i-Phone-14-Pro-White.jpg",
+      "price": "3999",
+      "shippingFee": 0,
+      "quantityValue": 1
+    },
+    {
+      "product_id": "6661658e01a62d646b5a04e9",
+      "title": "Sony Playstation 5",
+      "image": "https://i.ibb.co/mSrLWwx/ps5.webp",
+      "price": "2099",
+      "shippingFee": 20,
+      "quantityValue": 1
+    },
+    {
+      "product_id": "666166d501a62d646b5a050e",
+      "title": "Marvel's Spider Man 2",
+      "image": "https://i.ibb.co/jMvv0k6/asas.jpg",
+      "price": "329",
+      "shippingFee": 0,
+      "quantityValue": 2
+    }
+  ],
   "role": "admin",
   "__v": 0
 },
 {
   "_id": {
-    "$oid": "665c03f7a51722f6b113930c"
+    "$oid": "6673d366dc098fc5541abc24"
   },
   "email": "shlomihaimov@gmail.com",
   "username": "shlomihaimov",
-  "password": "$2b$10$1.J7DM3yp957OSZJU0q0p.d9FX.LNE26Fxg6od/ok6DSnKDavA70q",
-  "cartInfo": [],
+  "password": "$2b$10$L90PYgOsZGnOHHjfIJcuK.hWS1Oz2f0lQB.rSC9uiYv7TcFlNhf4.",
+  "cartInfo": [
+    {
+      "product_id": "666166d501a62d646b5a050e",
+      "title": "Marvel's Spider Man 2",
+      "image": "https://i.ibb.co/jMvv0k6/asas.jpg",
+      "price": "329",
+      "shippingFee": 0,
+      "quantityValue": 9
+    },
+    {
+      "product_id": "6661667701a62d646b5a0504",
+      "title": "Galaxy S21",
+      "image": "https://i.ibb.co/58RD70W/galxys21.webp",
+      "price": "1799",
+      "shippingFee": 30,
+      "quantityValue": 7
+    },
+    {
+      "product_id": "6661665401a62d646b5a04fe",
+      "title": "Sony Playstation 4",
+      "image": "https://i.ibb.co/XD957PB/ps4.jpg",
+      "price": "1299",
+      "shippingFee": 0,
+      "quantityValue": 18
+    }
+  ],
   "role": "user",
   "__v": 0
 }]

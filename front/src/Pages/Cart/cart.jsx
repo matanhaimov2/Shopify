@@ -128,6 +128,7 @@ function Cart() {
 
             for (let i of cartInfo) {
                 let object = {
+                    title: i.title,
                     product_id: i.product_id,
                     price: i.price,
                     quantityValue: i.quantityValue,
@@ -145,8 +146,8 @@ function Cart() {
             try {
                 let isValid = await verifyPrices(purchase_data);
                 if (isValid) {
-                    console.log('Proceed with purchase');
-                    setPaymentData(purchase_data)
+                    console.log('Proceed');
+                    // setPaymentData(purchase_data)
 
                 } else {
                     // Handle error - prices don't match
@@ -163,8 +164,9 @@ function Cart() {
                 cartInfo: cartInfo,
                 overallPrice: overallPrice
             }
-            
-            setPaymentData(purchase_data)
+
+            // setPaymentData(purchase_data)
+
         }
     }
 

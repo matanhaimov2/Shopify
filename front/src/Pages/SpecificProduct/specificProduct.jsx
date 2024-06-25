@@ -8,6 +8,9 @@ import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
+import Snackbar from '@mui/material/Snackbar';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
 
 // CSS
 import './specificProduct.css';
@@ -29,6 +32,9 @@ function SpecificProduct() {
     // States
     const [product, setProduct] = useState(null)
     const [quantityValue, setQuantityValue] = useState(1) // defualt value of quantity is 1
+    const [open, setOpen] = useState(false); // open snackbar
+    const [mainImage, setMainImage] = useState(noProductImg); // set main image of product
+    const [smallImages, setSmallImages] = useState([]); // add secondary images for product
 
     const { userData } = useContext(AuthContext);
 
@@ -39,17 +45,37 @@ function SpecificProduct() {
         const getProductInfo = async () => {
             const response = await fetchSpecificProduct(id);
             setProduct(response[0]);
+
+            // Set main image to the first image and small images as secondary
+            if (response[0].images && response[0].images.length > 0) {
+                setMainImage(response[0].images[0]);
+                setSmallImages(response[0].images.slice(1));
+            }
         }
 
         getProductInfo();
     }, [id])
 
-    const changePhoto = (img) => {
-        // here => handle photo change functionallity
+    // Handle photo changing logic
+    const changePhoto = (newImage) => {
+        setMainImage(newImage);
+        setSmallImages(prevImages => {
+            // Filter out the newImage from prevImages array (if it exists)
+            const filteredImages = prevImages.filter(img => img !== newImage);
+
+            // Add the current mainImage to smallImages array if it's not already present
+            if (!filteredImages.includes(mainImage)) {
+                filteredImages.push(mainImage);
+            }
+
+            return filteredImages;
+        });
     }
 
     // Add selected product to cart
     const addToCart = async () => {
+
+        setOpen(true);
 
         let userId = null;
 
@@ -120,23 +146,35 @@ function SpecificProduct() {
 
     }
 
+    // Snackbar handler
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setOpen(false);
+    };
+
+    const action = (
+        <React.Fragment>
+            <IconButton size="small" aria-label="close" color="inherit" onClick={handleClose}>
+                <CloseIcon fontSize="small" />
+            </IconButton>
+        </React.Fragment>
+    );
+
+
     return (
         <div className='specificProduct-wrapper'>
             <div className='specificProduct-left-wrapper'>
 
-                {product && product.images ? (
-                    <img className='products-image specificProduct-main-image' src={product.images[0]} />
-                ) : (
-                    <img className='products-image specificProduct-main-image' src={noProductImg}></img>
-                )}
+                <img className='products-image specificProduct-main-image' src={mainImage} alt="Main Product" />
 
-                {product && product.images.length >= 1 ? (
-                    product.images.slice(1).map((img, index) => (
+                <div className='specificProduct-image-wrapper'>
+                    {smallImages.map((img, index) => (
                         <img key={index} onClick={() => changePhoto(img)} className='products-image specificProduct-image' src={img} alt={`Product Image ${index + 1}`} />
-                    ))
-                ) : (
-                    <img className='products-image specificProduct-image' src={noProductImg}></img>
-                )}
+                    ))}
+                </div>
 
             </div>
 
@@ -181,6 +219,7 @@ function SpecificProduct() {
                         <Button variant='contained'> Buy Now </Button>
 
                         <Button onClick={addToCart}> Add To Cart </Button>
+                        <Snackbar open={open} autoHideDuration={6000} onClose={handleClose} message="Item added to cart" action={action} />
                     </Stack>
                 </Card>
             </div>

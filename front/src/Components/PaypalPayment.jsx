@@ -1,40 +1,30 @@
-import React, { useEffect, useRef } from 'react';
+// import React, { useEffect, useRef } from 'react';
+// import axios from 'axios';
+// import { SERVER_URL } from '../Assets/GlobalVeriables';
 
-function PaypalPayment({ paymentData }) {
-    const paypal = useRef()
+// function PaypalPayment({ paymentData }) {
+//     useEffect(() => {
+//         const handlePayment = async (e) => {
+//             try {
+//                 console.log(paymentData)
+//                 const res = await axios.get(`${SERVER_URL}/payment`, { 
+//                     params: {
+//                         cartInfo: JSON.stringify(paymentData.cartInfo),
+//                         overallPrice: paymentData.overallPrice,
+//                     }
+//                  });
 
-    useEffect(() => {
-        console.log(paymentData)
-        window.paypal.Buttons({
-            createOrder: (data, actions, err) => {
-                return actions.order.create({
-                    intent: "CAPTURE",
-                    purchase_units: [
-                        {
-                            description: "Gayy",
-                            amount: {
-                                currency_code: "ILS",
-                                value: 650.00
-                            }
-                        }
-                    ]
-                })
-            },
-            onApprove: async (data, actions) => {
-                const order = await actions.order.capture();
-                console.log(order);
-            },
-            onError: (err) => {
-                console.log(err);
-            }
-            
-        }).render(paypal.current)
-    }, [])
-    return (
-        <div>
-            <div ref={paypal}></div>
-        </div>
-    )
-}
+//                 if (res && res.data) {
+//                     const overallPrice = paymentData.overallPrice;
+//                     window.location.href = `${res.data.links[1].href}&overallPrice=${overallPrice}`;
+//                 }
+//             } catch (error) {
+//                 console.error('Error:', error);
+//             }
+//         };
 
-export default PaypalPayment;
+//         handlePayment();
+//     }, [paymentData])
+// }
+
+// export default PaypalPayment;
