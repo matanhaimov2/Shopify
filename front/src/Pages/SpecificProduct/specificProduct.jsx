@@ -215,10 +215,8 @@ function SpecificProduct() {
 
                     <Divider />
 
-                    <Stack direction="column" spacing={1}>
-                        <Button variant='contained'> Buy Now </Button>
-
-                        <Button onClick={addToCart}> Add To Cart </Button>
+                    <Stack direction="column" spacing={1} style={{padding: "5%"}}>
+                        <Button variant='contained' onClick={addToCart}> Add To Cart </Button>
                         <Snackbar open={open} autoHideDuration={6000} onClose={handleClose} message="Item added to cart" action={action} />
                     </Stack>
                 </Card>

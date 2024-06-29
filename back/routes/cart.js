@@ -8,10 +8,6 @@ dotenv.config();
 const User = require("../models/user");
 const productsModel = require('../models/products')
 
-// JWT tokens
-const JWT_SECRET = process.env.ACCESS_TOKEN_SECERT;
-const JWT_REFRESH_SECRET = process.env.REFRESH_TOKEN_SECRET;
-
 // Add product to cart
 router.post("/addToCart", async (req, res) => {
     const { user_id, product_id, title, image, price, shippingFee, quantityValue } = req.body;
@@ -174,6 +170,5 @@ router.get('/verifyPrices', async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 });
-
 
 module.exports = router;

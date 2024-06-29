@@ -219,7 +219,7 @@ function Cart() {
 
                         <div className='cart-detail-info-wrapper'>
                             <span className='cart-detail-title'> Shopping Cart ({countProducts}) </span>
-                            
+
                             {cartInfo && cartInfo.map((item, i) => (
                                 <div id={`product-${item.product_id}`} className={`cart-detail-info-product-wrapper ${checked[i] ? '' : 'cart-detail-info-disabled'}`} key={i}>
                                     <Checkbox checked={checked[i]} onChange={() => handleCheckChange(i)} />
@@ -237,7 +237,7 @@ function Cart() {
                                             <span>+Shipping: {item.shippingFee}₪</span>
                                         )}
                                     </div>
-                                    
+
                                     <div className='cart-detail-info-quantity-wrapper'>
                                         <Quantity isCart={true} quantityValue={item.quantityValue} userData={userData} cartInfo={cartInfo} product_id={item.product_id} updatePrices={updatePrices} />
                                     </div>

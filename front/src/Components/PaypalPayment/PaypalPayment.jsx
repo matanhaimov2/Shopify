@@ -67,7 +67,8 @@ function PaypalPayment({ paymentData }) {
                         "currency": "USD",
                         "total": paymentData.overallPrice // Total amount for the entire order
                     }
-                }]
+                }],
+                paymentData: paymentData
             };
 
             const res = await axios.post(`${SERVER_URL}/payment/execute`, executeData);
