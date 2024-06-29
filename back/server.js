@@ -17,11 +17,12 @@ mongoose.connect('mongodb://127.0.0.1:27017/shopify_db')
 const authRoutes = require('./routes/auth')
 const productsRoute = require('./routes/products')
 const cartRoute = require('./routes/cart')
+const payment = require('./routes/payment')
 
 app.use('/auth', authRoutes)
 app.use('/products', productsRoute)
 app.use('/cart', cartRoute)
-
+app.use('/payment', payment)
 
 // HealthCheck
 app.post('/healthCheck', (req, res) => {

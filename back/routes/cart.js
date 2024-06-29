@@ -142,7 +142,6 @@ router.get('/verifyPrices', async (req, res) => {
     const { cartInfo, overallPrice } = req.query;
 
     try {
-
         let check = true;
         let totalSum = 0;
 

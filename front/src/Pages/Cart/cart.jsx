@@ -19,7 +19,7 @@ import paypal_icon from '../../Assets/Images/paypal_icon.png'
 // Components
 import Quantity from '../../Components/quantityComponent/quantity';
 import { AuthContext } from '../../Components/AuthContext';
-import PaypalPayment from '../../Components/PaypalPayment';
+import PaypalPayment from '../../Components/PaypalPayment/PaypalPayment';
 
 // Services
 import { getDataFromCart } from '../../Services/cartService';
@@ -35,7 +35,6 @@ function Cart() {
     const [checked, setChecked] = useState([]);
     const [countProducts, setCountProducts] = useState(0);
     const [paymentData, setPaymentData] = useState();
-
 
     const { userData } = useContext(AuthContext);
 
@@ -62,7 +61,6 @@ function Cart() {
 
     }, [])
 
-
     // Gets the length of cart product that checked
     useEffect(() => {
         const getCheckedCount = () => {
@@ -71,6 +69,66 @@ function Cart() {
 
         setCountProducts(getCheckedCount())
     }, [cartInfo])
+
+    // Verify prices
+    useEffect(() => {
+        const pricesVerification = async () => {
+            // if guest
+            if (cartInfo && !userData) {
+                // verify prices with backend
+                let data = []
+
+                for (let i of cartInfo) {
+                    let object = {
+                        title: i.title,
+                        product_id: i.product_id,
+                        price: i.price,
+                        quantityValue: i.quantityValue,
+                        shippingFee: i.shippingFee
+                    }
+
+                    data.push(object)
+                }
+
+                let purchase_data = {
+                    cartInfo: data,
+                    overallPrice: totalPrice
+                }
+
+                try {
+                    let verifyData = {
+                        ...purchase_data,
+                        overallPrice
+                    }
+
+                    let isValid = await verifyPrices(verifyData);
+                    if (isValid) {
+                        console.log('Proceed');
+                        setPaymentData(purchase_data)
+
+                    } else {
+                        // Handle error - prices don't match
+                        console.log('Error: Prices do not match for product');
+                    }
+                } catch (error) {
+                    console.error('Error verifying prices:', error);
+                }
+            }
+            // if user/admin
+            else if (cartInfo && userData) {
+                console.log('Proceed')
+                let purchase_data = {
+                    cartInfo: cartInfo,
+                    overallPrice: totalPrice
+                }
+
+                setPaymentData(purchase_data)
+
+            }
+        }
+
+        pricesVerification()
+    }, paymentData)
 
     // Function to update prices based on cart items
     const updatePrices = (cartItems) => {
@@ -120,55 +178,6 @@ function Cart() {
         setChecked(new Array(updatedCartInfo.length).fill(true)); // Reinitialize the checked state
     };
 
-    const onClickBuyNow = async () => {
-        // if guest
-        if (cartInfo && !userData) {
-            // verify prices with backend
-            let data = []
-
-            for (let i of cartInfo) {
-                let object = {
-                    title: i.title,
-                    product_id: i.product_id,
-                    price: i.price,
-                    quantityValue: i.quantityValue,
-                    shippingFee: i.shippingFee
-                }
-
-                data.push(object)
-            }
-
-            let purchase_data = {
-                cartInfo: data,
-                overallPrice: overallPrice
-            }
-
-            try {
-                let isValid = await verifyPrices(purchase_data);
-                if (isValid) {
-                    console.log('Proceed');
-                    // setPaymentData(purchase_data)
-
-                } else {
-                    // Handle error - prices don't match
-                    console.log('Error: Prices do not match for product');
-                }
-            } catch (error) {
-                console.error('Error verifying prices:', error);
-            }
-        }
-        // if user/admin
-        else if (cartInfo && userData) {
-            console.log('Proceed')
-            let purchase_data = {
-                cartInfo: cartInfo,
-                overallPrice: overallPrice
-            }
-
-            // setPaymentData(purchase_data)
-
-        }
-    }
 
     return (
         <div className='cart-wrapper'>
@@ -190,9 +199,9 @@ function Cart() {
                             <span> Overall: {overallPrice}₪</span>
 
                             {paymentData ? (
-                                <PaypalPayment paymentData={paymentData}/>
+                                <PaypalPayment paymentData={paymentData} />
                             ) : (
-                                <Button variant="outlined" onClick={onClickBuyNow}> Buy Now </Button>
+                                <span> prices don't match </span>
                             )}
 
                             <Divider />
@@ -210,7 +219,7 @@ function Cart() {
 
                         <div className='cart-detail-info-wrapper'>
                             <span className='cart-detail-title'> Shopping Cart ({countProducts}) </span>
-
+                            
                             {cartInfo && cartInfo.map((item, i) => (
                                 <div id={`product-${item.product_id}`} className={`cart-detail-info-product-wrapper ${checked[i] ? '' : 'cart-detail-info-disabled'}`} key={i}>
                                     <Checkbox checked={checked[i]} onChange={() => handleCheckChange(i)} />
@@ -228,7 +237,7 @@ function Cart() {
                                             <span>+Shipping: {item.shippingFee}₪</span>
                                         )}
                                     </div>
-
+                                    
                                     <div className='cart-detail-info-quantity-wrapper'>
                                         <Quantity isCart={true} quantityValue={item.quantityValue} userData={userData} cartInfo={cartInfo} product_id={item.product_id} updatePrices={updatePrices} />
                                     </div>
