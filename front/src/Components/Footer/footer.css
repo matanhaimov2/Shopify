@@ -10,10 +10,18 @@
 
 .footer-contents-wrapper {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
     height: 80%;
     padding: 5%;
+    gap: 20%;
+}
+
+.footer-contents {
+    color: white;
+}
+.footer-contents:hover {
+    color: #99e0f0;
 }
 
 .footer-link-wrapper {

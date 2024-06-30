@@ -15,6 +15,9 @@ import Tooltip from '@mui/material/Tooltip';
 import visa_icon from '../../Assets/Images/visa_icon.png'
 import mastercard_icon from '../../Assets/Images/mastercard_icon.png'
 import paypal_icon from '../../Assets/Images/paypal_icon.png'
+import american_express_icon from '../../Assets/Images/american_express_icon.png'
+import discover_icon from '../../Assets/Images/discover_icon.png'
+
 
 // Components
 import Quantity from '../../Components/quantityComponent/quantity';
@@ -32,6 +35,7 @@ function Cart() {
     const [totalPrice, setTotalPrice] = useState(); // products total price 
     const [totalShippingFee, setTotalShippingFee] = useState(); // products total shippingFee 
     const [overallPrice, setOverallPrice] = useState(); // products overall cost (price and shippingFee)
+    const [updatedCartInfo, setUpdatedCartInfo] = useState(); // updated products cartInfo
     const [checked, setChecked] = useState([]);
     const [countProducts, setCountProducts] = useState(0);
     const [paymentData, setPaymentData] = useState();
@@ -78,7 +82,7 @@ function Cart() {
                 // verify prices with backend
                 let data = []
 
-                for (let i of cartInfo) {
+                for (let i of updatedCartInfo) {
                     let object = {
                         title: i.title,
                         product_id: i.product_id,
@@ -101,14 +105,22 @@ function Cart() {
                         overallPrice
                     }
 
-                    let isValid = await verifyPrices(verifyData);
+                    let isValid;
+                    
+                    if (verifyData.overallPrice===0) {
+                        isValid = true
+                    }
+                    else {
+                        isValid = await verifyPrices(verifyData);
+                    }
+
                     if (isValid) {
-                        console.log('Proceed');
                         setPaymentData(purchase_data)
 
                     } else {
                         // Handle error - prices don't match
                         console.log('Error: Prices do not match for product');
+                        setPaymentData(null)
                     }
                 } catch (error) {
                     console.error('Error verifying prices:', error);
@@ -116,9 +128,8 @@ function Cart() {
             }
             // if user/admin
             else if (cartInfo && userData) {
-                console.log('Proceed')
                 let purchase_data = {
-                    cartInfo: cartInfo,
+                    cartInfo: updatedCartInfo,
                     overallPrice: totalPrice
                 }
 
@@ -128,7 +139,7 @@ function Cart() {
         }
 
         pricesVerification()
-    }, paymentData)
+    }, [overallPrice])
 
     // Function to update prices based on cart items
     const updatePrices = (cartItems) => {
@@ -142,6 +153,9 @@ function Cart() {
 
         // Calculate overall price
         setOverallPrice(sumPrice + sumShippingFees);
+
+        // Update cartInfo with checked only items
+        setUpdatedCartInfo(cartItems)
     };
 
     // Handle check changes
@@ -212,6 +226,10 @@ function Cart() {
                                 <img src={visa_icon} className='cart-payment-icons'></img>
                                 <img src={mastercard_icon} className='cart-payment-icons'></img>
                                 <img src={paypal_icon} className='cart-payment-icons'></img>
+                                <img src={american_express_icon} className='cart-payment-icons'></img>
+                                <img src={discover_icon} className='cart-payment-icons'></img>
+
+
 
                             </div>
 

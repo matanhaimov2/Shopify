@@ -46,6 +46,7 @@
     gap: 3%;
     padding: 1%;
     overflow-y: auto;
+    border-radius: 5px;
 }
 
 .cart-detail-info-disabled {
@@ -104,6 +105,7 @@
     border: 1px solid black;
     gap: 3%;
     padding: 1%;
+    border-radius: 5px;
 }
 
 .cart-payment-icons-wrapper {

@@ -72,10 +72,8 @@ function PaypalPayment({ paymentData }) {
             };
 
             const res = await axios.post(`${SERVER_URL}/payment/execute`, executeData);
-            console.log(res);
             if (res && res.data) {
                 if (res.data.status === 'success') {
-                    console.log('Payment Successful!');
                     setSwalProps({
                         show: true,
                         title: 'Success',
@@ -84,7 +82,6 @@ function PaypalPayment({ paymentData }) {
 
                     });
                 } else {
-                    console.log('Payment Failed');
                     setSwalProps({
                         show: true,
                         title: 'Oops...',
