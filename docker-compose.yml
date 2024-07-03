@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  frontend:
+    build:
+      context: ./front  # Specify the path to the frontend Dockerfile
+      dockerfile: dockerfile  # Specify the Dockerfile name
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+
+  backend:
+    build:
+      context: ./back  # Specify the path to the backend Dockerfile
+      dockerfile: dockerfile  # Specify the Dockerfile name
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mongodb
+
+  mongodb:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./db/shopify_db.products.json:/docker-entrypoint-initdb.d/shopify_db.products.json
+      - ./db/shopify_db.users.json:/docker-entrypoint-initdb.d/shopify_db.users.json
+      - mongo_data:/data/db
+    command: ["mongod", "--bind_ip_all"]
+
+    # Load data during container initialization
+    entrypoint: >
+      bash -c '
+      mongod --bind_ip_all &
+      sleep 5 && mongoimport --host localhost:27017 --db shopify_db --collection products --file /docker-entrypoint-initdb.d/shopify_db.products.json --jsonArray &&
+      mongoimport --host localhost:27017 --db shopify_db --collection users --file /docker-entrypoint-initdb.d/shopify_db.users.json --jsonArray &&
+      mongo admin --eval "db.shutdownServer()"'
+
+volumes:
+  mongo_data:
