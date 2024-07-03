@@ -20,22 +20,33 @@ services:
       - mongodb
 
   mongodb:
-    image: mongo:latest
+    build:
+      context: ./db  # Specify the path to the directory containing the custom Dockerfile
+      dockerfile: dockerfile  # Specify the Dockerfile name
     ports:
       - "27017:27017"
     volumes:
       - ./db/shopify_db.products.json:/docker-entrypoint-initdb.d/shopify_db.products.json
       - ./db/shopify_db.users.json:/docker-entrypoint-initdb.d/shopify_db.users.json
       - mongo_data:/data/db
-    command: ["mongod", "--bind_ip_all"]
 
-    # Load data during container initialization
-    entrypoint: >
-      bash -c '
-      mongod --bind_ip_all &
-      sleep 5 && mongoimport --host localhost:27017 --db shopify_db --collection products --file /docker-entrypoint-initdb.d/shopify_db.products.json --jsonArray &&
-      mongoimport --host localhost:27017 --db shopify_db --collection users --file /docker-entrypoint-initdb.d/shopify_db.users.json --jsonArray &&
-      mongo admin --eval "db.shutdownServer()"'
+  # mongodb:
+  #   image: mongo:latest
+  #   ports:
+  #     - "27017:27017"
+  #   volumes:
+  #     - ./db/shopify_db.products.json:/docker-entrypoint-initdb.d/shopify_db.products.json
+  #     - ./db/shopify_db.users.json:/docker-entrypoint-initdb.d/shopify_db.users.json
+  #     - mongo_data:/data/db
+  #   command: ["mongod", "--bind_ip_all"]
+
+  #   # Load data during container initialization
+  #   entrypoint: >
+  #     bash -c '
+  #     mongod --bind_ip_all &
+  #     sleep 5 && mongoimport --host localhost:27017 --db shopify_db --collection products --file /docker-entrypoint-initdb.d/shopify_db.products.json --jsonArray &&
+  #     mongoimport --host localhost:27017 --db shopify_db --collection users --file /docker-entrypoint-initdb.d/shopify_db.users.json --jsonArray &&
+  #     mongo admin --eval "db.shutdownServer()"'
 
 volumes:
   mongo_data:

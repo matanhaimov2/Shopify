@@ -1,18 +1,22 @@
-# # Use the official MongoDB image from Docker Hub
-# FROM mongo:latest
+# Use the official MongoDB image from Docker Hub
+FROM mongo:latest
 
-# # Set the working directory in the container
-# WORKDIR /usr/src/data
+# Install MongoDB client tools
+RUN apt-get update && apt-get install -y mongodb-clients
 
-# # Copy the JSON files into the container
-# COPY shopify_db.products.json .
-# COPY shopify_db.users.json .
+# Set the working directory in the container
+WORKDIR /usr/src/data
 
-# EXPOSE 27017
+# Copy the JSON files into the container
+COPY shopify_db.products.json .
+COPY shopify_db.users.json .
 
-# # Run the MongoDB import commands to import data into 'shopify_db' database
-# CMD mongoimport --host mongodb --db shopify_db --collection products --file shopify_db.products.json --jsonArray && \
-#     mongoimport --host mongodb --db shopify_db --collection users --file shopify_db.users.json --jsonArray
+# Expose MongoDB default port
+EXPOSE 27017
+
+# Run MongoDB import commands during container startup
+CMD mongoimport --host mongodb --db shopify_db --collection products --file shopify_db.products.json --jsonArray && \
+    mongoimport --host mongodb --db shopify_db --collection users --file shopify_db.users.json --jsonArray
 
 # docker network create shopify-network
 # docker run -d --name mongodb --network shopify-network -p 27017:27017 my-mongodb-image
