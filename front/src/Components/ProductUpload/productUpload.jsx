@@ -19,6 +19,7 @@ function ProductUpload({ token, setIsProductUpload, isProductUpload, productInfo
     const [images, setImages] = useState(productInfo ? productInfo.images : []);
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState('');
+    const [address, setAddress] = useState('');
     const [category, setCategory] = useState('');
     const [shippingFee, setShippingFee] = useState('');
 
@@ -102,6 +103,7 @@ function ProductUpload({ token, setIsProductUpload, isProductUpload, productInfo
                 images: newImages,
                 description,
                 price,
+                address,
                 category,
                 shippingFee
             };
@@ -111,13 +113,14 @@ function ProductUpload({ token, setIsProductUpload, isProductUpload, productInfo
         }
         // Edit product
         else {
-      
+
             const updatedFields = {};
 
             if (title && title !== productInfo.title) updatedFields.title = title;
             if (newImages.length > 0) updatedFields.images = newImages;
             if (description && description !== productInfo.description) updatedFields.description = description;
             if (price && price !== productInfo.price) updatedFields.price = price;
+            if (address && address !== productInfo.address) updatedFields.address = address;
             if (shippingFee && shippingFee !== productInfo.shippingFee) updatedFields.shippingFee = shippingFee;
             if (category && category !== productInfo.category) updatedFields.category = category;
 
@@ -126,6 +129,22 @@ function ProductUpload({ token, setIsProductUpload, isProductUpload, productInfo
         }
 
     };
+
+    // google maps place autoComplete
+    const autoCompleteRef = useRef();
+    const inputRef = useRef();
+    const options = {
+        componentRestrictions: { country: "IL" },
+        fields: ["address_components", "geometry", "icon", "name"],
+        types: ["address"]
+    };
+
+    useEffect(() => {
+        autoCompleteRef.current = new window.google.maps.places.Autocomplete(
+            inputRef.current,
+            options
+        );
+    }, []);
 
 
     return (
@@ -211,11 +230,20 @@ function ProductUpload({ token, setIsProductUpload, isProductUpload, productInfo
                     <TextField label="Description" key={productInfo.description ? productInfo.description : null} defaultValue={productInfo.description ? productInfo.description : null} onChange={(e) => setDescription(e.target.value)} fullWidth />
                 )}
 
-                {!isOptions ? (
-                    <TextField label="Price" type="number" value={price} onChange={(e) => setPrice(e.target.value)} required fullWidth />
-                ) : (
-                    <TextField label="Price" type="number" key={productInfo.price ? productInfo.price : null} defaultValue={productInfo.price ? productInfo.price : null} onChange={(e) => setPrice(e.target.value)} required fullWidth />
-                )}
+                <div className='products-upload-divider'>
+                    {!isOptions ? (
+                        <TextField label="Price" type="number" value={price} onChange={(e) => setPrice(e.target.value)} required fullWidth />
+                    ) : (
+                        <TextField label="Price" type="number" key={productInfo.price ? productInfo.price : null} defaultValue={productInfo.price ? productInfo.price : null} onChange={(e) => setPrice(e.target.value)} required fullWidth />
+                    )}
+
+                    {!isOptions ? (
+                        <input label="Address" type="text" ref={inputRef} placeholder="Enter location" value={address} onChange={(e) => setAddress(e.target.value)} fullWidth />
+                    ) : (
+                        <input label="Address" type="text" ref={inputRef} key={productInfo.address ? productInfo.address : null} defaultValue={productInfo.address ? productInfo.address : null} onChange={(e) => setAddress(e.target.value)} fullWidth />
+                    )}
+                </div>
+
 
                 <div className='products-upload-divider'>
                     {!isOptions ? (
