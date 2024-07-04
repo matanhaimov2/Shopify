@@ -25,6 +25,8 @@ function ProductUpload({ token, setIsProductUpload, isProductUpload, productInfo
 
     // Refs
     const productUploadRef = useRef(null);
+    const autoCompleteRef = useRef();
+    const inputRef = useRef();
 
     // Close ProductUpload when clicking outside of the component
     useEffect(() => {
@@ -131,8 +133,6 @@ function ProductUpload({ token, setIsProductUpload, isProductUpload, productInfo
     };
 
     // google maps place autoComplete
-    const autoCompleteRef = useRef();
-    const inputRef = useRef();
     const options = {
         componentRestrictions: { country: "IL" },
         fields: ["address_components", "geometry", "icon", "name"],
@@ -144,8 +144,12 @@ function ProductUpload({ token, setIsProductUpload, isProductUpload, productInfo
             inputRef.current,
             options
         );
+        autoCompleteRef.current.addListener("place_changed", async function () {
+            const place = await autoCompleteRef.current.getPlace();
+            setAddress(place)
+            console.log(place)
+           });
     }, []);
-
 
     return (
         <div className="products-upload-wrapper" ref={productUploadRef}>
@@ -232,30 +236,30 @@ function ProductUpload({ token, setIsProductUpload, isProductUpload, productInfo
 
                 <div className='products-upload-divider'>
                     {!isOptions ? (
-                        <TextField label="Price" type="number" value={price} onChange={(e) => setPrice(e.target.value)} required fullWidth />
+                        <TextField label="Price" type="number" style={{width: "40%"}} value={price} onChange={(e) => setPrice(e.target.value)} required />
                     ) : (
-                        <TextField label="Price" type="number" key={productInfo.price ? productInfo.price : null} defaultValue={productInfo.price ? productInfo.price : null} onChange={(e) => setPrice(e.target.value)} required fullWidth />
+                        <TextField label="Price" type="number" style={{width: "40%"}} key={productInfo.price ? productInfo.price : null} defaultValue={productInfo.price ? productInfo.price : null} onChange={(e) => setPrice(e.target.value)} required />
                     )}
 
                     {!isOptions ? (
-                        <input label="Address" type="text" ref={inputRef} placeholder="Enter location" value={address} onChange={(e) => setAddress(e.target.value)} fullWidth />
+                        <input label="Address" type="text" ref={inputRef} style={{width: "60%"}} placeholder="Enter location"  />
                     ) : (
-                        <input label="Address" type="text" ref={inputRef} key={productInfo.address ? productInfo.address : null} defaultValue={productInfo.address ? productInfo.address : null} onChange={(e) => setAddress(e.target.value)} fullWidth />
+                        <input label="Address" type="text" ref={inputRef} style={{width: "60%"}}  key={productInfo.address ? productInfo.address : null} defaultValue={productInfo.address ? productInfo.address : null} fullWidth />
                     )}
                 </div>
 
 
                 <div className='products-upload-divider'>
                     {!isOptions ? (
-                        <TextField label="Shipping Fee" type="number" value={shippingFee} onChange={(e) => setShippingFee(e.target.value)} required fullWidth />
+                        <TextField label="Shipping Fee" type="number" style={{width: "40%"}} value={shippingFee} onChange={(e) => setShippingFee(e.target.value)} required />
                     ) : (
-                        <TextField label="Shipping Fee" type="number" key={productInfo.shippingFee ? productInfo.shippingFee : null} defaultValue={productInfo.shippingFee ? productInfo.shippingFee : null} onChange={(e) => setShippingFee(e.target.value)} required fullWidth />
+                        <TextField label="Shipping Fee" type="number" style={{width: "40%"}} key={productInfo.shippingFee ? productInfo.shippingFee : null} defaultValue={productInfo.shippingFee ? productInfo.shippingFee : null} onChange={(e) => setShippingFee(e.target.value)} required />
                     )}
 
                     {!isOptions ? (
-                        <TextField label="Category" type="text" value={category} onChange={(e) => setCategory(e.target.value)} required fullWidth />
+                        <TextField label="Category" type="text" style={{width: "60%"}} value={category} onChange={(e) => setCategory(e.target.value)} required fullWidth />
                     ) : (
-                        <TextField label="Category" type="text" key={productInfo.category ? productInfo.category : null} defaultValue={productInfo.category ? productInfo.category : null} onChange={(e) => setCategory(e.target.value)} required fullWidth />
+                        <TextField label="Category" type="text" style={{width: "60%"}} key={productInfo.category ? productInfo.category : null} defaultValue={productInfo.category ? productInfo.category : null} onChange={(e) => setCategory(e.target.value)} required fullWidth />
                     )}
                 </div>
 

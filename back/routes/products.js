@@ -6,13 +6,14 @@ const productsModel = require('../models/products')
 
 router.post('/uploadProduct', async (req, res) => {
   try {
-    const { title, images, description, price, category, shippingFee } = req.body;
-
+    const { title, images, description, price, address, category, shippingFee } = req.body;
+    
     const newProduct = new productsModel({
       title,
       images,
       description,
       price,
+      address: address.name,
       category,
       shippingFee
     });
@@ -24,7 +25,8 @@ router.post('/uploadProduct', async (req, res) => {
 });
 
 router.post('/updateProduct', async (req, res) => {
-  const { id, title, images, description, price, category, shippingFee } = req.body;
+  const { id, title, images, description, price, address, category, shippingFee } = req.body;
+
   try {
     await productsModel.updateOne({ _id: id }, {
       $set: {
@@ -32,6 +34,7 @@ router.post('/updateProduct', async (req, res) => {
         images: images,
         description: description,
         price: price,
+        address: address.name,
         category: category,
         shippingFee: shippingFee
       }
