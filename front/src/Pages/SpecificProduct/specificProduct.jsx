@@ -224,7 +224,7 @@ function SpecificProduct() {
                 {/* google maps api */}
                 {product && product.address[0] && (
                     <div className='specificProduct-map-wrapper'>
-                        <APIProvider apiKey={'AIzaSyDWtIjrguMXBNFSPpDaeSU3XinyOSGr03Q'} onLoad={() => console.log('Maps API has loaded.')}>
+                        <APIProvider onLoad={() => console.log('Maps API has loaded.')}>
                             <Map
                                 defaultZoom={13}
                                 defaultCenter={{ lat: product.address[1].lat, lng: product.address[1].lng }}
