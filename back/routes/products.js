@@ -8,12 +8,14 @@ router.post('/uploadProduct', async (req, res) => {
   try {
     const { title, images, description, price, address, category, shippingFee } = req.body;
     
+    let address_details = [address.name, { lat: address.geometry.location.lat, lng: address.geometry.location.lng }];
+
     const newProduct = new productsModel({
       title,
       images,
       description,
       price,
-      address: address.name,
+      address: address_details,
       category,
       shippingFee
     });
@@ -27,6 +29,8 @@ router.post('/uploadProduct', async (req, res) => {
 router.post('/updateProduct', async (req, res) => {
   const { id, title, images, description, price, address, category, shippingFee } = req.body;
 
+  let address_details = [address.name, { lat: address.geometry.location.lat, lng: address.geometry.location.lng }];
+
   try {
     await productsModel.updateOne({ _id: id }, {
       $set: {
@@ -34,7 +38,7 @@ router.post('/updateProduct', async (req, res) => {
         images: images,
         description: description,
         price: price,
-        address: address.name,
+        address: address_details,
         category: category,
         shippingFee: shippingFee
       }

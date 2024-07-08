@@ -53,12 +53,14 @@
     font-weight: bold;
 }
 
+
 /* CSS for right side */
 .specificProduct-right-wrapper {
     display: flex;
     flex-direction: column;
     width: 25%;
     padding: 1%;
+    gap: 2%;
 }
 
 .specificProduct-quantity {
@@ -70,4 +72,9 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+}
+
+.specificProduct-map-wrapper {
+    width: 100%;
+    height: 40%;
 }

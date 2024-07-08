@@ -148,7 +148,7 @@ function ProductUpload({ token, setIsProductUpload, isProductUpload, productInfo
             const place = await autoCompleteRef.current.getPlace();
             setAddress(place)
             console.log(place)
-           });
+        });
     }, []);
 
     return (
@@ -236,30 +236,30 @@ function ProductUpload({ token, setIsProductUpload, isProductUpload, productInfo
 
                 <div className='products-upload-divider'>
                     {!isOptions ? (
-                        <TextField label="Price" type="number" style={{width: "40%"}} value={price} onChange={(e) => setPrice(e.target.value)} required />
+                        <TextField label="Price" type="number" style={{ width: "40%" }} value={price} onChange={(e) => setPrice(e.target.value)} required />
                     ) : (
-                        <TextField label="Price" type="number" style={{width: "40%"}} key={productInfo.price ? productInfo.price : null} defaultValue={productInfo.price ? productInfo.price : null} onChange={(e) => setPrice(e.target.value)} required />
+                        <TextField label="Price" type="number" style={{ width: "40%" }} key={productInfo.price ? productInfo.price : null} defaultValue={productInfo.price ? productInfo.price : null} onChange={(e) => setPrice(e.target.value)} required />
                     )}
 
                     {!isOptions ? (
-                        <input label="Address" type="text" ref={inputRef} style={{width: "60%"}} placeholder="Enter location"  />
+                        <input label="Address" type="text" ref={inputRef} style={{ width: "60%" }} placeholder="Enter location" />
                     ) : (
-                        <input label="Address" type="text" ref={inputRef} style={{width: "60%"}}  key={productInfo.address ? productInfo.address : null} defaultValue={productInfo.address ? productInfo.address : null} fullWidth />
+                        <input label="Address" type="text" ref={inputRef} style={{ width: "60%" }} key={productInfo.address ? productInfo.address[0] : null} defaultValue={productInfo.address ? productInfo.address[0] : null} fullWidth />
                     )}
                 </div>
 
 
                 <div className='products-upload-divider'>
                     {!isOptions ? (
-                        <TextField label="Shipping Fee" type="number" style={{width: "40%"}} value={shippingFee} onChange={(e) => setShippingFee(e.target.value)} required />
+                        <TextField label="Shipping Fee" type="number" style={{ width: "40%" }} value={shippingFee} onChange={(e) => setShippingFee(e.target.value)} required />
                     ) : (
-                        <TextField label="Shipping Fee" type="number" style={{width: "40%"}} key={productInfo.shippingFee ? productInfo.shippingFee : null} defaultValue={productInfo.shippingFee ? productInfo.shippingFee : null} onChange={(e) => setShippingFee(e.target.value)} required />
+                        <TextField label="Shipping Fee" type="number" style={{ width: "40%" }} key={productInfo.shippingFee ? productInfo.shippingFee : null} defaultValue={productInfo.shippingFee ? productInfo.shippingFee : null} onChange={(e) => setShippingFee(e.target.value)} required />
                     )}
 
                     {!isOptions ? (
-                        <TextField label="Category" type="text" style={{width: "60%"}} value={category} onChange={(e) => setCategory(e.target.value)} required fullWidth />
+                        <TextField label="Category" type="text" style={{ width: "60%" }} value={category} onChange={(e) => setCategory(e.target.value)} required fullWidth />
                     ) : (
-                        <TextField label="Category" type="text" style={{width: "60%"}} key={productInfo.category ? productInfo.category : null} defaultValue={productInfo.category ? productInfo.category : null} onChange={(e) => setCategory(e.target.value)} required fullWidth />
+                        <TextField label="Category" type="text" style={{ width: "60%" }} key={productInfo.category ? productInfo.category : null} defaultValue={productInfo.category ? productInfo.category : null} onChange={(e) => setCategory(e.target.value)} required fullWidth />
                     )}
                 </div>
 

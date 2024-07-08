@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
+import { APIProvider, Map, MapCameraChangedEvent, AdvancedMarker, Pin } from '@vis.gl/react-google-maps';
 
 // React MUI
 import Card from '@mui/material/Card';
@@ -163,7 +164,6 @@ function SpecificProduct() {
         </React.Fragment>
     );
 
-
     return (
         <div className='specificProduct-wrapper'>
             <div className='specificProduct-left-wrapper'>
@@ -215,11 +215,34 @@ function SpecificProduct() {
 
                     <Divider />
 
-                    <Stack direction="column" spacing={1} style={{padding: "5%"}}>
+                    <Stack direction="column" spacing={1} style={{ padding: "5%" }}>
                         <Button variant='contained' onClick={addToCart}> Add To Cart </Button>
                         <Snackbar open={open} autoHideDuration={6000} onClose={handleClose} message="Item added to cart" action={action} />
                     </Stack>
                 </Card>
+
+                {/* google maps api */}
+                {product && product.address[0] && (
+                    <div className='specificProduct-map-wrapper'>
+                        <APIProvider apiKey={'AIzaSyDWtIjrguMXBNFSPpDaeSU3XinyOSGr03Q'} onLoad={() => console.log('Maps API has loaded.')}>
+                            <Map
+                                defaultZoom={13}
+                                defaultCenter={{ lat: product.address[1].lat, lng: product.address[1].lng }}
+                                mapId='DEMO_MAP_ID'
+                                onCameraChanged={(ev) =>
+                                    console.log('camera changed:', ev.detail.center, 'zoom:', ev.detail.zoom)
+                                }>
+                                <AdvancedMarker position={{ lat: product.address[1].lat, lng: product.address[1].lng }}>
+                                    <Pin
+                                        background={'red'}
+                                        borderColor={'#006425'}
+                                        glyphColor={'white'}
+                                    />
+                                </AdvancedMarker>
+                            </Map>
+                        </APIProvider>
+                    </div>
+                )}
             </div>
         </div>
     );
