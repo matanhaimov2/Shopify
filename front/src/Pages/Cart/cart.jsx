@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { useNavigate } from "react-router-dom";
 
 // CSS
 import './cart.css';
 
 // React MUI
-import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
 import Checkbox from '@mui/material/Checkbox';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -41,6 +41,9 @@ function Cart() {
     const [paymentData, setPaymentData] = useState();
 
     const { userData } = useContext(AuthContext);
+
+    // Navigation Handle
+    const navigate = useNavigate();
 
     // Get cartInfo
     useEffect(() => {
@@ -106,8 +109,8 @@ function Cart() {
                     }
 
                     let isValid;
-                    
-                    if (verifyData.overallPrice===0) {
+
+                    if (verifyData.overallPrice === 0) {
                         isValid = true
                     }
                     else {
@@ -192,6 +195,10 @@ function Cart() {
         setChecked(new Array(updatedCartInfo.length).fill(true)); // Reinitialize the checked state
     };
 
+    // navigate to specificProduct with its id
+    const displaySpecificProduct = (product_id) => {
+        navigate(`/product/${product_id}`)
+    }
 
     return (
         <div className='cart-wrapper'>
@@ -228,9 +235,6 @@ function Cart() {
                                 <img src={paypal_icon} className='cart-payment-icons'></img>
                                 <img src={american_express_icon} className='cart-payment-icons'></img>
                                 <img src={discover_icon} className='cart-payment-icons'></img>
-
-
-
                             </div>
 
                         </div>
@@ -240,10 +244,12 @@ function Cart() {
 
                             {cartInfo && cartInfo.map((item, i) => (
                                 <div id={`product-${item.product_id}`} className={`cart-detail-info-product-wrapper ${checked[i] ? '' : 'cart-detail-info-disabled'}`} key={i}>
-                                    <Checkbox checked={checked[i]} onChange={() => handleCheckChange(i)} />
+                                    <div className='cart-detail-info-checkbox-wrapper'>
+                                        <Checkbox checked={checked[i]} onChange={() => handleCheckChange(i)} />
+                                    </div>
 
                                     <div className='cart-detail-info-image-wrapper'>
-                                        <img src={item.image} className='cart-detail-info-image'></img>
+                                        <img onClick={() => displaySpecificProduct(item.product_id)} src={item.image} className='cart-detail-info-image'></img>
                                     </div>
 
                                     <div className='cart-detail-info-titles-wrapper'>

@@ -36,7 +36,7 @@ function Products({ token }) {
     const [currentOption, setCurrentOption] = useState();
     const [pages, setPages] = useState();
 
-    const { searchQuery, currentCategory } = useContext(AuthContext);
+    const { searchQuery, setSearchQuery, currentCategory } = useContext(AuthContext);
 
     // Navigation Handle
     const navigate = useNavigate();
@@ -92,6 +92,7 @@ function Products({ token }) {
 
     // navigate to specificProduct with its id
     const displaySpecificProduct = (product_id) => {
+        setSearchQuery('')
         navigate(`/product/${product_id}`)
     }
 

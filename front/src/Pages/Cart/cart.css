@@ -62,10 +62,16 @@
     background-color: #fff;
 }
 
+.cart-detail-info-checkbox-wrapper {
+    display: flex;
+    align-items: center;
+}
+
 .cart-detail-info-image-wrapper {
     width: 20%;
     height: 100%;
     mix-blend-mode: darken;
+    cursor: pointer;
 }
 
 .cart-detail-info-image {
