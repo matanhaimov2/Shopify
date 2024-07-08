@@ -5,11 +5,14 @@ const router = express.Router()
 const productsModel = require('../models/products')
 
 router.post('/uploadProduct', async (req, res) => {
-  try {
-    const { title, images, description, price, address, category, shippingFee } = req.body;
-    
-    let address_details = [address.name, { lat: address.geometry.location.lat, lng: address.geometry.location.lng }];
+  const { title, images, description, price, address, category, shippingFee } = req.body;
 
+  let address_details = []
+  if (address) {
+    address_details = [address.name, { lat: address.geometry.location.lat, lng: address.geometry.location.lng }];
+  }
+
+  try {
     const newProduct = new productsModel({
       title,
       images,
@@ -29,7 +32,10 @@ router.post('/uploadProduct', async (req, res) => {
 router.post('/updateProduct', async (req, res) => {
   const { id, title, images, description, price, address, category, shippingFee } = req.body;
 
-  let address_details = [address.name, { lat: address.geometry.location.lat, lng: address.geometry.location.lng }];
+  let address_details = []
+  if (address && address.name) {
+    address_details = [address.name, { lat: address.geometry.location.lat, lng: address.geometry.location.lng }];
+  }
 
   try {
     await productsModel.updateOne({ _id: id }, {
