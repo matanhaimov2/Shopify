@@ -89,3 +89,24 @@
     gap: 5%;
 }
 
+/* Handle Responsive */
+
+@media (max-width: 860px) {
+    .products-wrapper {
+        width: 100%;
+    }
+
+    .products-box {
+        width: 100%;
+    }
+
+    .each-product-wrapper {
+        width: 29%;
+    }
+}
+
+@media (max-width: 500px) {
+    .each-product-wrapper {
+        width: 46%;
+    }
+}

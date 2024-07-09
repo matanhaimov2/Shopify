@@ -1,5 +1,10 @@
 .topnav-wrapper {
     display: flex;
+    flex-direction: column;
+}
+
+.topnav-first-container-wrapper {
+    display: flex;
     flex-direction: row;
 }
 
@@ -27,4 +32,34 @@
     padding: 0% 1% 0% 0%;
 }
 
+.topnav-second-container-wrapper {
+    display: flex;
+    flex-direction: row;
+}
 
+/* Handle Responsive */
+
+@media (max-width: 860px) {
+    .topnav-search-wrapper {
+        width: 70%;
+        display: flex;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 500px) {
+    .topnav-wrapper {
+        gap: 2%;
+    }
+
+    .topnav-logo-wrapper {
+        width: fit-content;
+    }
+
+    .topnav-tabs-wrapper {
+        width: fit-content;
+    }
+    .topnav-search-wrapper {
+        width: 90%;
+    }
+}

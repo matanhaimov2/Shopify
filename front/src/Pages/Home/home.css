@@ -4,6 +4,7 @@
 }
 
 .home-underline {
+    display: flex;
     border-top: 1px solid #cde1e6;
 }
 

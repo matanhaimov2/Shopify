@@ -6,6 +6,13 @@
     justify-content: space-between;
 }
 
+.categories-sub-wrapper {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    height: 100%;
+}
+
 .categories-selection-wrapper {
     display: flex;
     flex-direction: row;
@@ -70,6 +77,75 @@
     align-items: center;
     height: 100vh;
     width: 100vw;
-    background-color: rgba(0, 0, 0, 0.5); 
+    background-color: rgba(0, 0, 0, 0.5);
     z-index: 2;
+}
+
+/* Hamburger menu css */
+#react-burger-menu-btn {
+    position: relative !important;
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.bm-overlay {
+    width: 35% !important;
+    background: white !important;
+    border-radius: 5px;
+}
+
+.bm-burger-bars {
+    background: #373a47;
+}
+
+.bm-burger-bars-hover {
+    background: #a90000;
+}
+
+.bm-burger-button {
+    width: 40px;
+    height: 40px;
+}
+
+.bm-menu {
+    height: fit-content !important;
+    padding: 0 1%;
+}
+
+/* Handle Responsive */
+
+@media (max-width: 860px) {
+    .categories-wrapper {
+        width: fit-content;
+        padding: 0%;
+    }
+
+    .categories-selection-wrapper {
+        display: flex !important;
+    }
+
+    .bm-overlay {
+        width: 100% !important;
+        height: 85% !important;
+    }
+
+    .bm-menu-wrap {
+        width: 100% !important;
+        height: -webkit-fill-available;
+    }
+
+    .bm-menu {
+        height: 85% !important;
+    }
+
+    .bm-item-list {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .categories-products-user-wrapper {
+        display: flex !important;
+        padding: 0;
+    }
 }

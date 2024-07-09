@@ -7,6 +7,7 @@ export const AuthProvider = ({ children }) => {
   const [userData, setUserData] = useState(null);
   const [searchQuery, setSearchQuery] = useState(null);
   const [currentCategory, setCurrentCategory] = useState('ALL');
+  const [isOpenMenu, setIsOpenMenu] = useState(false); // State for menu visibility
 
   useEffect(() => {
     const token = localStorage.getItem('accessToken');
@@ -24,19 +25,33 @@ export const AuthProvider = ({ children }) => {
     }
   }, []);
 
+  // Handle user login
   const handleLogin = (accessToken) => {
     const decodedToken = jwtDecode(accessToken);
     setUserData(decodedToken);
     localStorage.setItem('accessToken', accessToken);
   };
 
+  // Handle user logout
   const handleLogout = () => {
     setUserData(null);
     localStorage.removeItem('accessToken');
   };
 
   return (
-    <AuthContext.Provider value={{ userData, setUserData, handleLogin, handleLogout, searchQuery, setSearchQuery, currentCategory, setCurrentCategory }}>
+    <AuthContext.Provider value={{
+      userData,
+      setUserData,
+      handleLogin,
+      handleLogout,
+      searchQuery,
+      setSearchQuery,
+      currentCategory,
+      setCurrentCategory,
+      isOpenMenu,
+      setIsOpenMenu
+    }}
+    >
       {children}
     </AuthContext.Provider>
   );

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from "react-router-dom";
+import { useMediaQuery } from 'react-responsive'
 
 // CSS
 import './products.css';
@@ -37,6 +38,9 @@ function Products({ token }) {
     const [pages, setPages] = useState();
 
     const { searchQuery, setSearchQuery, currentCategory } = useContext(AuthContext);
+
+    // Handle responsive
+    const isTabletOrPhone = useMediaQuery({ query: '(max-width: 860px)' })
 
     // Navigation Handle
     const navigate = useNavigate();

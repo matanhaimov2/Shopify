@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useMediaQuery } from 'react-responsive'
+import { slide as Menu } from 'react-burger-menu';
 
 // CSS
 import './categories.css';
@@ -32,7 +34,10 @@ function Categories({ token }) {
     const [isProductUpload, setIsProductUpload] = useState(false);
 
     // Global States
-    const { userData, handleLogout, setCurrentCategory } = useContext(AuthContext);
+    const { userData, handleLogout, setCurrentCategory, isOpenMenu } = useContext(AuthContext);
+
+    // Handle responsive
+    const isTabletOrPhone = useMediaQuery({ query: '(max-width: 860px)' })
 
     // Navigation Handle
     const navigate = useNavigate();
@@ -63,76 +68,147 @@ function Categories({ token }) {
 
     return (
         <div className='categories-wrapper'>
-            <div>
-                <h2>Our Selection</h2>
+            {!isTabletOrPhone ? (
+                <div className='categories-sub-wrapper'>
+                    <div>
+                        <h2>Our Selection</h2>
 
-                <span className='home-underline'></span>
+                        <span className='home-underline'></span>
 
-                <div className='categories-selection-wrapper' onClick={() => {setCurrentCategory('ALL')}}>
-                    <div className='categories-icon-wrapper'>
-                        <IoInfiniteSharp className='categories-icon' />
-                    </div>
+                        <div className='categories-selection-wrapper' onClick={() => { setCurrentCategory('ALL') }}>
+                            <div className='categories-icon-wrapper'>
+                                <IoInfiniteSharp className='categories-icon' />
+                            </div>
 
-                    <span className='categories-text-wrapper'>Everything</span>
-                </div>
+                            <span className='categories-text-wrapper'>Everything</span>
+                        </div>
 
-                <div className='categories-selection-wrapper' onClick={() => {setCurrentCategory('Electronics')}}>
-                    <div className='categories-icon-wrapper'>
-                        <FaComputer className='categories-icon' />
-                    </div>
+                        <div className='categories-selection-wrapper' onClick={() => { setCurrentCategory('Electronics') }}>
+                            <div className='categories-icon-wrapper'>
+                                <FaComputer className='categories-icon' />
+                            </div>
 
-                    <span className='categories-text-wrapper'>Electronics</span>
-                </div>
+                            <span className='categories-text-wrapper'>Electronics</span>
+                        </div>
 
-                <div className='categories-selection-wrapper' onClick={() => {setCurrentCategory('Games & Toys')}}>
-                    <div className='categories-icon-wrapper'>
-                        <CgGames className='categories-icon' />
-                    </div>
+                        <div className='categories-selection-wrapper' onClick={() => { setCurrentCategory('Games & Toys') }}>
+                            <div className='categories-icon-wrapper'>
+                                <CgGames className='categories-icon' />
+                            </div>
 
-                    <span className='categories-text-wrapper'>Games & Toys</span>
-                </div>
+                            <span className='categories-text-wrapper'>Games & Toys</span>
+                        </div>
 
-                <div className='categories-selection-wrapper' onClick={() => {setCurrentCategory('Cosmetics')}}>
-                    <div className='categories-icon-wrapper'>
-                        <GiDelicatePerfume className='categories-icon' />
-                    </div>
+                        <div className='categories-selection-wrapper' onClick={() => { setCurrentCategory('Cosmetics') }}>
+                            <div className='categories-icon-wrapper'>
+                                <GiDelicatePerfume className='categories-icon' />
+                            </div>
 
-                    <span className='categories-text-wrapper'>Cosmetics</span>
-                </div>
-            </div>
-
-            {userData ? (
-                <div className='categories-products-user-wrapper'>
-                    {isVerified && (
-                        <Button variant="outlined" onClick={() => setIsProductUpload(!isProductUpload)}>Upload Product</Button>
-                    )}
-
-                    <div className='categories-products-user'>
-                        <Button variant="outlined" startIcon={<CiLogout />} onClick={handleLogout}>Logout</Button>
-                        <div className='categories-products-user-info'>
-                            {isVerified ? (
-                                <GiChessQueen style={{ color: "#D1B000" }} />
-                            ) : (
-                                <FaUser style={{ color: "gray" }} />
-                            )}
+                            <span className='categories-text-wrapper'>Cosmetics</span>
                         </div>
                     </div>
+
+                    {userData ? (
+                        <div className='categories-products-user-wrapper'>
+                            {isVerified && (
+                                <Button variant="outlined" onClick={() => setIsProductUpload(!isProductUpload)}>Upload Product</Button>
+                            )}
+
+                            <div className='categories-products-user'>
+                                <Button variant="outlined" startIcon={<CiLogout />} onClick={handleLogout}>Logout</Button>
+                                <div className='categories-products-user-info'>
+                                    {isVerified ? (
+                                        <GiChessQueen style={{ color: "#D1B000" }} />
+                                    ) : (
+                                        <FaUser style={{ color: "gray" }} />
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+                    ) : (
+                        <div className='categories-products-user'>
+                            <Button variant="contained" color='success' startIcon={<CiLogin />} onClick={navigateToLogin}>Login</Button>
+                        </div>
+                    )}
+
+                    {isVerified && isProductUpload && (
+                        <div className='categories-product-upload-wrapper'>
+                            <ProductUpload token={token} setIsProductUpload={setIsProductUpload} isProductUpload={isProductUpload} />
+                        </div>
+                    )}
                 </div>
+
             ) : (
-                <div className='categories-products-user'>
-                    <Button variant="contained" color='success' startIcon={<CiLogin />} onClick={navigateToLogin}>Login</Button>
-                </div>
+                <Menu isOpen={isOpenMenu} customBurgerIcon={false} left>
+                    <div>
+                        <h2>Our Selection</h2>
+
+                        <span className='home-underline'></span>
+
+                        <div className='categories-selection-wrapper' onClick={() => { setCurrentCategory('ALL') }}>
+                            <div className='categories-icon-wrapper'>
+                                <IoInfiniteSharp className='categories-icon' />
+                            </div>
+
+                            <span className='categories-text-wrapper'>Everything</span>
+                        </div>
+
+                        <div className='categories-selection-wrapper' onClick={() => { setCurrentCategory('Electronics') }}>
+                            <div className='categories-icon-wrapper'>
+                                <FaComputer className='categories-icon' />
+                            </div>
+
+                            <span className='categories-text-wrapper'>Electronics</span>
+                        </div>
+
+                        <div className='categories-selection-wrapper' onClick={() => { setCurrentCategory('Games & Toys') }}>
+                            <div className='categories-icon-wrapper'>
+                                <CgGames className='categories-icon' />
+                            </div>
+
+                            <span className='categories-text-wrapper'>Games & Toys</span>
+                        </div>
+
+                        <div className='categories-selection-wrapper' onClick={() => { setCurrentCategory('Cosmetics') }}>
+                            <div className='categories-icon-wrapper'>
+                                <GiDelicatePerfume className='categories-icon' />
+                            </div>
+
+                            <span className='categories-text-wrapper'>Cosmetics</span>
+                        </div>
+                    </div>
+
+                    {userData ? (
+                        <div className='categories-products-user-wrapper'>
+                            {isVerified && (
+                                <Button variant="outlined" onClick={() => setIsProductUpload(!isProductUpload)}>Upload Product</Button>
+                            )}
+
+                            <div className='categories-products-user'>
+                                <Button variant="outlined" startIcon={<CiLogout />} onClick={handleLogout}>Logout</Button>
+                                <div className='categories-products-user-info'>
+                                    {isVerified ? (
+                                        <GiChessQueen style={{ color: "#D1B000" }} />
+                                    ) : (
+                                        <FaUser style={{ color: "gray" }} />
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+                    ) : (
+                        <div className='categories-products-user'>
+                            <Button variant="contained" color='success' startIcon={<CiLogin />} onClick={navigateToLogin}>Login</Button>
+                        </div>
+                    )}
+
+                    {isVerified && isProductUpload && (
+                        <div className='categories-product-upload-wrapper'>
+                            <ProductUpload token={token} setIsProductUpload={setIsProductUpload} isProductUpload={isProductUpload} />
+                        </div>
+                    )}
+                </Menu>
             )}
-
-
-            {isVerified && isProductUpload && (
-                <div className='categories-product-upload-wrapper'>
-                    <ProductUpload token={token} setIsProductUpload={setIsProductUpload} isProductUpload={isProductUpload} />
-                </div>
-            )}
-
         </div>
-
     );
 }
 

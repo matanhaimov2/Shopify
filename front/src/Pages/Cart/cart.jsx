@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from "react-router-dom";
+import { useMediaQuery } from 'react-responsive'
 
 // CSS
 import './cart.css';
@@ -41,6 +42,10 @@ function Cart() {
     const [paymentData, setPaymentData] = useState();
 
     const { userData } = useContext(AuthContext);
+
+    // Handle responsive
+    const isTabletOrPhone = useMediaQuery({ query: '(max-width: 860px)' })
+
 
     // Navigation Handle
     const navigate = useNavigate();
@@ -211,31 +216,62 @@ function Cart() {
 
                     <div className='cart-detail-wrapper'>
                         <div className='cart-detail-summary-wrapper'>
-                            <span className='cart-detail-title'> Summary </span>
+                            <div className='cart-detail-summary-sub-wrapper'>
+                                <span className='cart-detail-title'> Summary </span>
 
-                            <span> Price: {totalPrice}₪</span>
+                                <span> Price: {totalPrice}₪</span>
 
-                            <span> Shipping Fee: {totalShippingFee}₪ </span>
+                                <span> Shipping Fee: {totalShippingFee}₪ </span>
 
-                            <span> Overall: {overallPrice}₪</span>
+                                <span> Overall: {overallPrice}₪</span>
 
-                            {paymentData ? (
-                                <PaypalPayment paymentData={paymentData} />
-                            ) : (
-                                <span> prices don't match </span>
-                            )}
+                                {!isTabletOrPhone && (
+                                    <>
+                                        {paymentData ? (
+                                            <PaypalPayment paymentData={paymentData} />
+                                        ) : (
+                                            <span> prices don't match </span>
+                                        )}
 
-                            <Divider />
+                                        <Divider />
 
-                            <span> Pay with: </span>
+                                        <span> Pay with: </span>
 
-                            <div className='cart-payment-icons-wrapper'>
-                                <img src={visa_icon} className='cart-payment-icons'></img>
-                                <img src={mastercard_icon} className='cart-payment-icons'></img>
-                                <img src={paypal_icon} className='cart-payment-icons'></img>
-                                <img src={american_express_icon} className='cart-payment-icons'></img>
-                                <img src={discover_icon} className='cart-payment-icons'></img>
+                                        <div className='cart-payment-icons-wrapper'>
+                                            <img src={visa_icon} className='cart-payment-icons'></img>
+                                            <img src={mastercard_icon} className='cart-payment-icons'></img>
+                                            <img src={paypal_icon} className='cart-payment-icons'></img>
+                                            <img src={american_express_icon} className='cart-payment-icons'></img>
+                                            <img src={discover_icon} className='cart-payment-icons'></img>
+                                        </div>
+                                    </>
+                                )}
+
+
                             </div>
+
+                            {isTabletOrPhone && (
+                                <div className='cart-payment-responsive-wrapper'>
+                                    
+                                    <span> Pay with: </span>
+
+                                    <div className='cart-payment-icons-wrapper'>
+                                        <img src={visa_icon} className='cart-payment-icons'></img>
+                                        <img src={mastercard_icon} className='cart-payment-icons'></img>
+                                        <img src={paypal_icon} className='cart-payment-icons'></img>
+                                        <img src={american_express_icon} className='cart-payment-icons'></img>
+                                        <img src={discover_icon} className='cart-payment-icons'></img>
+                                    </div>
+
+                                    {paymentData ? (
+                                        <PaypalPayment paymentData={paymentData} />
+                                    ) : (
+                                        <span> prices don't match </span>
+                                    )}
+
+                                </div>
+
+                            )}
 
                         </div>
 
