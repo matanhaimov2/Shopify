@@ -126,16 +126,19 @@
 
     .bm-overlay {
         width: 100% !important;
-        height: 85% !important;
+        /* height: 85% !important; */
+        top: 0;
     }
 
     .bm-menu-wrap {
         width: 100% !important;
         height: -webkit-fill-available;
+        top: 0
+        ;
     }
 
     .bm-menu {
-        height: 85% !important;
+        height: 100% !important;
     }
 
     .bm-item-list {

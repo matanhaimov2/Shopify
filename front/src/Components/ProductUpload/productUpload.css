@@ -39,7 +39,7 @@
 }
 
 .products-upload-image-box {
-    width: 10vw;
+    width: 11vw;
     height: 10vh;
     border: 1px dashed gray;
     display: flex;
@@ -51,7 +51,7 @@
 .products-upload-uploaded-image {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    /* object-fit: cover; */
 }
 
 .products-upload-remove-image-button {
@@ -88,4 +88,71 @@
     width: 100%;
     overflow-y: auto;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    z-index: 100000000000 !important;
 }
+
+.css-78trlr-MuiButtonBase-root-MuiIconButton-root  {
+    padding: 0px !important;
+}
+
+/* Handle Responsive */
+
+@media (max-width: 1240px) {
+    .products-upload-uploaded-image {
+        width: 80%;
+    }
+
+}
+
+@media (max-width: 950px) {
+    .products-upload-wrapper {
+        width: 50%;
+    }
+
+    .products-upload-image-box {
+        width: 15vw;
+    }
+
+}
+
+@media (max-width: 860px) {
+    .categories-product-upload-wrapper {
+        display: flex !important;
+    }
+
+    .products-upload-wrapper {
+        width: 60%;
+        padding: 4%;
+    }
+
+    .products-upload-image-box {
+        width: 17vw;
+    }
+
+    .products-upload-uploaded-image {
+        width: 70%;
+    }
+}
+
+@media (max-width: 600px) {
+    .products-upload-wrapper {
+        width: 60%;
+    }
+
+    .products-upload-image-box {
+        width: 17vw;
+    }
+}
+
+@media (max-width: 500px) {
+    .products-upload-wrapper {
+        width: 90%;
+        margin-top: 15%;
+    }
+
+    .products-upload-image-box {
+        width: 27vw;
+    }
+
+}
+

@@ -79,6 +79,16 @@ function TopNav() {
                         </Paper>
                     </div>
                 )}
+
+                {isTabletOrPhone && (
+                    <>
+                        {isOpenMenu && routeValue === '/' && (
+                            <IconButton className='topnav-menu-button-wrapper' onClick={() => setIsOpenMenu(!isOpenMenu)}>
+                                <MdOutlineMenuOpen />
+                            </IconButton>
+                        )}
+                    </>
+                )}
             </div>
 
             <div className='topnav-second-container-wrapper'>
@@ -87,9 +97,7 @@ function TopNav() {
                         <>
                             {routeValue === '/' && (
                                 <IconButton onClick={() => setIsOpenMenu(!isOpenMenu)}>
-                                    {isOpenMenu ? (
-                                        <MdOutlineMenuOpen />
-                                    ) : (
+                                    {!isOpenMenu && (
                                         <RxHamburgerMenu />
                                     )}
                                 </IconButton>

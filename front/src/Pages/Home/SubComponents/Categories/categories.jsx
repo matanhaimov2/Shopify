@@ -34,7 +34,7 @@ function Categories({ token }) {
     const [isProductUpload, setIsProductUpload] = useState(false);
 
     // Global States
-    const { userData, handleLogout, setCurrentCategory, isOpenMenu } = useContext(AuthContext);
+    const { userData, handleLogout, setCurrentCategory, isOpenMenu, setIsOpenMenu } = useContext(AuthContext);
 
     // Handle responsive
     const isTabletOrPhone = useMediaQuery({ query: '(max-width: 860px)' })
@@ -65,6 +65,12 @@ function Categories({ token }) {
 
         verifyRole();
     }, [token, isVerified]);
+
+    // Handle categories change
+    const handleCategoryChange = (title) => {
+        setCurrentCategory(title)
+        setIsOpenMenu(false)
+    }
 
     return (
         <div className='categories-wrapper'>
@@ -145,7 +151,7 @@ function Categories({ token }) {
 
                         <span className='home-underline'></span>
 
-                        <div className='categories-selection-wrapper' onClick={() => { setCurrentCategory('ALL') }}>
+                        <div className='categories-selection-wrapper' onClick={() => { handleCategoryChange('ALL') }}>
                             <div className='categories-icon-wrapper'>
                                 <IoInfiniteSharp className='categories-icon' />
                             </div>
@@ -153,7 +159,7 @@ function Categories({ token }) {
                             <span className='categories-text-wrapper'>Everything</span>
                         </div>
 
-                        <div className='categories-selection-wrapper' onClick={() => { setCurrentCategory('Electronics') }}>
+                        <div className='categories-selection-wrapper' onClick={() => { handleCategoryChange('Electronics') }}>
                             <div className='categories-icon-wrapper'>
                                 <FaComputer className='categories-icon' />
                             </div>
@@ -161,7 +167,7 @@ function Categories({ token }) {
                             <span className='categories-text-wrapper'>Electronics</span>
                         </div>
 
-                        <div className='categories-selection-wrapper' onClick={() => { setCurrentCategory('Games & Toys') }}>
+                        <div className='categories-selection-wrapper' onClick={() => { handleCategoryChange('Games & Toys') }}>
                             <div className='categories-icon-wrapper'>
                                 <CgGames className='categories-icon' />
                             </div>
@@ -169,7 +175,7 @@ function Categories({ token }) {
                             <span className='categories-text-wrapper'>Games & Toys</span>
                         </div>
 
-                        <div className='categories-selection-wrapper' onClick={() => { setCurrentCategory('Cosmetics') }}>
+                        <div className='categories-selection-wrapper' onClick={() => { handleCategoryChange('Cosmetics') }}>
                             <div className='categories-icon-wrapper'>
                                 <GiDelicatePerfume className='categories-icon' />
                             </div>

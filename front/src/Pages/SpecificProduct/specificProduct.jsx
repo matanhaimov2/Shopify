@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { APIProvider, Map, AdvancedMarker, Pin } from '@vis.gl/react-google-maps';
+import { useMediaQuery } from 'react-responsive'
 
 // React MUI
 import Card from '@mui/material/Card';
@@ -38,6 +39,9 @@ function SpecificProduct() {
     const [smallImages, setSmallImages] = useState([]); // add secondary images for product
 
     const { userData } = useContext(AuthContext);
+
+    // Handle responsive
+    const isTabletOrPhone = useMediaQuery({ query: '(max-width: 860px)' })
 
     // useParams - get product id from URL
     const { id } = useParams()
@@ -166,87 +170,156 @@ function SpecificProduct() {
 
     return (
         <div className='specificProduct-wrapper'>
-            <div className='specificProduct-left-wrapper'>
+            <div className='specificProduct-sub-wrapper'>
+                <div className='specificProduct-left-wrapper'>
 
-                <img className='products-image specificProduct-main-image' src={mainImage} alt="Main Product" />
+                    <img className='products-image specificProduct-main-image' src={mainImage} alt="Main Product" />
 
-                <div className='specificProduct-image-wrapper'>
-                    {smallImages.map((img, index) => (
-                        <img key={index} onClick={() => changePhoto(img)} className='products-image specificProduct-image' src={img} alt={`Product Image ${index + 1}`} />
-                    ))}
+                    <div className='specificProduct-image-wrapper'>
+                        {smallImages.map((img, index) => (
+                            <img key={index} onClick={() => changePhoto(img)} className='products-image specificProduct-image' src={img} alt={`Product Image ${index + 1}`} />
+                        ))}
+                    </div>
+
                 </div>
 
+                <div className='specificProduct-middle-wrapper'>
+                    {product && product.price && (
+                        <>
+                            <div className='specificProduct-inner-middle'>
+                                <span> {product.price}₪ </span>
+                                <span> {product.title} </span>
+                            </div>
+
+                            <span> {product.description} </span>
+                        </>
+                    )}
+                </div>
+
+                {!isTabletOrPhone && (
+                    <div className='specificProduct-right-wrapper'>
+                        <Card variant="outlined">
+                            <Box sx={{ p: 2 }}>
+                                <Stack direction="row" justifyContent="space-between" alignItems="center">
+                                    <Typography gutterBottom variant="h5" component="div"> Shipping Fee: </Typography>
+                                    <Typography gutterBottom variant="h6" component="div">
+                                        {product && (
+                                            <span> {product.shippingFee}₪ </span>
+                                        )}
+                                    </Typography>
+                                </Stack>
+                                <Typography color="text.secondary" variant="body2"> From place-here </Typography>
+                                <Typography color="text.secondary" variant="body2"> Estimated delivery within 14 days </Typography>
+                            </Box>
+
+                            <Divider />
+
+                            <div className='specificProduct-quantity-wrapper'>
+                                <Typography className='specificProduct-quantity' gutterBottom variant="body2"> Quantity </Typography>
+                                <Quantity quantityValue={quantityValue} setQuantityValue={setQuantityValue} product_id={id} />
+                            </div>
+
+                            <Divider />
+
+                            <Stack direction="column" spacing={1} style={{ padding: "5%" }}>
+                                <Button variant='contained' onClick={addToCart}> Add To Cart </Button>
+                                <Snackbar open={open} autoHideDuration={6000} onClose={handleClose} message="Item added to cart" action={action} />
+                            </Stack>
+                        </Card>
+
+                        {/* google maps api */}
+                        {product && product.address[0] && (
+                            <div className='specificProduct-map-wrapper'>
+                                <APIProvider onLoad={() => console.log('Maps API has loaded.')}>
+                                    <Map
+                                        defaultZoom={13}
+                                        defaultCenter={{ lat: product.address[1].lat, lng: product.address[1].lng }}
+                                        mapId='DEMO_MAP_ID'
+                                        onCameraChanged={(ev) =>
+                                            console.log('camera changed:', ev.detail.center, 'zoom:', ev.detail.zoom)
+                                        }>
+                                        <AdvancedMarker position={{ lat: product.address[1].lat, lng: product.address[1].lng }}>
+                                            <Pin
+                                                background={'red'}
+                                                borderColor={'#006425'}
+                                                glyphColor={'white'}
+                                            />
+                                        </AdvancedMarker>
+                                    </Map>
+                                </APIProvider>
+                            </div>
+                        )}
+                    </div>
+                )}
             </div>
 
-            <div className='specificProduct-middle-wrapper'>
-                {product && product.price && (
+            {isTabletOrPhone && (
+                <div className='specificProduct-right-wrapper'>
+                    <div className='specificProduct-shipping-responsive-wrapper'>
+                        <Card variant="outlined">
+                            <Box sx={{ p: 2 }}>
+                                <Stack direction="row" justifyContent="space-between" alignItems="center">
+                                    <Typography gutterBottom variant="h5" component="div"> Shipping Fee: </Typography>
+                                    <Typography gutterBottom variant="h6" component="div">
+                                        {product && (
+                                            <span> {product.shippingFee}₪ </span>
+                                        )}
+                                    </Typography>
+                                </Stack>
+                                <Typography color="text.secondary" variant="body2"> From place-here </Typography>
+                                <Typography color="text.secondary" variant="body2"> Estimated delivery within 14 days </Typography>
+                            </Box>
+
+                            <Divider />
+
+                            <div className='specificProduct-quantity-wrapper'>
+                                <Typography className='specificProduct-quantity' gutterBottom variant="body2"> Quantity </Typography>
+                                <Quantity quantityValue={quantityValue} setQuantityValue={setQuantityValue} product_id={id} />
+                            </div>
+
+                            <Divider />
+
+                            <Stack direction="column" spacing={1} style={{ padding: "5%" }}>
+                                <Button variant='contained' onClick={addToCart}> Add To Cart </Button>
+                                <Snackbar open={open} autoHideDuration={6000} onClose={handleClose} message="Item added to cart" action={action} />
+                            </Stack>
+                        </Card>
+                    </div>
+
                     <>
-                        <div className='specificProduct-inner-middle'>
-                            <span> {product.price}₪ </span>
-                            <span> {product.title} </span>
-                        </div>
-
-                        <span> {product.description} </span>
+                        {/* google maps api */}
+                        {product && product.address[0] && (
+                            <div className='specificProduct-map-wrapper'>
+                                <APIProvider onLoad={() => console.log('Maps API has loaded.')}>
+                                    <Map
+                                        defaultZoom={13}
+                                        defaultCenter={{ lat: product.address[1].lat, lng: product.address[1].lng }}
+                                        mapId='DEMO_MAP_ID'
+                                        onCameraChanged={(ev) =>
+                                            console.log('camera changed:', ev.detail.center, 'zoom:', ev.detail.zoom)
+                                        }>
+                                        <AdvancedMarker position={{ lat: product.address[1].lat, lng: product.address[1].lng }}>
+                                            <Pin
+                                                background={'red'}
+                                                borderColor={'#006425'}
+                                                glyphColor={'white'}
+                                            />
+                                        </AdvancedMarker>
+                                    </Map>
+                                </APIProvider>
+                            </div>
+                        )}
                     </>
-                )}
-            </div>
-
-            <div className='specificProduct-right-wrapper'>
-                <Card variant="outlined">
-                    <Box sx={{ p: 2 }}>
-                        <Stack direction="row" justifyContent="space-between" alignItems="center">
-                            <Typography gutterBottom variant="h5" component="div"> Shipping Fee: </Typography>
-                            <Typography gutterBottom variant="h6" component="div">
-                                {product && (
-                                    <span> {product.shippingFee}₪ </span>
-                                )}
-                            </Typography>
-                        </Stack>
-                        <Typography color="text.secondary" variant="body2"> From place-here </Typography>
-                        <Typography color="text.secondary" variant="body2"> Estimated delivery within 14 days </Typography>
-                    </Box>
-
-                    <Divider />
-
-                    <div className='specificProduct-quantity-wrapper'>
-                        <Typography className='specificProduct-quantity' gutterBottom variant="body2"> Quantity </Typography>
-                        <Quantity quantityValue={quantityValue} setQuantityValue={setQuantityValue} product_id={id} />
-                    </div>
-
-                    <Divider />
-
-                    <Stack direction="column" spacing={1} style={{ padding: "5%" }}>
-                        <Button variant='contained' onClick={addToCart}> Add To Cart </Button>
-                        <Snackbar open={open} autoHideDuration={6000} onClose={handleClose} message="Item added to cart" action={action} />
-                    </Stack>
-                </Card>
-
-                {/* google maps api */}
-                {product && product.address[0] && (
-                    <div className='specificProduct-map-wrapper'>
-                        <APIProvider onLoad={() => console.log('Maps API has loaded.')}>
-                            <Map
-                                defaultZoom={13}
-                                defaultCenter={{ lat: product.address[1].lat, lng: product.address[1].lng }}
-                                mapId='DEMO_MAP_ID'
-                                onCameraChanged={(ev) =>
-                                    console.log('camera changed:', ev.detail.center, 'zoom:', ev.detail.zoom)
-                                }>
-                                <AdvancedMarker position={{ lat: product.address[1].lat, lng: product.address[1].lng }}>
-                                    <Pin
-                                        background={'red'}
-                                        borderColor={'#006425'}
-                                        glyphColor={'white'}
-                                    />
-                                </AdvancedMarker>
-                            </Map>
-                        </APIProvider>
-                    </div>
-                )}
-            </div>
+                </div>
+            )}
         </div>
     );
 }
 
 export default SpecificProduct;
 
+// display: flex;
+//     flex-direction: column;
+//     width: 25%;
+//     padding: 1%;
+//     gap: 2%;
