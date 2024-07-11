@@ -9,6 +9,7 @@
 .specificProduct-sub-wrapper {
     display: flex;
     flex-direction: row;
+    width: 100%;
 }
 
 /* CSS for left side */
@@ -92,6 +93,7 @@
 
     .specificProduct-sub-wrapper {
         height: 60%;
+        padding-top: 4%;
     }
 
     .specificProduct-right-wrapper {
@@ -100,6 +102,7 @@
         height: 40%;
         padding: 1% 0% !important;
         direction: rtl;
+        align-items: end;
     }
 
     .specificProduct-middle-wrapper {
@@ -109,17 +112,18 @@
 
     .specificProduct-shipping-responsive-wrapper {
         width: 50%;
+        height: 100%;
     }
 
     .specificProduct-map-wrapper {
         width: 50%;
         height: 100%;
-        padding: 1%;
     }
 
     .css-19midj6 {
-        padding: 1% !important;
+        direction: ltr;
     }
+    
 }
 
 @media (max-width: 500px) {
