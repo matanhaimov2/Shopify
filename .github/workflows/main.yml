@@ -1,0 +1,23 @@
+name: Build and Deploy React App
+
+on:
+  push:
+    branches:
+      - main  # Change this to your default branch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Build dockerfile
+      working-directory: ./front
+      run: |
+        docker build -t shopify-front .
+        docker tag 
+        docker push ..
+        
+      
