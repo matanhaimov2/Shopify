@@ -105,10 +105,12 @@
 
     .products-box {
         width: 100%;
+        padding-top: 6%;
     }
 
     .each-product-wrapper {
         width: 29%;
+        height: unset;
     }
 }
 
