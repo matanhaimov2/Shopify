@@ -123,6 +123,11 @@
     .css-19midj6 {
         direction: ltr;
     }
+
+    .specificProduct-image {
+        height: fit-content;
+        width: 30%;
+    }
     
 }
 
