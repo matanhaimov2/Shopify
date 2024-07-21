@@ -24,13 +24,15 @@
     justify-content: space-between;
     align-items: flex-start;
     width: 20%;
-    height: 50%; /* trial- added */
+    height: 50%;
+    /* trial- added */
     gap: 5px;
     border-bottom: 1px solid #cde1e6;
     padding: 0 2% 0% 2%;
 }
+
 .each-product-wrapper:hover {
-    background-color:#f0f0f0;
+    background-color: #f0f0f0;
     border-radius: 5px;
 }
 
@@ -68,10 +70,14 @@
 
 .products-pagination-wrapper {
     /* height: max-content; */
-    height: 8%; /* trial - added */
-    display: flex; /* trial - added */
-    justify-content: center; /* trial - added */
-    align-items: center; /* trial - added */
+    height: 8%;
+    /* trial - added */
+    display: flex;
+    /* trial - added */
+    justify-content: center;
+    /* trial - added */
+    align-items: center;
+    /* trial - added */
 }
 
 .css-1sazv7p-MuiStack-root {
@@ -85,7 +91,8 @@
     flex-direction: row;
     flex-wrap: wrap;
     width: 95%;
-    height: 92%; /* trial - added */
+    height: 92%;
+    /* trial - added */
     gap: 5%;
 }
 
