@@ -10,12 +10,16 @@ import { FaTiktok } from "react-icons/fa";
 import { FaWhatsapp } from "react-icons/fa";
 import { FaYoutube } from "react-icons/fa";
 
-
+// Components
+import Contact from '../Contact/contact';
 
 function Footer() {
 
     return (
         <div className='footer-sub-wrapper'>
+
+            <Contact />
+            
             <div className='footer-contents-wrapper'>
                 <a href='' className='footer-contents'> <FaFacebook /> </a>
                 <a href='' className='footer-contents'> <FaInstagram /> </a>

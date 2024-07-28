@@ -22,8 +22,8 @@ function Register() {
     // Navigation Handle
     const navigate = useNavigate();
 
-    const handleRegistration = async () => {
-        console.log(email, username, password)
+    const handleRegistration = async (e) => {
+        e.preventDefault();
 
         let data = {
             email: email,
@@ -53,7 +53,7 @@ function Register() {
     }
 
     return (
-        <div className='register-wrapper'>
+        <form className='register-wrapper' onSubmit={handleRegistration}>
             <Sheet
                 sx={{
                     width: 300,
@@ -104,7 +104,7 @@ function Register() {
                     />
                 </FormControl>
 
-                <Button onClick={handleRegistration} sx={{ mt: 1 /* margin top */ }}>Create Account</Button>
+                <Button type='submit' sx={{ mt: 1 /* margin top */ }}>Create Account</Button>
 
                 <Typography level="body-sm">Already have an account? <span style={{ color: '#0b6bcb', cursor: 'pointer' }} onClick={handleToLogin}>sign in</span></Typography>
 
@@ -112,7 +112,7 @@ function Register() {
                     <span>{message}</span>
                 )}
             </Sheet>
-        </div>
+        </form>
     );
 }
 

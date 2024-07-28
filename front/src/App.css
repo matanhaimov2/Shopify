@@ -26,7 +26,6 @@ body {
 
 .wrapper {
   height: 100%;
-  /* background-color: #e0f6fb; */
   background-color: #f7f7f7;
   overflow-x: hidden;
 
@@ -45,7 +44,7 @@ body {
 
 .com-with-footer {
   width: 100%;
-  height: 30%;
+  height: fit-content;
   background-color: black;
 }
 
