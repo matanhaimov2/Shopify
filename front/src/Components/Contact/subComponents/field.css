@@ -1,0 +1,35 @@
+.field-wrapper {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+}
+
+.contact-textarea {
+    width: 100%;
+    height: 15vh;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #333;
+    color: white;
+}
+
+.contact-input{
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #333;
+    color: white;
+}
+
+.contact-input::placeholder, .contact-textarea::placeholder {
+    color: #888;
+}
+
+.contact-input:focus, .contact-textarea:focus {
+    border-color: #555;
+    outline: none;
+}

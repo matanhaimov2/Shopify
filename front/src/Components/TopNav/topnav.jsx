@@ -51,7 +51,7 @@ function TopNav() {
         <div className='topnav-wrapper'>
             <div className='topnav-first-container-wrapper'>
                 <div className='topnav-logo-wrapper'>
-                    <h2> SHOPIFY </h2>
+                    <h2> <a href='/' style={{color: 'black', textDecoration: 'none'}}> SHOPIFY </a> </h2>
                 </div>
 
                 <div className='topnav-tabs-wrapper'>

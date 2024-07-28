@@ -26,7 +26,8 @@ function Login() {
     // Navigation Handle
     const navigate = useNavigate();
 
-    const handleLoginClick = async () => {
+    const handleLoginClick = async (e) => {
+        e.preventDefault();
         try {
             const data = { username, password };
             const response = await login(data);
@@ -49,7 +50,7 @@ function Login() {
     }
 
     return (
-        <div className='login-wrapper'>
+        <form className='login-wrapper' onSubmit={handleLoginClick}>
             <Sheet
                 sx={{
                     width: 300,
@@ -92,14 +93,14 @@ function Login() {
                     />
                 </FormControl>
 
-                <Button sx={{ mt: 1 /* margin top */ }} onClick={handleLoginClick}>Sign in</Button>
+                <Button type='submit' sx={{ mt: 1 /* margin top */ }}>Sign in</Button>
 
                 <Button style={{background: 'grey'}} onClick={handleRegisterClick}>Create New User</Button>
 
                 {errorMessage && <div style={{ color: "red" }}>{errorMessage}</div>}{" "}
 
             </Sheet>
-        </div>
+        </form>
     );
 }
 
