@@ -1,17 +1,17 @@
 const express = require('express');
 const cors = require('cors');
-const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+const { connectDB } = require('./utils/db');
 
 dotenv.config();
 
 const app = express();
-const port = 5000; // You can choose any port
+const port = 5000;
 
 app.use(cors());
 app.use(express.json());
 
-mongoose.connect('mongodb://127.0.0.1:27017/shopify_db')
+connectDB();
 
 // Routes
 const authRoutes = require('./routes/auth')

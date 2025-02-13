@@ -34,7 +34,7 @@ function Categories({ token }) {
     const [isProductUpload, setIsProductUpload] = useState(false);
 
     // Global States
-    const { userData, handleLogout, setCurrentCategory, isOpenMenu, setIsOpenMenu } = useContext(AuthContext);
+    const { userData, setUserData, setCurrentCategory, isOpenMenu, setIsOpenMenu } = useContext(AuthContext);
 
     // Handle responsive
     const isTabletOrPhone = useMediaQuery({ query: '(max-width: 860px)' })
@@ -70,6 +70,12 @@ function Categories({ token }) {
     const handleCategoryChange = (title) => {
         setCurrentCategory(title)
         setIsOpenMenu(false)
+    }
+
+    const handleLogout = () => {
+        setUserData(null);
+        localStorage.removeItem('accessToken');
+        window.location.reload();
     }
 
     return (
